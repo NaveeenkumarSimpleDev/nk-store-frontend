@@ -51,16 +51,16 @@ const ProductPage = () => {
           </Button>
 
           {/* sort filter */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col z-[10] gap-2">
             <Select
               onValueChange={(e) => {
                 handleSortChange(e);
               }}
             >
-              <SelectTrigger className="w-fit font-semibold flex gap-4 text-sm sm:text-md bg-black  text-white rounded-md hover:opacity-90">
+              <SelectTrigger className="z-[10] w-fit font-semibold flex gap-4 text-sm sm:text-md bg-black  text-white rounded-md hover:opacity-90">
                 <SelectValue placeholder="All" />
               </SelectTrigger>
-              <SelectContent className="px-4">
+              <SelectContent className="px-4 z-[20]">
                 <SelectGroup>
                   <SelectLabel className="font-bold text-sm sm:text-md">
                     Sort by

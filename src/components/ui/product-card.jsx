@@ -9,8 +9,9 @@ import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import {
   addToCartAsync,
   selectCartItems,
+  selectCartStatus,
 } from "../../feautures/cart/cartSlice";
-import { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
@@ -49,16 +50,23 @@ const ProductCard = ({ product }) => {
         <section className="rounded-lg border flex flex-col">
           <div className=" border-b p-0">
             <AspectRatio ratio={6 / 4}>
-              <Link to={productId}>
+              {product?.images?.length !== 0 ? (
+                <img
+                  loading="lazy"
+                  src={product?.images[0]}
+                  sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
+                  className="object-cover relative h-full w-full"
+                  alt={product?.title}
+                />
+              ) : (
                 <img
                   loading="lazy"
                   src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                  // src="https://skateshop.sadmn.com/_next/image?url=https%3A%2F%2Fuploadthing.com%2Ff%2F2d556c2c-55d9-4f4e-aa68-cce5b8b6a4cd_Screenshot%25202023-03-12%2520140334.png&w=828&q=75"
-                  alt="Photo by Drew Beamer"
                   sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
                   className="object-cover relative h-full w-full"
                 />
-              </Link>
+              )}
+
               <Button className="absolute hover:scale-110 transition duration-200 top-3 right-3 p-2 rounded-full">
                 <HeartIcon
                   size={14}
@@ -71,16 +79,19 @@ const ProductCard = ({ product }) => {
           <div className="py-4">
             <div className="px-6 flex flex-col gap-4">
               <div className="flex items-center gap-4">
-                <div className="flex flex-col">
-                  <span className="text-2xl mb-1 font-bold">{formatTitle}</span>
-                  <span className="text-sm m-0 w-[10rem] font-medium truncate overflow-ellipsis">
-                    {description}
-                  </span>
-                  <div className="mt-4">
-                    <StarRating rating={4.5} totalRatings={rating} />
+                <Link to={productId}>
+                  <div className="flex flex-col">
+                    <span className="text-xl xl:text-2xl mb-1 w-[10rem] truncate font-bold">
+                      {formatTitle}
+                    </span>
+                    <span className="text-sm xl:text-md m-0 w-[10rem] font-medium truncate overflow-ellipsis">
+                      {description}
+                    </span>
+                    <div className="mt-4">
+                      <StarRating rating={4.5} totalRatings={rating} />
+                    </div>
                   </div>
-                </div>
-
+                </Link>
                 <div className="ml-auto flex flex-col flex-shrink-0">
                   <span className="text-xl font-bold">
                     {formatPrice(discountPrice)}
@@ -121,4 +132,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);

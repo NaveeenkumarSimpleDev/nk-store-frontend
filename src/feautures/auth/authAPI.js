@@ -65,3 +65,20 @@ export const checkAuth = () => {
     }
   });
 };
+
+export const logout = () => {
+  const url = baseUrl + "/auth/logout";
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(url, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        toast.success("Logout success.");
+        window.location.reload()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+};

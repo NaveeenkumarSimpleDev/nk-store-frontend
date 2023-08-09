@@ -26,18 +26,34 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState(
     product?.sizes[0]?.valie || ""
   );
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     dispatch(fetchProductByIdAsync(productId));
   }, []);
+
+  const handleInc = useCallback(() => {
+    if (quantity === 10) {
+      return toast.error("max-quantity reached!");
+    }
+    setQuantity((prev) => prev + 1);
+  }, [quantity]);
+  const handleDec = useCallback(() => {
+    setQuantity((prev) => prev - 1);
+  }, [quantity]);
 
   const addToCartHandler = useCallback(() => {
     const exixtingItem = cartIems?.find((item) => item.id === product.id);
     if (exixtingItem) {
       return toast.error("Item already in cart");
     }
-    dispatch(addToCartAsync({ userId: loggedInUser?.id, product }));
-  });
+    dispatch(
+      addToCartAsync({
+        userId: loggedInUser?.id,
+        product: { ...product, quantity },
+      })
+    );
+  }, [product, quantity]);
 
   const handleOnChange = useCallback((idx, type) => {
     const setValue = type === "colors" ? setSelectedColor : setSelectedSize;
@@ -115,11 +131,15 @@ const ProductDetails = () => {
             <div>
               <h4 className="font-semibold text-xl">Quantity</h4>
               <div className=" mt-2 flex items-center gap-3">
-                <Button className="p-2 bg-gray-600">
+                <Button
+                  disabled={quantity === 1}
+                  onClick={handleDec}
+                  className="p-2 bg-gray-600"
+                >
                   <Plus size={20} />
                 </Button>
-                <span className="font-semibold text-xl">2</span>
-                <Button className="p-2 bg-gray-600">
+                <span className="font-semibold text-xl">{quantity}</span>
+                <Button onClick={handleInc} className="p-2 bg-gray-600">
                   <Plus size={20} />
                 </Button>
               </div>

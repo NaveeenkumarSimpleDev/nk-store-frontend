@@ -37,3 +37,24 @@ export const addToCart = (data) => {
     }
   });
 };
+
+export const updateCart = (data) => {
+  const url = baseUrl + "/cart/update";
+  if (!data?.userId) {
+    return toast.error("Login is expired.");
+  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.post(url, data);
+      if (response.status === 200) {
+        resolve(response.data);
+        if (data?.type === "delete") {
+          toast.success("Item removed.");
+        }
+      }
+    } catch (error) {
+      toast.error("Something wrong!");
+      reject("Something wrong");
+    }
+  });
+};

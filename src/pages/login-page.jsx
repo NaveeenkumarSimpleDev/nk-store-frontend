@@ -9,15 +9,14 @@ import {
   selectLoggedInUser,
   loginUserAsync,
   selectError,
+  selectAuthStatus,
 } from "../feautures/auth/authSlice";
-import { toast } from "react-hot-toast";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const loginError = useSelector(selectError)?.login;
   const [errorsState, setErrorsState] = useState({});
-  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
@@ -25,9 +24,7 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-
+  const onSubmit = (data) => {
     const { email, password } = data;
 
     // email validation
@@ -47,15 +44,7 @@ const LoginPage = () => {
     }
 
     // dispath loginuser call
-    try {
-      await dispatch(loginUserAsync(data));
-    } catch (err) {
-      toast.err("Something went wrong!");
-      console.log(err);
-    } finally {
-      setErrorsState({});
-      setLoading(false);
-    }
+    dispatch(loginUserAsync(data));
   };
 
   return (
@@ -128,7 +117,7 @@ const LoginPage = () => {
           </div>
 
           <Button
-            disabled={loading}
+            // disabled={loading}
             className="uppercase text-sm font-semibold"
           >
             Login

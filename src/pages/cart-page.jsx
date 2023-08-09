@@ -2,14 +2,30 @@ import { X } from "lucide-react";
 
 import CartItem from "../components/cart-item";
 import Button from "../components/ui/button";
-import { cn } from "../lib/utils";
+import { cn, formatPrice } from "../lib/utils";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { selectCart } from "../feautures/cart/cartSlice";
 import { Link } from "react-router-dom";
+import { selectLoggedInUser } from "../feautures/auth/authSlice";
 
 const Cart = ({ isOpen, setIsOpen }) => {
   const cart = useSelector(selectCart);
+  const loggedInUser = useSelector(selectLoggedInUser);
+
+  const cartItemsWithQuantity = cart?.cartItems?.map((item) => ({
+    id: item?.id,
+    price: item?.discountPrice,
+    quantity: item?.quantity,
+    total: Number(item?.discountPrice) * Number(item?.quantity),
+  }));
+
+  const subTotal = cartItemsWithQuantity?.reduce(
+    (prev, curr) => prev + curr.total,
+    0
+  );
+  const delivary = 0;
+  const total = subTotal + delivary;
 
   const onClose = useCallback(() => {
     setIsOpen(false);
@@ -45,7 +61,19 @@ const Cart = ({ isOpen, setIsOpen }) => {
           <hr className="my-6 mx-4" />
         </div>
         {/* content */}
-        {cart.length !== 0 ? (
+        {!loggedInUser && (
+          <div className="h-full w-ful flex justify-center">
+            <div className="flex items-center gap-3 flex-col">
+              <p>Login to manage products in cart</p>
+              <Link to="/login">
+                <div className="border py-1.5 px-2.5 bg-black text-white  hover:bg-white hover:text-black rounded-md transition flex  items-center">
+                  <span className=" font-semibold text-md ">LOGIN</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
+        {cart.cartItems?.length !== 0 ? (
           <div className="h-full flex flex-col">
             <div className=" flex-grow overflow-y-auto">
               <div className="px-4 flex flex-col gap-3">
@@ -59,7 +87,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
             </div>
 
             {/* total,other payments */}
-            <div className="px-4 mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
+            <div className="px-4 pb-[9rem]  mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
               <div>
                 <hr className="my-2 sm:my-4" />
                 <div className="flex items-center justify-between">
@@ -67,7 +95,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
                     Sub total
                   </span>
                   <span className="font-semibold sm:text-base text-sm">
-                    $889.00
+                    {formatPrice(subTotal)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -75,7 +103,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
                     Delivary fee
                   </span>
                   <span className="font-semibold sm:text-base text-sm">
-                    + $10.0
+                    + {formatPrice(delivary)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -83,13 +111,13 @@ const Cart = ({ isOpen, setIsOpen }) => {
                     Tax
                   </span>
                   <span className="font-semibold sm:text-base text-sm">
-                    $889.00
+                    {formatPrice(0)}
                   </span>
                 </div>
                 <hr className=" my-2 sm:my-4" />
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-lg">total</span>
-                  <span className="font-bold">$889.00</span>
+                  <span className="font-bold">{formatPrice(total)}</span>
                 </div>
               </div>
               <Button className="w-full mt-2 text-sm sm:py-2 py-1 sm:text-base sm:mt-4 font-semibold">

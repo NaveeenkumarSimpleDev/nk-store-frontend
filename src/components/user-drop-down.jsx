@@ -10,7 +10,13 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useDispatch } from "react-redux";
+import { logoutUserAsync } from "../feautures/auth/authSlice";
 export function UserDropdownMenu() {
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(logoutUserAsync());
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -47,7 +53,10 @@ export function UserDropdownMenu() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
+        <DropdownMenuItem
+          onClick={logout}
+          className="text-sm cursor-pointer hover:bg-gray-200"
+        >
           <LogOut className="mr-4 h-4 w-4" />
           <span>Log out</span>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

@@ -8,15 +8,16 @@ import MobileMenu from "./mobile-menu";
 import { useState } from "react";
 import Cart from "../../pages/cart-page";
 import { useSelector } from "react-redux";
-import { selectCartItems } from "../../feautures/cart/cartSlice";
+import { selectCart } from "../../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const cartItemsLength = useSelector(selectCartItems)?.length || 0;
+  const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
 
+  console.log(cart);
   return (
     <>
       <nav className="flex-shrink-0 fixed z-[100] bg-white top-0 left-0 right-0 w-[100vw] h-16 2xl:h-20 border-b border-gray-200 shadow-sm lg:px-8 px-6 py-4 flex items-center gap-4 lg:gap-6 xl:gap-12">
@@ -50,7 +51,9 @@ const Navbar = () => {
           >
             <ShoppingCart size={20} />
             <span className="absolute -top-3 -right-3 rounded-full px-3 flex items-center justify-center font-bold py-1 bg-black text-white">
-              <span>{cartItemsLength}</span>
+              <span>
+                {cart?.cartItems?.length || (cart?.statu !== "loading" && 0)}
+              </span>
             </span>
           </div>
           {loggedInUser ? (
