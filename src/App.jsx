@@ -12,6 +12,7 @@ import { checkAuthAsync, selectLoggedInUser } from "./feautures/auth/authSlice";
 import ProductDetails from "./components/product-details";
 import { fetchCartByUserIdAsync } from "./feautures/cart/cartSlice";
 import HomePage from "./pages/home-page";
+import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 
 const routes = createBrowserRouter([
   {
@@ -66,6 +67,7 @@ const App = () => {
   useEffect(() => {
     if (loggedInUser) {
       dispatch(fetchCartByUserIdAsync(loggedInUser?.id));
+      dispatch(fetchUserByIdAsync(loggedInUser?.id));
     }
   }, [loggedInUser]);
 

@@ -24,16 +24,28 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const [filter, setFiler] = useState(false);
+  const [sortBy, setSortBy] = useState("");
+  
   useEffect(() => {
     dispatch(fetchProductsAsync());
   }, []);
 
-  const handleSortChange = useCallback((value) => {
+  useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
-    urlSearchParams.set("sort", value);
+    if (sortBy.trim().length === 0) {
+      urlSearchParams.delete("sort");
+    } else {
+      urlSearchParams.set("sort", sortBy);
+    }
 
     const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
+
+    dispatch(fetchProductsAsync());
+  }, [sortBy]);
+
+  const handleSortChange = useCallback((value) => {
+    setSortBy(value);
   }, []);
 
   return (
@@ -95,8 +107,8 @@ const ProductPage = () => {
             <ProductLoading />
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-              {products?.map((product) => (
-                <ProductCard product={product} />
+              {products?.map((product, idx) => (
+                <ProductCard key={idx} product={product} />
               ))}
             </div>
           )}

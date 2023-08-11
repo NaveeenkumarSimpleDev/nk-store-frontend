@@ -1,18 +1,19 @@
-import img1 from "/1.jpg";
-import img2 from "/2.jpg";
-import img3 from "/3.jpg";
-
 import React, { useRef, useState } from "react";
-import { Carousel } from "react-responsive-carousel";
+import { useSelector } from "react-redux";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+import { selectProductById } from "../feautures/product/productSlice";
+import { Carousel } from "react-responsive-carousel";
+
 const ImageCarousel = () => {
+  const product = useSelector(selectProductById);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const carouselRef = useRef( null);
+  const carouselRef = useRef(null);
 
   // Replace these image URLs with your actual image URLs
-  const mainImages = [img1, img2, img3];
-  const smallImages = [img1, img2, img3];
+  const mainImages = product?.images;
+  const smallImages = product?.images;
 
   const handleSmallImageClick = (index) => {
     setCurrentSlide(index);
@@ -27,14 +28,20 @@ const ImageCarousel = () => {
         onChange={(index) => setCurrentSlide(index)}
         ref={carouselRef}
       >
-        {mainImages.map((mainImage, index) => (
+        {mainImages?.map((mainImage, index) => (
           <div key={index} className="relative">
-            <img src={mainImage} alt={`Main Image ${index + 1}`} />
+            <AspectRatio ratio={3 / 2}>
+              <img
+                src={mainImage}
+                loading="lazy"
+                alt={`Main Image ${index + 1}`}
+              />
+            </AspectRatio>
           </div>
         ))}
       </Carousel>
       <div className="flex justify-center mt-4">
-        {smallImages.map((smallImage, smallIndex) => (
+        {smallImages?.map((smallImage, smallIndex) => (
           <div
             key={smallIndex}
             className="cursor-pointer mx-2"
@@ -52,4 +59,4 @@ const ImageCarousel = () => {
   );
 };
 
-export default ImageCarousel;
+export default React.memo(ImageCarousel);

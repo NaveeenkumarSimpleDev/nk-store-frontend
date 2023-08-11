@@ -15,7 +15,7 @@ const CartItem = ({ item }) => {
   const currentItem = cart?.cartItems?.find((p) => p.id === item?.id);
 
   const handleDelete = () => {
-    const res = confirm("Are you sure to remove item fron cart?");
+    const res = confirm("Are you sure to remove item from cart?");
     if (res) {
       dispatch(
         updateCartAsync({

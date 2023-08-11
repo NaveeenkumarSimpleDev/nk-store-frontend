@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ImageCarousel from "./Image-carousel";
 import RadioButton from "./ui/radio-button";
 import Button from "./ui/button";
@@ -38,6 +38,7 @@ const ProductDetails = () => {
     }
     setQuantity((prev) => prev + 1);
   }, [quantity]);
+
   const handleDec = useCallback(() => {
     setQuantity((prev) => prev - 1);
   }, [quantity]);
@@ -171,4 +172,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default React.memo(ProductDetails);

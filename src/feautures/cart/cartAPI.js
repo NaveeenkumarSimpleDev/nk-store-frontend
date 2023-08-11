@@ -7,7 +7,11 @@ export const fetchCartByUserId = (userId) => {
   const url = baseUrl + "/cart";
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await axios.post(url, userId);
+      const response = await axios.post(url, userId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status === 200) {
         resolve(response.data);
@@ -26,7 +30,11 @@ export const addToCart = (data) => {
   }
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         toast.success("Item added in cart.");
         resolve(response.data);
@@ -45,7 +53,11 @@ export const updateCart = (data) => {
   }
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         resolve(response.data);
         if (data?.type === "delete") {

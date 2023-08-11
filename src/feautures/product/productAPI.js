@@ -4,10 +4,16 @@ import { toast } from "react-hot-toast";
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
 export async function fetchProducts() {
+  const urlSearchParams = new URLSearchParams(window.location.search);
   return new Promise(async (resolve) => {
     try {
       const url = baseUrl + "/products";
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        params: urlSearchParams,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status === 200) {
         resolve(response.data);

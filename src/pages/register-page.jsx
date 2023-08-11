@@ -7,24 +7,23 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createuserAsync,
+  selectAuthStatus,
   selectLoggedInUser,
 } from "../feautures/auth/authSlice";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
-  const [loading, setLoading] = useState(false);
   const [errorsState, setErrorsState] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
     const { name, email, password, confirmPass } = data;
     // name validation
     if (!name || name.length === 0 || name === "") {
@@ -52,9 +51,9 @@ const RegisterPage = () => {
       }));
       return;
     }
-
+    setLoading(true);
     try {
-      await dispatch(createuserAsync(data));
+      dispatch(createuserAsync(data));
     } catch (err) {
       console.log(err);
     } finally {
@@ -68,9 +67,9 @@ const RegisterPage = () => {
       {user && <Navigate to="/" replace={true}></Navigate>}
       <Link
         to=".."
-        className="cursor-default h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.6)]"
+        className="cursor-default min-h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.6)]"
       />
-      <div className="h-screen flex items-center -mt-10 justify-center">
+      <div className="flex items-center justify-center">
         <form
           noValidate
           className=" bg-gray-200 z-[200] py-8 shadow-card-foreground shadow-lg rounded-lg px-12 max-w-lg flex flex-col gap-6"
@@ -162,6 +161,7 @@ const RegisterPage = () => {
           <Button
             type="submit"
             disabled={loading}
+            isLoading={loading}
             className="uppercase text-sm font-semibold"
           >
             register

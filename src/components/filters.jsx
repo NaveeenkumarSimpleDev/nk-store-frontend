@@ -1,51 +1,82 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
 import { Slider } from "./ui/slider";
 import { cn } from "../lib/utils";
+import { fetchProductsAsync } from "../feautures/product/productSlice";
+import { useDispatch } from "react-redux";
 
 const Filters = ({ isOpen, setIsOpen }) => {
-  const [priceRange, setPriceRange] = useState([0, 500]);
+  const dispatch = useDispatch();
+  const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrrands] = useState([]);
+
+  // price range filter
+  useEffect(() => {
+    if (priceRange[0] === 0 && priceRange[1] === 1000) {
+      return;
+    }
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    urlSearchParams.set("range", priceRange);
+    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }, [priceRange]);
+
+  // category filter
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    if (selectCategories.length !== 0) {
+      urlSearchParams.set("cat", selectCategories);
+    } else {
+      urlSearchParams.delete("cat");
+    }
+    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }, [selectCategories]);
+
+  // brand filter
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    if (selectedBrands.length !== 0) {
+      urlSearchParams.set("brand", selectedBrands);
+    } else {
+      urlSearchParams.delete("brand");
+    }
+    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }, [selectedBrands]);
+
+  useEffect(() => {
+    dispatch(fetchProductsAsync());
+  }, [selectCategories, selectCategories, priceRange]);
+
+  const cleartFilter = useCallback(() => {
+    setPriceRange([0, 1000]);
+    setSelectedBrrands([]);
+    setSelectedCategories([]);
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    urlSearchParams.delete("range");
+    urlSearchParams.delete("sort");
+
+    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }, []);
 
   const categories = [
     {
       id: "1",
-      label: "Cat1",
+      label: "Fashion",
     },
     {
       id: "2",
-      label: "Cat2",
+      label: "Mobiles",
     },
     {
       id: "3",
       label: "Cat3",
-    },
-    {
-      id: "4",
-      label: "Cat4",
-    },
-    {
-      id: "5",
-      label: "Cat5",
-    },
-    {
-      id: "6",
-      label: "Cat46",
-    },
-    {
-      id: "7",
-      label: "Cat7",
-    },
-    {
-      id: "8",
-      label: "Cat8",
-    },
-    {
-      id: "9",
-      label: "Cat9",
     },
   ];
 
@@ -56,53 +87,14 @@ const Filters = ({ isOpen, setIsOpen }) => {
     },
     {
       id: "b2",
-      label: "redmi",
-    },
-    {
-      id: "b3",
-      label: "vivo",
-    },
-    {
-      id: "b4",
-      label: "poco",
-    },
-    {
-      id: "b5",
-      label: "Apple",
-    },
-    {
-      id: "b6",
-      label: "redmi",
-    },
-    {
-      id: "b7",
-      label: "vivo",
-    },
-    {
-      id: "b8",
-      label: "poco",
-    },
-    {
-      id: "b9",
-      label: "Apple",
-    },
-    {
-      id: "b21",
-      label: "redmi",
-    },
-    {
-      id: "b31",
-      label: "vivo",
-    },
-    {
-      id: "b41",
-      label: "poco",
+      label: "Nike",
     },
   ];
 
   const onClose = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       {isOpen && (
@@ -113,13 +105,6 @@ const Filters = ({ isOpen, setIsOpen }) => {
           )}
         />
       )}
-
-      {/* <div
-        className={cn(
-          "transition-all duration-200 clip-inset-0 z-[110] h-screen  w-full flex flex-col gap-4 fixed right-0 bg-white",
-          isOpen ? "clip-inset-100" : "-clip-inset-0"
-        )}
-      > */}
       <nav
         className={cn(
           "h-full z-[160] fixed top-0 right-0",
@@ -187,6 +172,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     <div key={cat.id} className="flex gap-1 items-center">
                       <Checkbox
                         id={cat.id}
+                        checked={selectCategories.includes(cat.label)}
                         onCheckedChange={(value) =>
                           value
                             ? setSelectedCategories((prev) => [
@@ -219,6 +205,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     <div key={brand.id} className="flex gap-1 items-center">
                       <Checkbox
                         id={brand.id}
+                        checked={selectedBrands.includes(brand.label)}
                         onCheckedChange={(value) =>
                           value
                             ? setSelectedBrrands((prev) => [
@@ -244,7 +231,9 @@ const Filters = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
 
-            <Button className="my-4 mb-12 font-bold">Clear Filters</Button>
+            <Button onClick={cleartFilter} className="my-4 mb-12 font-bold">
+              Clear Filters
+            </Button>
           </div>
         </section>
       </nav>

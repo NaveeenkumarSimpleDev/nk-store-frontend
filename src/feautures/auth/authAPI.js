@@ -9,6 +9,9 @@ export const createUser = (userData) => {
     try {
       const response = await axios.post(url, userData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (response.status === 200) {
@@ -29,6 +32,9 @@ export const loginUser = (loginData) => {
     try {
       const res = await axios.post(url, loginData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       if (res.status === 200) {
         toast.success("Login success");
@@ -75,7 +81,7 @@ export const logout = () => {
       });
       if (response.status === 200) {
         toast.success("Logout success.");
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

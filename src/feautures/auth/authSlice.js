@@ -63,15 +63,18 @@ const authSlice = createSlice({
           state.error = {};
         }
       })
+      .addCase(loginUserAsync.rejected, (state) => {
+        state.status = "idle";
+      })
       .addCase(checkAuthAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(checkAuthAsync.fulfilled, (state, action) => {
-        state.status = "idle";
+        // state.status = "idle";
         state.loggedInUserToken = action.payload;
       })
       .addCase(checkAuthAsync.rejected, (state, action) => {
-        state.status = "idle";
+        // state.status = "idle";
         state.loggedInUserToken = null;
       })
       .addCase(logoutUserAsync.pending, (state) => {

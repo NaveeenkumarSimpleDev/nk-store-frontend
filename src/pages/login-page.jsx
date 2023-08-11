@@ -17,6 +17,7 @@ const LoginPage = () => {
   const user = useSelector(selectLoggedInUser);
   const loginError = useSelector(selectError)?.login;
   const [errorsState, setErrorsState] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
@@ -43,8 +44,15 @@ const LoginPage = () => {
       return;
     }
 
+    setLoading(true);
     // dispath loginuser call
-    dispatch(loginUserAsync(data));
+    try {
+      dispatch(loginUserAsync(data));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,9 +61,9 @@ const LoginPage = () => {
 
       <Link
         to=".."
-        className="cursor-default h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.8)]"
+        className="cursor-default min-h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.8)]"
       />
-      <div className="h-screen z-[150] flex items-center -mt-10 justify-center">
+      <div className="h-full z-[150] flex items-center justify-center">
         <form
           noValidate
           className="h-fit bg-gray-200 z-[200] py-8 shadow-card-foreground shadow-lg rounded-lg px-12 max-w-lg flex flex-col gap-6"
@@ -117,7 +125,8 @@ const LoginPage = () => {
           </div>
 
           <Button
-            // disabled={loading}
+            isLoading={loading}
+            disabled={loading}
             className="uppercase text-sm font-semibold"
           >
             Login

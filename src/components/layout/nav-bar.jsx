@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Menu, ShoppingCart } from "lucide-react";
 import Search from "../search";
-import { UserDropdownMenu } from "../user-drop-down";
+import UserDropdownMenu from "../user-drop-down";
 import logo from "/logo.tr.png";
 import { NavigationLinks } from "../navigation-liks";
 import MobileMenu from "./mobile-menu";
@@ -17,7 +17,6 @@ const Navbar = () => {
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
 
-  console.log(cart);
   return (
     <>
       <nav className="flex-shrink-0 fixed z-[100] bg-white top-0 left-0 right-0 w-[100vw] h-16 2xl:h-20 border-b border-gray-200 shadow-sm lg:px-8 px-6 py-4 flex items-center gap-4 lg:gap-6 xl:gap-12">

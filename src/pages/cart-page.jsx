@@ -73,68 +73,69 @@ const Cart = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
         )}
-        {cart.cartItems?.length !== 0 ? (
-          <div className="h-full flex flex-col">
-            <div className=" flex-grow overflow-y-auto">
-              <div className="px-4 flex flex-col gap-3">
-                {cart?.cartItems?.map((item, idx) => (
-                  <div key={item?.id}>
-                    <CartItem item={item} />
-                    <hr className="mt-2" />
-                  </div>
-                ))}
+        {loggedInUser &&
+          (cart?.cartItems?.length !== 0 ? (
+            <div className="h-full flex flex-col">
+              <div className=" flex-grow overflow-y-auto">
+                <div className="px-4 flex flex-col gap-3">
+                  {cart?.cartItems?.map((item, idx) => (
+                    <div key={item?.id}>
+                      <CartItem item={item} />
+                      <hr className="mt-2" />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* total,other payments */}
-            <div className="px-4 pb-[9rem]  mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
-              <div>
-                <hr className="my-2 sm:my-4" />
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold sm:text-base text-sm">
-                    Sub total
-                  </span>
-                  <span className="font-semibold sm:text-base text-sm">
-                    {formatPrice(subTotal)}
-                  </span>
+              {/* total,other payments */}
+              <div className="px-4 pb-[9rem]  mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
+                <div>
+                  <hr className="my-2 sm:my-4" />
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold sm:text-base text-sm">
+                      Sub total
+                    </span>
+                    <span className="font-semibold sm:text-base text-sm">
+                      {formatPrice(subTotal)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold sm:text-base text-sm">
+                      Delivary fee
+                    </span>
+                    <span className="font-semibold sm:text-base text-sm">
+                      + {formatPrice(delivary)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold sm:text-base text-sm">
+                      Tax
+                    </span>
+                    <span className="font-semibold sm:text-base text-sm">
+                      {formatPrice(0)}
+                    </span>
+                  </div>
+                  <hr className=" my-2 sm:my-4" />
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-lg">total</span>
+                    <span className="font-bold">{formatPrice(total)}</span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold sm:text-base text-sm">
-                    Delivary fee
-                  </span>
-                  <span className="font-semibold sm:text-base text-sm">
-                    + {formatPrice(delivary)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold sm:text-base text-sm">
-                    Tax
-                  </span>
-                  <span className="font-semibold sm:text-base text-sm">
-                    {formatPrice(0)}
-                  </span>
-                </div>
-                <hr className=" my-2 sm:my-4" />
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-lg">total</span>
-                  <span className="font-bold">{formatPrice(total)}</span>
-                </div>
+                <Button className="w-full mt-2 text-sm sm:py-2 py-1 sm:text-base sm:mt-4 font-semibold">
+                  Check out
+                </Button>
               </div>
-              <Button className="w-full mt-2 text-sm sm:py-2 py-1 sm:text-base sm:mt-4 font-semibold">
-                Check out
-              </Button>
             </div>
-          </div>
-        ) : (
-          <div className="h-full w-ful flex justify-center">
-            <div className="flex items-center gap-3 flex-col">
-              <h1>Your cart is empty!</h1>
-              <Link onClick={() => setIsOpen(false)} to="/products">
-                <Button>Shop now.</Button>
-              </Link>
+          ) : (
+            <div className="h-full w-ful flex justify-center">
+              <div className="flex items-center gap-3 flex-col">
+                <h1>Your cart is empty!</h1>
+                <Link onClick={() => setIsOpen(false)} to="/products">
+                  <Button>Shop now.</Button>
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          ))}
       </div>
     </>
   );
