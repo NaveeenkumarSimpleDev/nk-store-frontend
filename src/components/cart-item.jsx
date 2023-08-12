@@ -47,7 +47,7 @@ const CartItem = ({ item }) => {
             <div>
               <img
                 src={item?.images[0]}
-                className="h-12 w-28 sm:h-20 object-cover object-center rounded-md"
+                className="h-12 w-20 sm:w-28 sm:h-20 object-cover object-center rounded-md"
                 alt={item?.title}
               />
             </div>
