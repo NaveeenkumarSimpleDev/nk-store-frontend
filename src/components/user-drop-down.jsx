@@ -1,5 +1,12 @@
 import React from "react";
-import { CreditCard, Keyboard, LogOut, Settings, User } from "lucide-react";
+import {
+  CreditCard,
+  Heart,
+  Keyboard,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -14,6 +21,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUserAsync } from "../feautures/auth/authSlice";
 import { selectUser } from "../feautures/user/userSlice";
+import { Link } from "react-router-dom";
 
 const UserDropdownMenu = () => {
   const dispatch = useDispatch();
@@ -48,13 +56,8 @@ const UserDropdownMenu = () => {
                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
-                <Settings className="mr-4 h-4 w-4" />
-                <span>Settings</span>
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
-                <Keyboard className="mr-4 h-4 w-4" />
-                <span>Keyboard</span>
+                <Heart className="mr-4 h-4 w-4" />
+                <Link to="/favourites">Favorites</Link>
                 <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuGroup>

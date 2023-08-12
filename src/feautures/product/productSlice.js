@@ -1,9 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProductById, fetchProducts } from "./productAPI";
+import {
+  addToFavourites,
+  fetchFavourites,
+  fetchProductById,
+  fetchProducts,
+  removeFavourites,
+} from "./productAPI";
+
 const initialState = {
   status: "idle",
   products: [],
   selectedProduct: null,
+  favourites: null,
   error: null,
 };
 
@@ -16,6 +24,29 @@ export const fetchProductByIdAsync = createAsyncThunk(
   "products/:product",
   async (productId) => {
     const response = await fetchProductById(productId);
+    return response;
+  }
+);
+
+export const addToFavouritesAsync = createAsyncThunk(
+  "favourites/addToFavourites",
+  async (data) => {
+    const response = await addToFavourites(data);
+    return response;
+  }
+);
+export const removeFavouritesAsync = createAsyncThunk(
+  "favourites/remove",
+  async (data) => {
+    const response = await removeFavourites(data);
+    return response;
+  }
+);
+
+export const fetchFavouritesAsync = createAsyncThunk(
+  "favourites",
+  async (userId) => {
+    const response = await fetchFavourites(userId);
     return response;
   }
 );
@@ -44,6 +75,19 @@ const productSlice = createSlice({
       .addCase(fetchProductByIdAsync.rejected, (state) => {
         state.status = "idle";
         state.error = "product fetch failed";
+      })
+      .addCase(fetchFavouritesAsync.fulfilled, (state, action) => {
+        if (action.payload === "No Favourites") {
+          state.favourites = null;
+        } else {
+          state.favourites = action.payload;
+        }
+      })
+      .addCase(addToFavouritesAsync.fulfilled, (state, action) => {
+        state.favourites = action.payload;
+      })
+      .addCase(removeFavouritesAsync.fulfilled, (state, action) => {
+        state.favourites = action.payload;
       });
   },
 });
@@ -52,3 +96,4 @@ export default productSlice.reducer;
 
 export const selectAllProducts = (state) => state.product.products;
 export const selectProductById = (state) => state.product.selectedProduct;
+export const selectFavourites = (state) => state.product.favourites;

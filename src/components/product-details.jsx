@@ -20,12 +20,8 @@ const ProductDetails = () => {
   const loggedInUser = useSelector(selectLoggedInUser);
   const product = useSelector(selectProductById);
   const cartIems = useSelector(selectCartItems);
-  const [selectedColor, setSelectedColor] = useState(
-    product?.colors[0]?.value || ""
-  );
-  const [selectedSize, setSelectedSize] = useState(
-    product?.sizes[0]?.valie || ""
-  );
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "");
+  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "");
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -51,21 +47,27 @@ const ProductDetails = () => {
     dispatch(
       addToCartAsync({
         userId: loggedInUser?.id,
-        product: { ...product, quantity },
+        product: {
+          ...product,
+          quantity,
+          color: selectedColor,
+          size: selectedSize,
+        },
       })
     );
   }, [product, quantity]);
 
-  const handleOnChange = useCallback((idx, type) => {
-    const setValue = type === "colors" ? setSelectedColor : setSelectedSize;
-    const value = type === "colors" ? colors[idx].value : sizes[idx].value;
-    setValue(value);
+  const handleColorChange = useCallback((value) => {
+    setSelectedColor(value);
+  }, []);
+  const handleSizeChange = useCallback((value) => {
+    setSelectedSize(value);
   }, []);
 
   return (
     <>
       {product ? (
-        <section className="mt-6 pb-[70rem] gap-6 grid lg:grid-cols-2 lg:gap-8">
+        <section className="mt-6 pb-[3rem] gap-6 grid lg:grid-cols-2 lg:gap-8">
           <div>
             <ImageCarousel />
             <hr className=" mt-8 lg:hidden" />
@@ -82,7 +84,7 @@ const ProductDetails = () => {
               <p className="grid mt-4">
                 <span className="font-bold text-xl">
                   {formatPrice(product?.discountPrice)} or{" "}
-                  {(Number(product?.discountPrice) / 6).toFixed(2)}/month
+                  $ {(Number(product?.discountPrice) / 6).toFixed(2)}/month
                 </span>
                 <span className="font-semibold text-sm">
                   Suggest payments with 6 months special financing
@@ -97,12 +99,12 @@ const ProductDetails = () => {
                 <div className="flex gap-3">
                   {product?.colors?.map((color, idx) => (
                     <RadioButton
-                      key={idx}
+                      key={`${color}${idx}`}
                       type="colors"
-                      id={color.id}
-                      checked={selectedColor === color.value}
-                      color={color.value}
-                      onChange={() => handleOnChange(idx, "colors")}
+                      id={color}
+                      checked={selectedColor === color}
+                      color={color}
+                      onChange={() => handleColorChange(color)}
                     />
                   ))}
                 </div>
@@ -116,12 +118,12 @@ const ProductDetails = () => {
                 <div className="mt-3 flex gap-4">
                   {product?.sizes?.map((size, idx) => (
                     <RadioButton
-                      key={idx}
+                      key={`${size}${idx}`}
                       type="size"
-                      id={size.id}
-                      label={size.value}
-                      checked={selectedSize === size.value}
-                      onChange={() => handleOnChange(idx, "size")}
+                      id={size}
+                      label={size}
+                      checked={selectedSize === size}
+                      onChange={() => handleSizeChange(size)}
                     />
                   ))}
                 </div>

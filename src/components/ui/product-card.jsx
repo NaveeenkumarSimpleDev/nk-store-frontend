@@ -9,13 +9,17 @@ import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import {
   addToCartAsync,
   selectCartItems,
-  selectCartStatus,
 } from "../../feautures/cart/cartSlice";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { toast } from "react-hot-toast";
+import {
+  addToFavouritesAsync,
+  removeFavouritesAsync,
+} from "../../feautures/product/productSlice";
 
-const ProductCard = ({ product }) => {
-  const disptch = useDispatch();
+const ProductCard = ({ product, favourite }) => {
+  const dispatch = useDispatch();
+  const cartIems = useSelector(selectCartItems);
   const loggedInUser = useSelector(selectLoggedInUser);
 
   const {
@@ -26,23 +30,44 @@ const ProductCard = ({ product }) => {
     discountPrice,
     rating,
   } = product;
-  const faviourate = true;
+
+  const favouriteHandler = useCallback(() => {
+    if (favourite) {
+      dispatch(
+        removeFavouritesAsync({
+          userId: loggedInUser?.id,
+          productId: product?.id,
+        })
+      );
+    } else {
+      dispatch(
+        addToFavouritesAsync({
+          userId: loggedInUser?.id,
+          productId: product?.id,
+        })
+      );
+    }
+  }, [loggedInUser, product]);
+
   const formatTitle =
     title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
 
-  const cartIems = useSelector(selectCartItems);
   const addToCartHandler = useCallback(() => {
     const exixtingItem = cartIems?.find((item) => item.id === product.id);
     if (exixtingItem) {
       return toast.error("Item already in cart");
     }
-    disptch(
+    dispatch(
       addToCartAsync({
         userId: loggedInUser?.id,
-        product,
+        product: {
+          ...product,
+          size: product?.sizes[0],
+          color: product?.colors[0],
+        },
       })
     );
-  }, [cartIems]);
+  }, [cartIems, loggedInUser, product]);
 
   return (
     <>
@@ -50,12 +75,12 @@ const ProductCard = ({ product }) => {
         <section className="rounded-lg border flex flex-col">
           <div className=" border-b p-0">
             <AspectRatio ratio={6 / 4}>
-              {product?.images?.length !== 0 ? (
+              {product?.images ? (
                 <img
                   loading="lazy"
                   src={product?.images[0]}
                   sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
-                  className="object-cover relative h-full w-full"
+                  className="object-cover rounded-t-lg relative h-full w-full"
                   alt={product?.title}
                 />
               ) : (
@@ -67,10 +92,13 @@ const ProductCard = ({ product }) => {
                 />
               )}
 
-              <Button className="absolute hover:scale-110 transition duration-200 top-3 right-3 p-2 rounded-full">
+              <Button
+                onClick={favouriteHandler}
+                className="absolute hover:scale-110 transition duration-200 top-2 right-2 p-1.5 rounded-full"
+              >
                 <HeartIcon
-                  size={14}
-                  className={cn(faviourate && "fill-rose-500")}
+                  size={18}
+                  className={cn(favourite && "fill-rose-500")}
                 />
               </Button>
             </AspectRatio>

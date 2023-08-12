@@ -42,3 +42,61 @@ export async function fetchProductById(productId) {
     }
   });
 }
+
+export async function addToFavourites(data) {
+  const url = baseUrl + "/favourites/addToFavourites";
+
+  return new Promise(async (resolve) => {
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in favourites!");
+    }
+  });
+}
+
+export async function removeFavourites(data) {
+  const url = baseUrl + "/favourites/removeFavourites";
+  return new Promise(async (resolve) => {
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in favourites!");
+    }
+  });
+}
+
+export async function fetchFavourites(userId) {
+  const url = baseUrl + "/favourites";
+
+  return new Promise(async (resolve) => {
+    try {
+      const response = await axios.post(url, userId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}

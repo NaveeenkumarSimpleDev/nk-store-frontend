@@ -13,6 +13,7 @@ import ProductDetails from "./components/product-details";
 import { fetchCartByUserIdAsync } from "./feautures/cart/cartSlice";
 import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
+import Favorites from "./pages/favorites";
 
 const routes = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const routes = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/favourites",
+        element: <Favorites />,
       },
     ],
   },

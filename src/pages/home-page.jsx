@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className="w-full flex mt-10">
       <div className="flex flex-col gap-3">
         <div>
-          <h1 className="sm:text-2xl xl:text-4xl font-bold">
+          <h1 className="sm:text-2xl text-xl xl:text-4xl font-bold">
             Welcome to
             <span class="ml-2 bg-gradient-to-r from-purple-950 to-red-600 text-transparent bg-clip-text">
               Nk store.
@@ -20,10 +20,9 @@ const HomePage = () => {
                 options={{
                   strings: [
                     `<span style='color:purple;'> Fashion </span>`,
-                    `<span style='color:green;'> Lifestyle </span>`,
                     `<span style='color:red;'> Electronics </span>`,
                     `<span style='color:gold;'> Mobiles </span>`,
-                    `<span style='color:violet;'> Beauty items </span>`,
+                    `<span style='color:violet;'> Beauty Products </span>`,
                   ],
                   autoStart: true,
                   loop: true,

@@ -1,3 +1,17 @@
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import Heading from "../components/ui/heading";
+import Button from "../components/ui/button";
+import ProductCard from "../components/ui/product-card";
+import ProductLoading from "../components/product-loading";
+import Filters from "../components/filters";
+import {
+  fetchFavouritesAsync,
+  fetchProductsAsync,
+  selectAllProducts,
+  selectFavourites,
+} from "../feautures/product/productSlice";
 import {
   Select,
   SelectTrigger,
@@ -8,26 +22,19 @@ import {
   SelectItem,
   SelectSeparator,
 } from "../components/ui/select";
-import Heading from "../components/ui/heading";
-import Button from "../components/ui/button";
-import ProductCard from "../components/ui/product-card";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchProductsAsync,
-  selectAllProducts,
-} from "../feautures/product/productSlice";
-import { useCallback, useEffect, useState } from "react";
-import ProductLoading from "../components/product-loading";
-import Filters from "../components/filters";
+import { selectLoggedInUser } from "../feautures/auth/authSlice";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
+  const favourites = useSelector(selectFavourites)?.favourites;
+  const loggedInUser = useSelector(selectLoggedInUser);
   const [filter, setFiler] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  
+
   useEffect(() => {
     dispatch(fetchProductsAsync());
+    dispatch(fetchFavouritesAsync(loggedInUser?.id));
   }, []);
 
   useEffect(() => {
@@ -108,7 +115,11 @@ const ProductPage = () => {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
               {products?.map((product, idx) => (
-                <ProductCard key={idx} product={product} />
+                <ProductCard
+                  key={idx}
+                  favourite={favourites?.includes(product.id)}
+                  product={product}
+                />
               ))}
             </div>
           )}
@@ -121,4 +132,4 @@ const ProductPage = () => {
     </>
   );
 };
-export default ProductPage;
+export default React.memo(ProductPage);

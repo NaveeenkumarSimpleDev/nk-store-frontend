@@ -88,7 +88,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
               </div>
 
               {/* total,other payments */}
-              <div className="px-4 pb-[9rem]  mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
+              <div className="px-4 pb-6 mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
                 <div>
                   <hr className="my-2 sm:my-4" />
                   <div className="flex items-center justify-between">
