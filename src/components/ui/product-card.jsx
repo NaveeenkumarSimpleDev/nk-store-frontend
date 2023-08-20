@@ -15,11 +15,13 @@ import { toast } from "react-hot-toast";
 import {
   addToFavouritesAsync,
   removeFavouritesAsync,
+  selectFavourites,
 } from "../../feautures/product/productSlice";
 
-const ProductCard = ({ product, favourite }) => {
+const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const cartIems = useSelector(selectCartItems);
+  const favourites = useSelector(selectFavourites)?.favourites;
   const loggedInUser = useSelector(selectLoggedInUser);
 
   const {
@@ -31,12 +33,14 @@ const ProductCard = ({ product, favourite }) => {
     rating,
   } = product;
 
+  const isFavourite = favourites?.includes(productId);
+
   const favouriteHandler = useCallback(() => {
-    if (favourite) {
+    if (isFavourite) {
       dispatch(
         removeFavouritesAsync({
           userId: loggedInUser?.id,
-          productId: product?.id,
+          productId,
         })
       );
     } else {
@@ -47,7 +51,7 @@ const ProductCard = ({ product, favourite }) => {
         })
       );
     }
-  }, [loggedInUser, product]);
+  }, [isFavourite, product]);
 
   const formatTitle =
     title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
@@ -98,7 +102,7 @@ const ProductCard = ({ product, favourite }) => {
               >
                 <HeartIcon
                   size={18}
-                  className={cn(favourite && "fill-rose-500")}
+                  className={cn(isFavourite && "fill-rose-500")}
                 />
               </Button>
             </AspectRatio>

@@ -27,7 +27,6 @@ import { selectLoggedInUser } from "../feautures/auth/authSlice";
 const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-  const favourites = useSelector(selectFavourites)?.favourites;
   const loggedInUser = useSelector(selectLoggedInUser);
   const [filter, setFiler] = useState(false);
   const [sortBy, setSortBy] = useState("");

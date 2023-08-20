@@ -6,6 +6,7 @@ import {
   LogOut,
   Settings,
   User,
+  ShoppingCartIcon,
 } from "lucide-react";
 
 import {
@@ -59,6 +60,11 @@ const UserDropdownMenu = () => {
                 <Heart className="mr-4 h-4 w-4" />
                 <Link to="/favourites">Favorites</Link>
                 <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
+                <ShoppingCartIcon className="mr-4 h-4 w-4" />
+                <Link to="/products">Products</Link>
+                <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
