@@ -7,10 +7,8 @@ import ProductCard from "../components/ui/product-card";
 import ProductLoading from "../components/product-loading";
 import Filters from "../components/filters";
 import {
-  fetchFavouritesAsync,
   fetchProductsAsync,
   selectAllProducts,
-  selectFavourites,
 } from "../feautures/product/productSlice";
 import {
   Select,
@@ -33,7 +31,6 @@ const ProductPage = () => {
 
   useEffect(() => {
     dispatch(fetchProductsAsync());
-    dispatch(fetchFavouritesAsync(loggedInUser?.id));
   }, []);
 
   useEffect(() => {
@@ -114,11 +111,7 @@ const ProductPage = () => {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
               {products?.map((product, idx) => (
-                <ProductCard
-                  key={idx}
-                  favourite={favourites?.includes(product.id)}
-                  product={product}
-                />
+                <ProductCard key={idx} product={product} />
               ))}
             </div>
           )}
