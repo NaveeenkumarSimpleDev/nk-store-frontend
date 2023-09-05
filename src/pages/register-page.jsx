@@ -15,7 +15,7 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const [errorsState, setErrorsState] = useState({});
-  const [loading, setLoading] = useState(false);
+  const authStatus = useSelector(selectAuthStatus);
 
   const {
     handleSubmit,
@@ -51,14 +51,13 @@ const RegisterPage = () => {
       }));
       return;
     }
-    setLoading(true);
+
     try {
       dispatch(createuserAsync(data));
     } catch (err) {
       console.log(err);
     } finally {
       setErrorsState({});
-      setLoading(false);
     }
   };
 
@@ -160,16 +159,24 @@ const RegisterPage = () => {
 
           <Button
             type="submit"
-            disabled={loading}
-            isLoading={loading}
+            disabled={authStatus === "loading"}
+            isLoading={authStatus === "loading"}
             className="uppercase text-sm font-semibold"
           >
             register
           </Button>
           <p>
             Already have an account?
-            <Link to="/login" className=" mx-2 font-semibold underline">
-              login
+            <Link
+              to={authStatus === "loading" ? null : "/login"}
+              className={`mx-2 font-semibold ${
+                authStatus === "loading" ? "disabled-link" : ""
+              }`}
+              style={{
+                pointerEvents: authStatus === "loading" ? "none" : "auto",
+              }}
+            >
+              Login
             </Link>
           </p>
         </form>

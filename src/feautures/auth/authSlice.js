@@ -12,8 +12,6 @@ export const createuserAsync = createAsyncThunk(
   "user/signUp",
   async (userData) => {
     const response = await createUser(userData);
-
-    // the value is used in fulfilled action.payload
     return response;
   }
 );
@@ -50,6 +48,9 @@ const authSlice = createSlice({
           state.loggedInUserToken = action.payload;
         }
       })
+      .addCase(createuserAsync.rejected, (state) => {
+        state.status = "idle";
+      })
       .addCase(loginUserAsync.pending, (state) => {
         state.error = {};
         state.status = "loading";
@@ -70,11 +71,11 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(checkAuthAsync.fulfilled, (state, action) => {
-        // state.status = "idle";
+        state.status = "idle";
         state.loggedInUserToken = action.payload;
       })
       .addCase(checkAuthAsync.rejected, (state, action) => {
-        // state.status = "idle";
+        state.status = "idle";
         state.loggedInUserToken = null;
       })
       .addCase(logoutUserAsync.pending, (state) => {

@@ -8,58 +8,59 @@ import { fetchProductsAsync } from "../feautures/product/productSlice";
 import { useDispatch } from "react-redux";
 
 const Filters = ({ isOpen, setIsOpen }) => {
+  const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectCategories, setSelectedCategories] = useState([]);
-  const [selectedBrands, setSelectedBrrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
 
-  // price range filter
   useEffect(() => {
-    if (priceRange[0] === 0 && priceRange[1] === 1000) {
-      return;
-    }
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    urlSearchParams.set("range", priceRange);
-    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
-  }, [priceRange]);
+    const updateURLWithFilters = () => {
+      const urlSearchParams = new URLSearchParams(window.location.search);
 
-  // category filter
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    if (selectCategories.length !== 0) {
-      urlSearchParams.set("cat", selectCategories);
+      // Price range filter
+      urlSearchParams.set("range", priceRange.join("-"));
+
+      // Category filter
+      if (selectCategories.length > 0) {
+        urlSearchParams.set("cat", selectCategories.join(","));
+      } else {
+        urlSearchParams.delete("cat");
+      }
+
+      // Brand filter
+      if (selectedBrands.length > 0) {
+        urlSearchParams.set("brand", selectedBrands.join(","));
+      } else {
+        urlSearchParams.delete("brand");
+      }
+
+      const newUrl = `${
+        window?.location.pathname
+      }?${urlSearchParams.toString()}`;
+      window.history.pushState({ path: newUrl }, "", newUrl);
+    };
+    if (mounted) {
+      updateURLWithFilters();
     } else {
-      urlSearchParams.delete("cat");
+      setMounted(true);
     }
-    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
-  }, [selectCategories]);
-
-  // brand filter
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    if (selectedBrands.length !== 0) {
-      urlSearchParams.set("brand", selectedBrands);
-    } else {
-      urlSearchParams.delete("brand");
-    }
-    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
-  }, [selectedBrands]);
+  }, [priceRange, selectCategories, selectedBrands]);
 
   useEffect(() => {
     dispatch(fetchProductsAsync());
-  }, [selectCategories, selectCategories, priceRange]);
+  }, [selectCategories, selectedBrands, priceRange, dispatch]);
 
-  const cleartFilter = useCallback(() => {
+  const clearFilters = useCallback(() => {
     setPriceRange([0, 1000]);
-    setSelectedBrrands([]);
+    setSelectedBrands([]);
     setSelectedCategories([]);
 
+    // Clear filter parameters from the URL
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.delete("range");
-    urlSearchParams.delete("sort");
+    urlSearchParams.delete("cat");
+    urlSearchParams.delete("brand");
 
     const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
@@ -231,7 +232,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
 
-            <Button onClick={cleartFilter} className="my-4 mb-12 font-bold">
+            <Button onClick={clearFilters} className="my-4 mb-12 font-bold">
               Clear Filters
             </Button>
           </div>

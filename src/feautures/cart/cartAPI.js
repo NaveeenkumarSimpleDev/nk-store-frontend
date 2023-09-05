@@ -26,7 +26,7 @@ export const fetchCartByUserId = (userId) => {
 export const addToCart = (data) => {
   const url = baseUrl + "/cart/add";
   if (!data?.userId) {
-    return toast.error("Login is expired.");
+    return toast.error("Please login.");
   }
   return new Promise(async (resolve, reject) => {
     try {

@@ -10,7 +10,7 @@ import {
   addToCartAsync,
   selectCartItems,
 } from "../../feautures/cart/cartSlice";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
   addToFavouritesAsync,
@@ -23,6 +23,7 @@ const ProductCard = ({ product }) => {
   const cartIems = useSelector(selectCartItems);
   const favourites = useSelector(selectFavourites)?.favourites;
   const loggedInUser = useSelector(selectLoggedInUser);
+  const [loading, setLoading] = useState(false);
 
   const {
     id: productId,
@@ -56,12 +57,14 @@ const ProductCard = ({ product }) => {
   const formatTitle =
     title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
 
-  const addToCartHandler = useCallback(() => {
+  const addToCartHandler = useCallback(async () => {
+    setLoading(true);
     const exixtingItem = cartIems?.find((item) => item.id === product.id);
     if (exixtingItem) {
+      setLoading(false);
       return toast.error("Item already in cart");
     }
-    dispatch(
+    await dispatch(
       addToCartAsync({
         userId: loggedInUser?.id,
         product: {
@@ -71,6 +74,8 @@ const ProductCard = ({ product }) => {
         },
       })
     );
+
+    setLoading(false);
   }, [cartIems, loggedInUser, product]);
 
   return (
@@ -141,6 +146,8 @@ const ProductCard = ({ product }) => {
                   </Button>
                 </Link>
                 <Button
+                  isLoading={loading}
+                  disabled={loading}
                   onClick={addToCartHandler}
                   className="m-0 font-semibold"
                 >

@@ -46,6 +46,8 @@ export async function fetchProductById(productId) {
 export async function addToFavourites(data) {
   const url = baseUrl + "/favourites/addToFavourites";
 
+  if (!data?.userId) return toast.error("Please login!.");
+
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, data, {

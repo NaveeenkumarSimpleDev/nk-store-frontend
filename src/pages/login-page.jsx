@@ -15,9 +15,9 @@ import {
 const LoginPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const authStatus = useSelector(selectAuthStatus);
   const loginError = useSelector(selectError)?.login;
   const [errorsState, setErrorsState] = useState({});
-  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
@@ -44,15 +44,7 @@ const LoginPage = () => {
       return;
     }
 
-    setLoading(true);
-    // dispath loginuser call
-    try {
-      dispatch(loginUserAsync(data));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    dispatch(loginUserAsync(data));
   };
 
   return (
@@ -125,15 +117,23 @@ const LoginPage = () => {
           </div>
 
           <Button
-            isLoading={loading}
-            disabled={loading}
-            className="uppercase text-sm font-semibold"
+            isLoading={authStatus === "loading"}
+            disabled={authStatus === "loading"}
+            className="uppercase text-sm font-semibold disabled:bg-muted-foreground"
           >
             Login
           </Button>
           <p>
             create an account?
-            <Link to="/signUp" className=" mx-2 font-semibold underline">
+            <Link
+              to={authStatus === "loading" ? null : "/signUp"}
+              className={`mx-2 font-semibold ${
+                authStatus === "loading" ? "disabled-link" : ""
+              }`}
+              style={{
+                pointerEvents: authStatus === "loading" ? "none" : "auto",
+              }}
+            >
               click here
             </Link>
           </p>

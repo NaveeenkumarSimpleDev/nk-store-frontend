@@ -7,7 +7,6 @@ import img from "/3.jpg";
 import { selectCart, updateCartAsync } from "../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { toast } from "react-hot-toast";
-import { AspectRatio } from "./ui/aspect-ratio";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -29,10 +28,11 @@ const CartItem = ({ item }) => {
   };
 
   const handleQuantity = (opr) => {
-    if (currentItem?.quantity === 10) {
+    const type = opr === "inc" ? "inc" : "dec";
+
+    if (type === "inc" && currentItem?.quantity === 10) {
       return toast.error("Max-quantity reached");
     }
-    const type = opr === "inc" ? "inc" : "dec";
     dispatch(
       updateCartAsync({ userId: loggedInUser?.id, productId: item?.id, type })
     );
@@ -76,7 +76,6 @@ const CartItem = ({ item }) => {
                 {currentItem?.quantity}
               </span>
               <Button
-                disabled={currentItem?.quantity == "10"}
                 onClick={() => handleQuantity("inc")}
                 className="p-1 sm:p-2  flex items-center justify-center"
               >

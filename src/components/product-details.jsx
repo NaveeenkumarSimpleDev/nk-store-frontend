@@ -20,48 +20,64 @@ const ProductDetails = () => {
   const loggedInUser = useSelector(selectLoggedInUser);
   const product = useSelector(selectProductById);
   const cartIems = useSelector(selectCartItems);
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "");
-  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "");
-  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [productDetails, setProductDetails] = useState({
+    color: product?.colors[0] || "",
+    size: product?.sizes[0] || "",
+    quantity: 1,
+  });
 
   useEffect(() => {
     dispatch(fetchProductByIdAsync(productId));
   }, []);
 
   const handleInc = useCallback(() => {
-    if (quantity === 10) {
+    if (productDetails?.quantity === 10) {
       return toast.error("max-quantity reached!");
     }
-    setQuantity((prev) => prev + 1);
-  }, [quantity]);
+    setProductDetails((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  }, []);
 
   const handleDec = useCallback(() => {
-    setQuantity((prev) => prev - 1);
-  }, [quantity]);
+    setProductDetails((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  }, []);
 
-  const addToCartHandler = useCallback(() => {
+  const addToCartHandler = useCallback(async () => {
+    setLoading(true);
     const exixtingItem = cartIems?.find((item) => item.id === product.id);
     if (exixtingItem) {
+      setLoading(false);
       return toast.error("Item already in cart");
     }
-    dispatch(
+    await dispatch(
       addToCartAsync({
         userId: loggedInUser?.id,
         product: {
           ...product,
-          quantity,
-          color: selectedColor,
-          size: selectedSize,
+          quantity: productDetails.quantity,
+          color: productDetails.color,
+          size: productDetails.size,
         },
       })
     );
-  }, [product, quantity]);
+
+    setLoading(false);
+  }, [product]);
 
   const handleColorChange = useCallback((value) => {
-    setSelectedColor(value);
+    setProductDetails((prev) => {
+      return { ...prev, color: value };
+    });
   }, []);
+
   const handleSizeChange = useCallback((value) => {
-    setSelectedSize(value);
+    setProductDetails((prev) => {
+      return { ...prev, size: value };
+    });
   }, []);
 
   return (
@@ -83,8 +99,8 @@ const ProductDetails = () => {
               </p>
               <p className="grid mt-4">
                 <span className="font-bold text-xl">
-                  {formatPrice(product?.discountPrice)} or{" "}
-                  $ {(Number(product?.discountPrice) / 6).toFixed(2)}/month
+                  {formatPrice(product?.discountPrice)} or ${" "}
+                  {(Number(product?.discountPrice) / 6).toFixed(2)}/month
                 </span>
                 <span className="font-semibold text-sm">
                   Suggest payments with 6 months special financing
@@ -102,7 +118,7 @@ const ProductDetails = () => {
                       key={`${color}${idx}`}
                       type="colors"
                       id={color}
-                      checked={selectedColor === color}
+                      checked={productDetails.color === color}
                       color={color}
                       onChange={() => handleColorChange(color)}
                     />
@@ -122,7 +138,7 @@ const ProductDetails = () => {
                       type="size"
                       id={size}
                       label={size}
-                      checked={selectedSize === size}
+                      checked={productDetails.size === size}
                       onChange={() => handleSizeChange(size)}
                     />
                   ))}
@@ -135,13 +151,15 @@ const ProductDetails = () => {
               <h4 className="font-semibold text-xl">Quantity</h4>
               <div className=" mt-2 flex items-center gap-3">
                 <Button
-                  disabled={quantity === 1}
+                  disabled={productDetails.quantity === 1}
                   onClick={handleDec}
                   className="p-2 bg-gray-600"
                 >
                   <Plus size={20} />
                 </Button>
-                <span className="font-semibold text-xl">{quantity}</span>
+                <span className="font-semibold text-xl">
+                  {productDetails.quantity}
+                </span>
                 <Button onClick={handleInc} className="p-2 bg-gray-600">
                   <Plus size={20} />
                 </Button>
@@ -149,7 +167,12 @@ const ProductDetails = () => {
             </div>
             {/* Actions */}
             <div className="flex gap-6">
-              <Button onClick={addToCartHandler} className="font-semibold">
+              <Button
+                disabled={loading}
+                isLoading={loading}
+                onClick={addToCartHandler}
+                className="font-semibold"
+              >
                 Add to cart
               </Button>
               <Button className="bg-blue-500 font-semibold transition duration-300 ease-linear border-none hover:outline outline-2 outline-blue-500 disabled:bg-blue-300 hover:bg-white hover:text-black">

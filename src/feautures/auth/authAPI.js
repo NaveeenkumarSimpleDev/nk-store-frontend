@@ -37,7 +37,7 @@ export const loginUser = (loginData) => {
         },
       });
       if (res.status === 200) {
-        toast.success("Login success");
+        toast.success("Login successfull.");
         resolve(res.data);
       }
     } catch (err) {
