@@ -5,6 +5,7 @@ import {
   fetchProductById,
   fetchProducts,
   removeFavourites,
+  searchProducts,
 } from "./productAPI";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   selectedProduct: null,
   favourites: null,
   error: null,
+  searchResults: null,
 };
 
 export const fetchProductsAsync = createAsyncThunk("products", async () => {
@@ -47,6 +49,14 @@ export const fetchFavouritesAsync = createAsyncThunk(
   "favourites",
   async (userId) => {
     const response = await fetchFavourites(userId);
+    return response;
+  }
+);
+
+export const searchProductsAsync = createAsyncThunk(
+  "products/search",
+  async (query) => {
+    const response = await searchProducts(query);
     return response;
   }
 );
@@ -88,6 +98,12 @@ const productSlice = createSlice({
       })
       .addCase(removeFavouritesAsync.fulfilled, (state, action) => {
         state.favourites = action.payload;
+      })
+      .addCase(searchProductsAsync.fulfilled, (state, action) => {
+        state.searchResults = action.payload;
+      })
+      .addCase(searchProductsAsync.rejected, (state) => {
+        state.searchResults = null;
       });
   },
 });
@@ -97,3 +113,4 @@ export default productSlice.reducer;
 export const selectAllProducts = (state) => state.product.products;
 export const selectProductById = (state) => state.product.selectedProduct;
 export const selectFavourites = (state) => state.product.favourites;
+export const selectSearchResults = (state) => state.product.searchResults;

@@ -2,7 +2,6 @@ import { X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
-import { Slider } from "./ui/slider";
 import { cn } from "../lib/utils";
 import { fetchProductsAsync } from "../feautures/product/productSlice";
 import { useDispatch } from "react-redux";
@@ -10,7 +9,7 @@ import { useDispatch } from "react-redux";
 const Filters = ({ isOpen, setIsOpen }) => {
   const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 0]);
   const [selectCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
 
@@ -19,7 +18,9 @@ const Filters = ({ isOpen, setIsOpen }) => {
       const urlSearchParams = new URLSearchParams(window.location.search);
 
       // Price range filter
-      urlSearchParams.set("range", priceRange.join("-"));
+      if (priceRange[1] !== 0) {
+        urlSearchParams.set("range", priceRange.join("-"));
+      }
 
       // Category filter
       if (selectCategories.length > 0) {
@@ -47,12 +48,12 @@ const Filters = ({ isOpen, setIsOpen }) => {
     }
   }, [priceRange, selectCategories, selectedBrands]);
 
-  useEffect(() => {
+  const applyFilters = useCallback(() => {
     dispatch(fetchProductsAsync());
-  }, [selectCategories, selectedBrands, priceRange, dispatch]);
+  }, []);
 
   const clearFilters = useCallback(() => {
-    setPriceRange([0, 1000]);
+    setPriceRange([0, 0]);
     setSelectedBrands([]);
     setSelectedCategories([]);
 
@@ -131,20 +132,12 @@ const Filters = ({ isOpen, setIsOpen }) => {
               {/* price range */}
               <div className="space-y-3">
                 <span className="font-bold text-lg">Price Range</span>
-                <Slider
-                  defaultValue={[0, priceRange[1]]}
-                  value={priceRange}
-                  varient="range"
-                  step={1}
-                  max={500}
-                  onValueChange={(value) => setPriceRange(value)}
-                />
-
                 <div className="flex items-center justify-between">
                   <input
                     className="w-[7rem] sm:w-full bg-black px-4 py-2 rounded-sm text-white text-sm font-semibold "
                     type="number"
                     inputMode="numeric"
+                    step={100}
                     value={priceRange[0]}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -156,6 +149,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     className="w-[7rem] sm:w-full bg-black px-4 py-2 rounded-sm text-white text-sm font-semibold"
                     type="number"
                     inputMode="numeric"
+                    step={100}
                     value={priceRange[1]}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -168,7 +162,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
               {/* categories */}
               <div>
                 <span className="text-lg font-bold">Categories</span>
-                <div className="mt-3 h-[200px] overflow-y-scroll space-y-3">
+                <div className="mt-3 overflow-y-scroll space-y-3">
                   {categories.map((cat) => (
                     <div key={cat.id} className="flex gap-1 items-center">
                       <Checkbox
@@ -231,10 +225,17 @@ const Filters = ({ isOpen, setIsOpen }) => {
                 </div>
               </div>
             </div>
-
-            <Button onClick={clearFilters} className="my-4 mb-12 font-bold">
-              Clear Filters
-            </Button>
+            <div className="w-full flex items-center gap-6">
+              <Button
+                onClick={clearFilters}
+                className="bg-white outline outline-1 outline-black text-black font-bold"
+              >
+                Clear Filters
+              </Button>
+              <Button onClick={applyFilters} className="font-bold">
+                Apply Filters
+              </Button>
+            </div>
           </div>
         </section>
       </nav>

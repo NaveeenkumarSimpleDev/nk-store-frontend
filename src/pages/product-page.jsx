@@ -24,13 +24,18 @@ import { selectLoggedInUser } from "../feautures/auth/authSlice";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectAllProducts);
-  const loggedInUser = useSelector(selectLoggedInUser);
+  const products = useSelector(selectAllProducts) || null;
   const [filter, setFiler] = useState(false);
   const [sortBy, setSortBy] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const fetchProducts = async () => {
+    setLoading(true);
+    await dispatch(fetchProductsAsync());
+    setLoading(false);
+  };
   useEffect(() => {
-    dispatch(fetchProductsAsync());
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -50,6 +55,22 @@ const ProductPage = () => {
   const handleSortChange = useCallback((value) => {
     setSortBy(value);
   }, []);
+
+  let content;
+
+  if (products?.length > 0) {
+    content = (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+        {products?.map((product, idx) => (
+          <ProductCard key={idx} product={product} />
+        ))}
+      </div>
+    );
+  } else if (!loading && !products) {
+    content = <p>No products found</p>;
+  } else {
+    content = <ProductLoading />;
+  }
 
   return (
     <>
@@ -72,8 +93,8 @@ const ProductPage = () => {
                 handleSortChange(e);
               }}
             >
-              <SelectTrigger className="z-[10] w-fit font-semibold flex gap-4 text-sm sm:text-md bg-black  text-white rounded-md hover:opacity-90">
-                <SelectValue placeholder="All" />
+              <SelectTrigger className="z-[10] min-w-[10rem] font-semibold flex gap-4 text-sm sm:text-md bg-black  text-white rounded-md hover:opacity-90">
+                <SelectValue placeholder="Sort By" />
               </SelectTrigger>
               <SelectContent className="px-4 z-[20]">
                 <SelectGroup>
@@ -105,17 +126,7 @@ const ProductPage = () => {
           </div>
         </div>
 
-        <section className="mt-6">
-          {products.length === 0 ? (
-            <ProductLoading />
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-              {products?.map((product, idx) => (
-                <ProductCard key={idx} product={product} />
-              ))}
-            </div>
-          )}
-        </section>
+        <section className="mt-6">{content}</section>
       </div>
 
       <div>

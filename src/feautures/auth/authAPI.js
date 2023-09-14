@@ -5,7 +5,7 @@ const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
 export const createUser = (userData) => {
   const url = baseUrl + "/auth/signUp";
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.post(url, userData, {
         withCredentials: true,
@@ -22,6 +22,8 @@ export const createUser = (userData) => {
         const error = err.response?.data;
         resolve({ error });
       }
+
+      reject("Somthing wrong in auth");
     }
   });
 };
@@ -82,8 +84,10 @@ export const logout = () => {
       const response = await axios.get(url, {
         withCredentials: true,
       });
+
       if (response.status === 200) {
         toast.success("Logout success.");
+        window.location = "/";
         window.location.reload();
       }
     } catch (error) {
