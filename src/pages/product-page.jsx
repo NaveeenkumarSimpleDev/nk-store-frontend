@@ -10,17 +10,7 @@ import {
   fetchProductsAsync,
   selectAllProducts,
 } from "../feautures/product/productSlice";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-} from "../components/ui/select";
-import { selectLoggedInUser } from "../feautures/auth/authSlice";
+import SortSelectionButton from "../components/sortSelectionButton";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -66,7 +56,7 @@ const ProductPage = () => {
         ))}
       </div>
     );
-  } else if (!loading && !products) {
+  } else if (!loading && products?.length === 0) {
     content = <p>No products found</p>;
   } else {
     content = <ProductLoading />;
@@ -87,45 +77,9 @@ const ProductPage = () => {
           </Button>
 
           {/* sort filter */}
-          <div className="flex flex-col z-[10] gap-2">
-            <Select
-              onValueChange={(e) => {
-                handleSortChange(e);
-              }}
-            >
-              <SelectTrigger className="z-[10] min-w-[10rem] font-semibold flex gap-4 text-sm sm:text-md bg-black  text-white rounded-md hover:opacity-90">
-                <SelectValue placeholder="Sort By" />
-              </SelectTrigger>
-              <SelectContent className="px-4 z-[20]">
-                <SelectGroup>
-                  <SelectLabel className="font-bold text-sm sm:text-md">
-                    Sort by
-                  </SelectLabel>
-                  <SelectSeparator />
-                  <SelectItem
-                    value="Newest"
-                    className="text-xs sm:text-sm  cursor-pointer font-semibold"
-                  >
-                    Newest on top
-                  </SelectItem>
-                  <SelectItem
-                    value="priceLowToHigh"
-                    className="text-xs sm:text-sm font-semibold cursor-pointer"
-                  >
-                    Price: Low to high
-                  </SelectItem>
-                  <SelectItem
-                    value="priceHighToLow"
-                    className="text-xs sm:text-sm font-semibold cursor-pointer"
-                  >
-                    Price: High to low
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+          <SortSelectionButton onChange={handleSortChange} />
         </div>
-
+        {/* content */}
         <section className="mt-6">{content}</section>
       </div>
 

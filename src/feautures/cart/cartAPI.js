@@ -30,7 +30,7 @@ export const addToCart = (data) => {
   }
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await axios.post(url, data, {
+      const response = await axios.post(url, JSON.stringify(data), {
         headers: {
           "Content-Type": "application/json",
         },

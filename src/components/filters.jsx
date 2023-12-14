@@ -1,10 +1,12 @@
 import { X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
 import { cn } from "../lib/utils";
-import { fetchProductsAsync } from "../feautures/product/productSlice";
 import { useDispatch } from "react-redux";
+import { BRANDS as brands, CATEGORIES as categories } from "../config/index";
+import { fetchProductsAsync } from "../feautures/product/productSlice";
 
 const Filters = ({ isOpen, setIsOpen }) => {
   const [mounted, setMounted] = useState(false);
@@ -12,14 +14,29 @@ const Filters = ({ isOpen, setIsOpen }) => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [selectCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const urlSearchParams = new URLSearchParams(window.location.search);
+
+  useEffect(() => {
+    const priceRange = urlSearchParams.get("price_range")?.split("-");
+    const brands = urlSearchParams.get("brands")?.split(",");
+    const categories = urlSearchParams.get("cat")?.split(",");
+
+    if (priceRange && priceRange[1] != 0) {
+      setPriceRange([Number(priceRange[0]), Number(priceRange[1])]);
+    }
+    if (brands) {
+      setSelectedBrands(brands);
+    }
+    if (categories) {
+      setSelectedCategories(categories);
+    }
+  }, []);
 
   useEffect(() => {
     const updateURLWithFilters = () => {
-      const urlSearchParams = new URLSearchParams(window.location.search);
-
       // Price range filter
       if (priceRange[1] !== 0) {
-        urlSearchParams.set("range", priceRange.join("-"));
+        urlSearchParams.set("price_range", priceRange.join("-"));
       }
 
       // Category filter
@@ -31,9 +48,9 @@ const Filters = ({ isOpen, setIsOpen }) => {
 
       // Brand filter
       if (selectedBrands.length > 0) {
-        urlSearchParams.set("brand", selectedBrands.join(","));
+        urlSearchParams.set("brands", selectedBrands.join(","));
       } else {
-        urlSearchParams.delete("brand");
+        urlSearchParams.delete("brands");
       }
 
       const newUrl = `${
@@ -41,57 +58,24 @@ const Filters = ({ isOpen, setIsOpen }) => {
       }?${urlSearchParams.toString()}`;
       window.history.pushState({ path: newUrl }, "", newUrl);
     };
+
     if (mounted) {
       updateURLWithFilters();
     } else {
       setMounted(true);
     }
+    dispatch(fetchProductsAsync());
   }, [priceRange, selectCategories, selectedBrands]);
 
-  const applyFilters = useCallback(() => {
-    dispatch(fetchProductsAsync());
-  }, []);
+  useEffect(()=>{
+
+  },[])
 
   const clearFilters = useCallback(() => {
     setPriceRange([0, 0]);
     setSelectedBrands([]);
     setSelectedCategories([]);
-
-    // Clear filter parameters from the URL
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    urlSearchParams.delete("range");
-    urlSearchParams.delete("cat");
-    urlSearchParams.delete("brand");
-
-    const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
   }, []);
-
-  const categories = [
-    {
-      id: "1",
-      label: "Fashion",
-    },
-    {
-      id: "2",
-      label: "Mobiles",
-    },
-    {
-      id: "3",
-      label: "Cat3",
-    },
-  ];
-
-  const brands = [
-    {
-      id: "b1",
-      label: "Apple",
-    },
-    {
-      id: "b2",
-      label: "Nike",
-    },
-  ];
 
   const onClose = () => {
     setIsOpen(false);
@@ -137,6 +121,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     className="w-[7rem] sm:w-full bg-black px-4 py-2 rounded-sm text-white text-sm font-semibold "
                     type="number"
                     inputMode="numeric"
+                    min={0}
                     step={100}
                     value={priceRange[0]}
                     onChange={(e) => {
@@ -151,9 +136,11 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     inputMode="numeric"
                     step={100}
                     value={priceRange[1]}
+                    min={0}
                     onChange={(e) => {
                       const value = e.target.value;
-                      setPriceRange((prev) => [prev[0], Number(value)]);
+                      value > priceRange[0] &&
+                        setPriceRange((prev) => [prev[0], Number(value)]);
                     }}
                   />
                 </div>
@@ -167,16 +154,16 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     <div key={cat.id} className="flex gap-1 items-center">
                       <Checkbox
                         id={cat.id}
-                        checked={selectCategories.includes(cat.label)}
+                        checked={selectCategories.includes(cat.value)}
                         onCheckedChange={(value) =>
                           value
                             ? setSelectedCategories((prev) => [
                                 ...prev,
-                                cat.label,
+                                cat.value,
                               ])
                             : setSelectedCategories(
                                 selectCategories.filter(
-                                  (item) => item !== cat.label
+                                  (item) => item !== cat.value
                                 )
                               )
                         }
@@ -203,11 +190,11 @@ const Filters = ({ isOpen, setIsOpen }) => {
                         checked={selectedBrands.includes(brand.label)}
                         onCheckedChange={(value) =>
                           value
-                            ? setSelectedBrrands((prev) => [
+                            ? setSelectedBrands((prev) => [
                                 ...prev,
                                 brand.label,
                               ])
-                            : setSelectedBrrands(
+                            : setSelectedBrands(
                                 selectedBrands.filter(
                                   (item) => item !== brand.label
                                 )
@@ -226,14 +213,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
             <div className="w-full flex items-center gap-6">
-              <Button
-                onClick={clearFilters}
-                className="bg-white outline outline-1 outline-black text-black font-bold"
-              >
+              <Button onClick={clearFilters} className="font-bold w-full">
                 Clear Filters
-              </Button>
-              <Button onClick={applyFilters} className="font-bold">
-                Apply Filters
               </Button>
             </div>
           </div>

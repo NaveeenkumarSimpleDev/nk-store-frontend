@@ -14,7 +14,7 @@ const Button = React.forwardRef(
         )}
         {...props}
       >
-        {isLoading && (
+        {/* {isLoading && (
           <span className="absolute inset-0 flex items-center justify-center">
             <svg
               className="animate-spin h-5 w-5 text-gray-600"
@@ -44,15 +44,15 @@ const Button = React.forwardRef(
               </svg>
             </svg>
           </span>
-        )}
-        <span
+        )} */}
+        {/* <span
           className={cn(
             "transition-opacity",
             isLoading ? "opacity-0" : "opacity-100"
           )}
-        >
+        > */}
           {children}
-        </span>
+        {/* </span> */}
       </button>
     );
   }

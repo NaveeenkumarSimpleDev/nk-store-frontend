@@ -43,6 +43,51 @@ export async function fetchProductById(productId) {
   });
 }
 
+/*
+priceRange,
+        brands: selectedBrands,
+        categories: selectCategories,
+*/
+
+export async function fetchProductByFilter(data) {
+  let querySting = '';
+  if (data.priceRange[1] !== 0) {
+    querySting += `price_renge=${data.priceRange[0]},${data.priceRange[1]}&`;
+  }
+
+  if (data.categories) {
+    querySting += 'cat='
+    for (let cat in data.categories) {
+      querySting += `${cat},`
+    }
+    querySting += '&';
+  }
+
+  if (data.brands) {
+    querySting += 'brands='
+    for (let brand in data.brands) {
+      querySting += `${brand},`
+    }
+  }
+
+  const url = baseUrl + "/products/" + querySting;
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(url);
+
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      if (error?.response?.status === 404) {
+        toast.error("Product not found");
+        reject("Product not found");
+      }
+      toast.error("Something wrong!");
+    }
+  });
+}
+
 export async function addToFavourites(data) {
   const url = baseUrl + "/favourites/addToFavourites";
 
@@ -105,7 +150,7 @@ export async function fetchFavourites(userId) {
 
 // product search
 export async function searchProducts(query) {
-  const url = baseUrl + "/products/search";
+  const url = baseUrl + "/products/find";
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, query, {

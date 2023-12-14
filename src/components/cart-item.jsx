@@ -3,7 +3,6 @@ import { Minus, Plus, Trash } from "lucide-react";
 
 import Button from "./ui/button";
 import { formatPrice } from "../lib/utils";
-import img from "/3.jpg";
 import { selectCart, updateCartAsync } from "../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { toast } from "react-hot-toast";
@@ -38,7 +37,7 @@ const CartItem = ({ item }) => {
     );
   };
   const total = Number(item?.discountPrice) * Number(currentItem?.quantity);
-
+  console.log(item);
   return (
     <>
       {cart?.cartItems && (
@@ -46,7 +45,7 @@ const CartItem = ({ item }) => {
           <div className="flex gap-2">
             <div>
               <img
-                src={item?.images[0]}
+                src={item?.variations?.images[0]}
                 className="h-12 w-20 sm:w-28 sm:h-20 object-cover object-center rounded-md"
                 alt={item?.title}
               />

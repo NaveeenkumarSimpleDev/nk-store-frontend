@@ -1,0 +1,64 @@
+[
+    {
+        "id": "6560c5e9618ff292fc26deea",
+        "title": "Apple Mack book pro",
+        "description": "Apple mackbook pro sliest power full chip laptop.",
+        "rating": 2066,
+        "category": "Electronics",
+        "createdAt": "2023-11-24T15:48:56.443Z",
+        "updatedAt": "2023-11-24T15:47:39.797Z",
+        "brandId": "6560c578618ff292fc26dedc",
+        "brand": {
+            "id": "6560c578618ff292fc26dedc",
+            "value": "Apple",
+            "category": "Electronice"
+        },
+        "variations": [
+            {
+                "id": "6560c6ba618ff292fc26def3",
+                "color": "white",
+                "size": null,
+                "price": 499,
+                "specifications": null,
+                "stock": 0,
+                "images": [
+                    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=726&q=80",
+                    "https://images.unsplash.com/photo-1420406676079-b8491f2d07c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80",
+                    "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                ],
+                "productId": "6560c5e9618ff292fc26deea"
+            }
+        ]
+    },
+    {
+        "id": "6560ce0a618ff292fc26df01",
+        "title": "Puma Sneeker",
+        "description": "The Nice comfort with your ancles.",
+        "rating": 199,
+        "category": "Fashion",
+        "createdAt": "2023-11-24T16:23:37.097Z",
+        "updatedAt": "2023-11-24T16:26:06.114Z",
+        "brandId": "6560c592618ff292fc26dee1",
+        "brand": {
+            "id": "6560c592618ff292fc26dee1",
+            "value": "Puma",
+            "category": "Fashion"
+        },
+        "variations": [
+            {
+                "id": "6560ce60618ff292fc26df07",
+                "color": "red",
+                "size": "11",
+                "price": 299,
+                "specifications": null,
+                "stock": 0,
+                "images": [
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+                    "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                ],
+                "productId": "6560ce0a618ff292fc26df01"
+            }
+        ]
+    }
+]

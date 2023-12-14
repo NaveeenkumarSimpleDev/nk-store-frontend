@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,7 +9,7 @@ import ProductPage from "./pages/product-page";
 import ToasterProvider from "./provider/toaster-provider";
 import { useEffect } from "react";
 import { checkAuthAsync, selectLoggedInUser } from "./feautures/auth/authSlice";
-import ProductDetails from "./components/product-details";
+import ProductDetails,{loader as productDetailsLoader} from "./components/product-details";
 import { fetchCartByUserIdAsync } from "./feautures/cart/cartSlice";
 import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
@@ -42,6 +42,7 @@ const routes = createBrowserRouter([
           {
             path: ":productId",
             element: <ProductDetails />,
+            // loader: productDetailsLoader
           },
         ],
       },

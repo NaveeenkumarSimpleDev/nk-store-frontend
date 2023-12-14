@@ -1,40 +1,26 @@
 import { SearchIcon } from "lucide-react";
 import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  searchProductsAsync,
-  selectSearchResults,
-} from "../feautures/product/productSlice";
 import { Link } from "react-router-dom";
+import { searchProducts } from "../feautures/product/productAPI";
 
 const SearchPage = ({ setOpen }) => {
-  const dispatch = useDispatch();
-  const products = useSelector(selectSearchResults);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
+  const [products, setProducts] = useState([]);
   let timeout;
 
   const onClose = () => setOpen(false);
 
-  const searchProducts = useCallback(async (query) => {
-    if (!query) {
-      return;
-    }
+  const onValueChange = useCallback(async (e) => {
     setLoading(true);
-    await dispatch(searchProductsAsync(query));
-    setLoading(false);
-  }, []);
+    const query = e.target.value;
+    clearTimeout(timeout);
 
-  const onValueChange = useCallback(
-    (e) => {
-      const query = e.target.value;
-      clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        searchProducts(query);
-      }, 1000);
-    },
-    [searchProducts]
-  );
+    timeout = setTimeout(async () => {
+      const results = await searchProducts(query);
+      setProducts(results);
+      setLoading(false);
+    }, 1000);
+  });
 
   let content;
 
@@ -45,7 +31,7 @@ const SearchPage = ({ setOpen }) => {
   if (products?.length > 0 && !loading) {
     content = (
       <ul>
-        {products?.map((product) => (
+        {products.map((product) => (
           <li onClick={onClose} key={product.id}>
             <Link to={`/products/${product.id}`}>
               <p className="w-full cursor-pointer hover:bg-[#eee] p-2 rounded-md">
@@ -58,7 +44,7 @@ const SearchPage = ({ setOpen }) => {
     );
   }
 
-  if (!loading &&  products?.length === 0) {
+  if (loading !== undefined && !loading && products?.length === 0) {
     content = <p>No results.</p>;
   }
 
@@ -78,9 +64,11 @@ const SearchPage = ({ setOpen }) => {
             onChange={onValueChange}
           />
         </div>
-        <div className="w-[30rem] p-2 mx-auto overflow-y-auto bg-white rounded-md">
-          {content}
-        </div>
+        {content && (
+          <div className="w-[30rem] p-2 mx-auto overflow-y-auto bg-white rounded-md">
+            {content}
+          </div>
+        )}
       </section>
     </>
   );

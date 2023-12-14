@@ -9,7 +9,7 @@ import { selectCart } from "../feautures/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 
-const Cart = ({ isOpen, setIsOpen }) => {
+const Cart = ({ isOpen, handleCartOpen }) => {
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
 
@@ -27,9 +27,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
   const delivary = 0;
   const total = subTotal + delivary;
 
-  const onClose = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+  console.log(cart);
 
   let content;
 
@@ -55,12 +53,9 @@ const Cart = ({ isOpen, setIsOpen }) => {
         <div className="h-full flex flex-col">
           <div className=" flex-grow overflow-y-auto">
             <div className="px-4 flex flex-col gap-3">
-              {cart?.cartItems?.map((item, idx) => (
-                <div key={item?.id}>
-                  <CartItem item={item} />
-                  <hr className="mt-2" />
-                </div>
-              ))}
+              {cart?.cartItems?.map((item, idx) => {
+                console.log(item);
+              })}
             </div>
           </div>
 
@@ -105,7 +100,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
         <div className="h-full w-ful flex justify-center">
           <div className="flex items-center gap-3 flex-col">
             <h1>Your cart is empty!</h1>
-            <Link onClick={() => setIsOpen(false)} to="/products">
+            <Link onClick={handleCartOpen} to="/products">
               <Button>Shop now.</Button>
             </Link>
           </div>
@@ -117,7 +112,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
     <>
       {isOpen && (
         <div
-          onClick={onClose}
+          onClick={handleCartOpen}
           className={cn(
             " z-[100] fixed top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
           )}
@@ -132,7 +127,7 @@ const Cart = ({ isOpen, setIsOpen }) => {
       >
         <div>
           <div
-            onClick={onClose}
+            onClick={handleCartOpen}
             className="hover:bg-accent absolute w-fit p-2 cursor-pointer rounded-full"
           >
             <X strokeWidth={3} size={22} />

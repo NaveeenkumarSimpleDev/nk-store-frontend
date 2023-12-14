@@ -11,6 +11,8 @@ import {
   selectError,
   selectAuthStatus,
 } from "../feautures/auth/authSlice";
+import Model from "../components/model";
+import { Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
+  console.log(loginError);
   const onSubmit = (data) => {
     const { email, password } = data;
 
@@ -51,94 +54,104 @@ const LoginPage = () => {
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
 
-      <Link
-        to=".."
-        className="cursor-default min-h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.8)]"
-      />
-      <div className="h-full z-[150] flex items-center justify-center">
-        <form
-          noValidate
-          className="h-fit bg-gray-200 z-[200] py-8 shadow-card-foreground shadow-lg rounded-lg px-12 max-w-lg flex flex-col gap-6"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Heading title="Welcome back!" />
+      <Model>
+        <div className="flex items-center justify-center  min-h-screen bg-gray-100">
+          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
+            <Heading title="Welcome back!" />
 
-          <div className="space-y-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold" htmlFor="email">
-                Email
-              </label>
-              <input
-                id="email"
-                className="border-none outline outline-1 rounded-md  focus:outline-2 px-2 py-1 focus:outline-purple-600"
-                type="email"
-                {...register("email", { required: "Email is required." })}
-              />
-              {loginError?.error?.message?.email ? (
-                <span className="text-xs truncate overflow-ellipsis text-red-600 font-semibold">
-                  {loginError?.error?.message?.email}
-                </span>
-              ) : (
-                (errors?.email || errorsState.email) && (
+            <form
+              noValidate
+              onSubmit={handleSubmit(onSubmit)}
+              className="mt-4 space-y-4"
+            >
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  {...register("email", { required: "Email is required." })}
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                />
+                {(errors.email || errorsState.email) && (
                   <span className="text-xs text-red-600 font-semibold">
                     {errorsState.email
                       ? errorsState.email
                       : errors?.email?.message}
                   </span>
-                )
-              )}
-            </div>
+                )}
+                {loginError && (
+                  <span className="text-xs text-red-600 font-semibold">
+                    {loginError?.error?.message?.email}
+                  </span>
+                )}
+              </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold" htmlFor="password">
-                Password
-              </label>
-
-              <input
-                id="password"
-                className="border-none outline outline-1 rounded-md  focus:outline-2 px-2 py-1 focus:outline-purple-600"
-                type="password"
-                {...register("password", { required: "Password is required." })}
-              />
-              {loginError?.error?.message?.password ? (
-                <span className="text-xs truncate overflow-ellipsis text-red-600 font-semibold">
-                  {loginError?.error?.message?.password}
-                </span>
-              ) : (
-                (errors?.password || errorsState.password) && (
-                  <span className="text-xs truncate overflow-ellipsis text-red-600 font-semibold">
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  {...register("password", {
+                    required: "Password is required.",
+                  })}
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                />
+                {(errors.password || errorsState.password) && (
+                  <span className="text-xs text-red-600 font-semibold">
                     {errorsState.password
                       ? errorsState.password
                       : errors?.password?.message}
                   </span>
-                )
-              )}
-            </div>
-          </div>
+                )}
+                {loginError && (
+                  <span className="text-xs text-red-600 font-semibold">
+                    {loginError?.error?.message?.password}
+                  </span>
+                )}
+              </div>
 
-          <Button
-            isLoading={authStatus === "loading"}
-            disabled={authStatus === "loading"}
-            className="uppercase text-sm font-semibold disabled:bg-muted-foreground"
-          >
-            Login
-          </Button>
-          <p>
-            create an account?
-            <Link
-              to={authStatus === "loading" ? null : "/signUp"}
-              className={`mx-2 font-semibold ${
-                authStatus === "loading" ? "disabled-link" : ""
-              }`}
-              style={{
-                pointerEvents: authStatus === "loading" ? "none" : "auto",
-              }}
-            >
-              click here
-            </Link>
-          </p>
-        </form>
-      </div>
+              <Button
+                isLoading={authStatus === "loading"}
+                disabled={authStatus === "loading"}
+                className="w-full mt-4 uppercase text-sm font-semibold disabled:bg-muted-foreground"
+              >
+                {authStatus === "loading" ? (
+                  <div className="flex items-center gap-x-2 justify-center">
+                    <Loader2 className="h-6 animate-spin" />
+                    <span className="text-sm font-semibold">
+                      Please wait....
+                    </span>
+                  </div>
+                ) : (
+                  "Login"
+                )}
+              </Button>
+            </form>
+
+            <p className="mt-4 text-sm">
+              Don't have an account?{" "}
+              <Link
+                to={authStatus === "loading" ? null : "/signUp"}
+                className={`font-semibold text-purple-600 ${
+                  authStatus === "loading" ? "pointer-events-none" : ""
+                }`}
+              >
+                Click here to sign up
+              </Link>
+            </p>
+          </div>
+        </div>
+      </Model>
     </>
   );
 };

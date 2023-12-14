@@ -44,7 +44,7 @@ export const loginUser = (loginData) => {
       }
     } catch (err) {
       const error = err.response?.data;
-      if (err.response?.data) {
+      if (error) {
         resolve({ error });
       } else {
         toast.error("somthing went wrong!");

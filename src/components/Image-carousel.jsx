@@ -12,9 +12,9 @@ const ImageCarousel = () => {
   const carouselRef = useRef(null);
 
   // Replace these image URLs with your actual image URLs
-  const mainImages = product?.images;
-  const smallImages = product?.images;
-
+  const mainImages = product?.variations[0]?.images;
+  const smallImages = product?.variations[0]?.images;
+  
   const handleSmallImageClick = (index) => {
     setCurrentSlide(index);
   };

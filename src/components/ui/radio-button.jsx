@@ -9,6 +9,8 @@ const RadioButton = ({
   className,
   checked,
   onChange,
+  disabled,
+  ...props
 }) => {
   return (
     <div className="flex">
@@ -19,6 +21,8 @@ const RadioButton = ({
         onChange={onChange}
         className="hidden"
         id={id}
+        disabled={disabled}
+        {...props}
       />
       <label
         style={{ background: color }}

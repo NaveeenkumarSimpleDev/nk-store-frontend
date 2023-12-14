@@ -10,10 +10,11 @@ import Cart from "../../pages/cart-page";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
+import { useCart } from "../../hooks/useCart";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
+  const { isCartOpen, handleCartOpen } = useCart();
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
 
@@ -45,7 +46,7 @@ const Navbar = () => {
           <Search />
 
           <div
-            onClick={() => setCartOpen(true)}
+            onClick={handleCartOpen}
             className="border cursor-pointer relative py-2 transition delay-100 ease-in-out px-3 hover:bg-accent rounded-md flex  items-center"
           >
             <ShoppingCart size={20} />
@@ -73,7 +74,7 @@ const Navbar = () => {
       </div>
 
       <div className="">
-        <Cart isOpen={cartOpen} setIsOpen={setCartOpen} />
+        <Cart isOpen={isCartOpen} handleCartOpen={handleCartOpen} />
       </div>
     </>
   );
