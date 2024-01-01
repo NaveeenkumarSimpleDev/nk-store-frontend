@@ -56,16 +56,20 @@ const UserDropdownMenu = () => {
                 <span>Billing</span>
                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
-                <Heart className="mr-4 h-4 w-4" />
-                <Link to="/favourites">Favorites</Link>
-                <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
-                <ShoppingCartIcon className="mr-4 h-4 w-4" />
-                <Link to="/products">Products</Link>
-                <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link to="/favourites">
+                <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
+                  <Heart className="mr-4 h-4 w-4" />
+                  Favorites
+                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
+              <Link to="/products">
+                <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
+                  <ShoppingCartIcon className="mr-4 h-4 w-4" />
+                  Products
+                  <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem

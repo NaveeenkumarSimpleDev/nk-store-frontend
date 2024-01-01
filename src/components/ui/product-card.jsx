@@ -6,10 +6,7 @@ import { cn, formatPrice } from "../../lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
-import {
-  addToCartAsync,
-  selectCartItems,
-} from "../../feautures/cart/cartSlice";
+
 import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
@@ -24,6 +21,7 @@ const ProductCard = ({ product }) => {
   const favourites = useSelector(selectFavourites)?.favourites;
   const [loading, setLoading] = useState(false);
   const { addToCart, cartItems, handleCartOpen } = useCart();
+  const loggedInUser = useSelector(selectLoggedInUser);
   const {
     id: productId,
     title,
@@ -36,23 +34,18 @@ const ProductCard = ({ product }) => {
   const formatTitle =
     title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
   const isFavourite = favourites?.includes(productId);
-  // const favouriteHandler = useCallback(() => {
-  //   if (isFavourite) {
-  //     dispatch(
-  //       removeFavouritesAsync({
-  //         userId: loggedInUser?.id,
-  //         productId,
-  //       })
-  //     );
-  //   } else {
-  //     dispatch(
-  //       addToFavouritesAsync({
-  //         userId: loggedInUser?.id,
-  //         productId: product?.id,
-  //       })
-  //     );
-  //   }
-  // }, [isFavourite, product]);
+  const favouriteHandler = () => {
+    if (!loggedInUser) {
+      toast.error("Please login to add favourites");
+      return;
+    }
+
+    if (isFavourite) {
+      dispatch(removeFavouritesAsync({ userId: loggedInUser?.id, productId }));
+    } else {
+      dispatch(addToFavouritesAsync({ userId: loggedInUser?.id, productId }));
+    }
+  };
 
   const addToCartHandler = () => {
     if (!product || !product?.variations) return;
@@ -66,7 +59,7 @@ const ProductCard = ({ product }) => {
     });
   };
 
-  let linkTo = product?.id;
+  let linkTo = "/products/" + product?.id;
   const customAttributes = product?.variations[0]?.customAttributes;
 
   if (customAttributes) {
@@ -111,7 +104,7 @@ const ProductCard = ({ product }) => {
             )}
 
             <Button
-              // onClick={favouriteHandler}
+              onClick={favouriteHandler}
               className="absolute hover:scale-110 transition duration-200 top-2 right-2 p-1.5 rounded-full"
             >
               <HeartIcon

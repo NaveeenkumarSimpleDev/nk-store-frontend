@@ -6,6 +6,7 @@ import { formatPrice } from "../lib/utils";
 import { selectCart, updateCartAsync } from "../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const CartItem = ({ item }) => {
           userId: loggedInUser?.id,
           productId: item?.id,
           type: "delete",
-        })
+        }),
       );
     }
   };
@@ -33,23 +34,45 @@ const CartItem = ({ item }) => {
       return toast.error("Max-quantity reached");
     }
     dispatch(
-      updateCartAsync({ userId: loggedInUser?.id, productId: item?.id, type })
+      updateCartAsync({ userId: loggedInUser?.id, productId: item?.id, type }),
     );
   };
   const total = Number(item?.discountPrice) * Number(currentItem?.quantity);
-  console.log(item);
+  // link for the product
+  let linkTo = "/products/" + item?.id;
+  const customAttributes = item?.variations?.customAttributes;
+  if (customAttributes) {
+    const customValues = Object.keys(customAttributes);
+
+    if (customValues[0]) {
+      linkTo += `?${customValues[0]}=${encodeURIComponent(
+        customAttributes[customValues[0]],
+      )}`;
+    }
+    if (customValues[1]) {
+      linkTo += `&${customValues[1]}=${encodeURIComponent(
+        customAttributes[customValues[1]],
+      )}`;
+    }
+    if (customValues[2]) {
+      linkTo += `&${customValues[2]}=${encodeURIComponent(
+        customAttributes[customValues[2]],
+      )}`;
+    }
+  }
   return (
     <>
       {cart?.cartItems && (
         <div className="flex items-center gap-2 justify-between">
-          <div className="flex gap-2">
-            <div>
+          <div className="flex flex-row gap-2">
+            <Link to={linkTo}>
               <img
                 src={item?.variations?.images[0]}
                 className="h-12 w-20 sm:w-28 sm:h-20 object-cover object-center rounded-md"
                 alt={item?.title}
               />
-            </div>
+            </Link>
+
             <div className="flex flex-col sm:-mt-1 overflow-hidden">
               <span className="overflow-ellipsis text-xs font-bold truncate sm:text-lg sm:font-semibold">
                 {item?.title}

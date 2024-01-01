@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/ui/heading";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,10 +15,13 @@ const Favorites = () => {
   const user = useSelector(selectUser);
   const products = useSelector(selectAllProducts);
   const favourites = useSelector(selectFavourites)?.favourites;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductsAsync());
+    setLoading(true);
     dispatch(fetchFavouritesAsync(user?.id));
+    setLoading(false);
   }, []);
 
   const favProducts = products?.map((p) => {
@@ -38,6 +41,8 @@ const Favorites = () => {
             <ProductCard product={product} favourite={true} key={product?.id} />
           ))}
         </div>
+      ) : loading ? (
+        <p className="pl-3">Loading...</p>
       ) : (
         <p className="pl-3">No Favourites</p>
       )}
