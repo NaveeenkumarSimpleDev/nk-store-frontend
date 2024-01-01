@@ -10,13 +10,7 @@ import {
   selectAllProducts,
   selectProductById,
 } from "../feautures/product/productSlice";
-import {
-  Link,
-  useNavigate,
-  useLocation,
-  useParams,
-  useLoaderData,
-} from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import LoadingIndigator from "./loading-indicator";
 import { useCart } from "../hooks/useCart";
