@@ -3,15 +3,16 @@ import { X } from "lucide-react";
 import CartItem from "../components/cart-item";
 import Button from "../components/ui/button";
 import { cn, formatPrice } from "../lib/utils";
-import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { selectCart } from "../feautures/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
+import { useCart } from "../hooks/useCart";
 
-const Cart = ({ isOpen, handleCartOpen }) => {
+const Cart = () => {
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
+  const { handleCartOpen, isCartOpen: isOpen } = useCart();
 
   const cartItemsWithQuantity = cart?.cartItems?.map((item) => ({
     id: item?.id,

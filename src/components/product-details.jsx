@@ -7,10 +7,9 @@ import { formatPrice } from "../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductByIdAsync,
-  selectAllProducts,
   selectProductById,
 } from "../feautures/product/productSlice";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import LoadingIndigator from "./loading-indicator";
 import { useCart } from "../hooks/useCart";
@@ -26,7 +25,7 @@ const ProductDetails = () => {
 
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { addToCart, cartItems } = useCart();
+  const { addToCart, cartItems, handleCartOpen } = useCart();
   const [selectedAttributes, setSelectedAttributes] = useState();
   const [attributes, setAttributes] = useState([]);
   const [firstAvailabeAttributes, setFirstAvaileAttributes] = useState([]);
@@ -153,13 +152,15 @@ const ProductDetails = () => {
         return item;
     });
     const hasImage = selectedVariation?.images;
-
+    setLoading(true);
     addToCart({
       ...product,
       quantity,
       variations: hasImage
         ? selectedVariation
         : { ...selectedVariation, images: product?.variations[0]?.images },
+    }).finally(() => {
+      setLoading(false);
     });
   };
 
@@ -292,8 +293,13 @@ const ProductDetails = () => {
             <div className="flex gap-6">
               <Button
                 disabled={loading}
-                isLoading={loading}
-                onClick={addToCartHandler}
+                // isLoading={loading}
+
+                onClick={() => {
+                  return exsistingCartItem
+                    ? handleCartOpen()
+                    : addToCartHandler();
+                }}
                 className="font-semibold"
               >
                 {loading ? (
@@ -318,15 +324,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
-
-export async function loader({ params, request }) {
-  const productId = params?.productId;
-  const response = await request(fetchProductByIdAsync(productId));
-
-  if (response.error) {
-    throw new Error("Failed to fetch product details");
-  }
-
-  return response.data;
-}
+export default React.memo(ProductDetails);

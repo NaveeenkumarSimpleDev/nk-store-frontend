@@ -14,7 +14,7 @@ import { useCart } from "../../hooks/useCart";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isCartOpen, handleCartOpen } = useCart();
+  const { handleCartOpen } = useCart();
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
 
@@ -74,7 +74,7 @@ const Navbar = () => {
       </div>
 
       <div className="">
-        <Cart isOpen={isCartOpen} handleCartOpen={handleCartOpen} />
+        <Cart />
       </div>
     </>
   );

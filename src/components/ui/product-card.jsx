@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const favourites = useSelector(selectFavourites)?.favourites;
   const [loading, setLoading] = useState(false);
-  const { addToCart, cartItems } = useCart();
+  const { addToCart, cartItems, handleCartOpen } = useCart();
   const {
     id: productId,
     title,
@@ -32,7 +32,9 @@ const ProductCard = ({ product }) => {
     discountPrice,
     mrp,
   } = product;
-
+  const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
+  const formatTitle =
+    title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
   const isFavourite = favourites?.includes(productId);
   // const favouriteHandler = useCallback(() => {
   //   if (isFavourite) {
@@ -54,17 +56,15 @@ const ProductCard = ({ product }) => {
 
   const addToCartHandler = () => {
     if (!product || !product?.variations) return;
-    console.log(product);
+    setLoading(true);
     addToCart({
       ...product,
-      variations: product?.variations[0]?.customAttributes,
+      variations: product?.variations[0],
       quantity: 1,
+    }).finally(() => {
+      setLoading(false);
     });
   };
-
-  const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
-  const formatTitle =
-    title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
 
   let linkTo = product?.id;
   const customAttributes = product?.variations[0]?.customAttributes;
@@ -155,9 +155,12 @@ const ProductCard = ({ product }) => {
                 </Button>
               </Link>
               <Button
-                isLoading={loading}
                 disabled={loading}
-                onClick={addToCartHandler}
+                onClick={() => {
+                  return exsistingCartItem
+                    ? handleCartOpen()
+                    : addToCartHandler();
+                }}
                 className="m-0 font-semibold disabled:opacity-75"
               >
                 {loading ? (
