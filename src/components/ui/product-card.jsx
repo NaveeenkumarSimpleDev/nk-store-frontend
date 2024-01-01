@@ -66,19 +66,28 @@ const ProductCard = ({ product }) => {
   const formatTitle =
     title?.length < 12 ? title : title?.slice(0, 12)?.concat("..");
 
-  const color = product?.variations[0]?.color;
-  const size = product.variations[0]?.size;
   let linkTo = product?.id;
-  if (color && size) {
-    linkTo += `?color=${encodeURIComponent(color)}&size=${encodeURIComponent(
-      size
-    )}`;
-  } else if (color) {
-    linkTo += `?color=${encodeURIComponent(color)}`;
-  } else if (size) {
-    linkTo += `?size=${encodeURIComponent(size)}`;
-  }
+  const customAttributes = product?.variations[0]?.customAttributes;
 
+  if (customAttributes) {
+    const customValues = Object.keys(customAttributes);
+
+    if (customValues[0]) {
+      linkTo += `?${customValues[0]}=${encodeURIComponent(
+        customAttributes[customValues[0]],
+      )}`;
+    }
+    if (customValues[1]) {
+      linkTo += `&${customValues[1]}=${encodeURIComponent(
+        customAttributes[customValues[1]],
+      )}`;
+    }
+    if (customValues[2]) {
+      linkTo += `&${customValues[2]}=${encodeURIComponent(
+        customAttributes[customValues[2]],
+      )}`;
+    }
+  }
   return (
     <>
       <section className="rounded-lg border flex flex-col">

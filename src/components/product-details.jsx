@@ -25,8 +25,6 @@ import { selectLoggedInUser } from "../feautures/auth/authSlice";
 const ProductDetails = () => {
   const { productId } = useParams();
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const data = useLoaderData();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectProductById);
@@ -39,19 +37,19 @@ const ProductDetails = () => {
   const [attributes, setAttributes] = useState([]);
   const [firstAvailabeAttributes, setFirstAvaileAttributes] = useState([]);
   const [secondAvailableAttributes, setSecondAvailableAttributes] = useState(
-    []
+    [],
   );
 
   useEffect(() => {
     dispatch(fetchProductByIdAsync(productId));
-  }, [productId]);
+  }, [productId, dispatch]);
 
   useEffect(() => {
     if (!product) return;
     setSelectedAttributes(product?.variations[0]?.customAttributes);
 
     const attributes = Object.keys(
-      product?.variations[0]?.customAttributes || {}
+      product?.variations[0]?.customAttributes || {},
     );
     setAttributes(attributes);
   }, [product]);
@@ -75,7 +73,7 @@ const ProductDetails = () => {
 
   const handleFirstAttributeChange = (value) => {
     const defaultSelected = product?.variations?.find(
-      (item) => item.customAttributes[attributes[0]] == value
+      (item) => item.customAttributes[attributes[0]] == value,
     );
 
     if (defaultSelected) {
@@ -102,10 +100,10 @@ const ProductDetails = () => {
     const fAtt = attributes[0] == "color" ? "color" : attributes[1];
     const availableProducts = product?.variations?.filter(
       (variation) =>
-        variation.customAttributes[fAtt] === selectedAttributes[fAtt]
+        variation.customAttributes[fAtt] === selectedAttributes[fAtt],
     );
     const availableFirstValues = availableProducts?.map(
-      (item) => item.customAttributes[attributes[1]]
+      (item) => item.customAttributes[attributes[1]],
     );
     setFirstAvaileAttributes(availableFirstValues);
 
@@ -114,10 +112,10 @@ const ProductDetails = () => {
       const availableSeconstAttributes = availableProducts?.filter(
         (item) =>
           item.customAttributes[attributes[1]] ==
-          selectedAttributes[attributes[1]]
+          selectedAttributes[attributes[1]],
       );
       const availabelSecondValues = availableSeconstAttributes?.map(
-        (item) => item.customAttributes[attributes[2]]
+        (item) => item.customAttributes[attributes[2]],
       );
       setSecondAvailableAttributes(availabelSecondValues);
     }
@@ -139,10 +137,35 @@ const ProductDetails = () => {
       return navigate("/login");
     }
 
+    const selectedVariation = product?.variations?.find((item) => {
+      if (attributes?.length == 1) {
+        if (item?.customAttributes[attributes[0]] == selectedAttributes[0])
+          return item;
+      }
+
+      if (attributes.length == 2) {
+        if (
+          item?.customAttributes[attributes[0]] == selectedAttributes[0] &&
+          item?.customAttributes[attributes[1]] == selectedAttributes[1]
+        )
+          return item;
+      }
+
+      if (
+        item?.customAttributes[attributes[0]] == selectedAttributes[0] &&
+        item?.customAttributes[attributes[1]] == selectedAttributes[1] &&
+        item?.customAttributes[attributes[2]] == selectedAttributes[2]
+      )
+        return item;
+    });
+    const hasImage = selectedVariation?.images;
+
     addToCart({
       ...product,
       quantity,
-      variations: selectedAttributes,
+      variations: hasImage
+        ? selectedVariation
+        : { ...selectedVariation, images: product?.variations[0]?.images },
     });
   };
 
@@ -301,7 +324,7 @@ const ProductDetails = () => {
   );
 };
 
-export default React.memo(ProductDetails);
+export default ProductDetails;
 
 export async function loader({ params, request }) {
   const productId = params?.productId;

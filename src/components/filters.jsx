@@ -1,6 +1,5 @@
 import { X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
 import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
 import { cn } from "../lib/utils";
@@ -37,6 +36,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
       // Price range filter
       if (priceRange[1] !== 0) {
         urlSearchParams.set("price_range", priceRange.join("-"));
+      } else {
+        urlSearchParams.delete("price_range");
       }
 
       // Category filter
@@ -64,12 +65,11 @@ const Filters = ({ isOpen, setIsOpen }) => {
     } else {
       setMounted(true);
     }
+
     dispatch(fetchProductsAsync());
   }, [priceRange, selectCategories, selectedBrands]);
 
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {}, []);
 
   const clearFilters = useCallback(() => {
     setPriceRange([0, 0]);
@@ -87,14 +87,14 @@ const Filters = ({ isOpen, setIsOpen }) => {
         <div
           onClick={onClose}
           className={cn(
-            " z-[100] fixed left-0 top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
+            " z-[100] fixed left-0 top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]",
           )}
         />
       )}
       <nav
         className={cn(
           "h-full z-[160] fixed top-0 right-0",
-          isOpen ? "clip-inset-100" : "-clip-inset-0"
+          isOpen ? "clip-inset-100" : "-clip-inset-0",
         )}
       >
         <section className=" w-[90vw] sm:max-w-[600px] h-full overflow-auto bg-white">
@@ -126,7 +126,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     value={priceRange[0]}
                     onChange={(e) => {
                       const value = e.target.value;
-                      setPriceRange((prev) => [Number(value), prev[1]]);
+                      (value < priceRange[1] || value == priceRange[1]) &&
+                        setPriceRange((prev) => [Number(value), prev[1]]);
                     }}
                   />
                   <span className="text-xl mx-4">-</span>
@@ -139,8 +140,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
                     min={0}
                     onChange={(e) => {
                       const value = e.target.value;
-                      value > priceRange[0] &&
-                        setPriceRange((prev) => [prev[0], Number(value)]);
+                      setPriceRange((prev) => [prev[0], Number(value)]);
                     }}
                   />
                 </div>
@@ -163,8 +163,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
                               ])
                             : setSelectedCategories(
                                 selectCategories.filter(
-                                  (item) => item !== cat.value
-                                )
+                                  (item) => item !== cat.value,
+                                ),
                               )
                         }
                       />
@@ -196,8 +196,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
                               ])
                             : setSelectedBrands(
                                 selectedBrands.filter(
-                                  (item) => item !== brand.label
-                                )
+                                  (item) => item !== brand.label,
+                                ),
                               )
                         }
                       />

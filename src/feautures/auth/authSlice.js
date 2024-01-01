@@ -13,7 +13,7 @@ export const createuserAsync = createAsyncThunk(
   async (userData) => {
     const response = await createUser(userData);
     return response;
-  }
+  },
 );
 
 export const loginUserAsync = createAsyncThunk("user/login", async (data) => {
@@ -70,7 +70,7 @@ const authSlice = createSlice({
       .addCase(checkAuthAsync.fulfilled, (state, action) => {
         state.loggedInUserToken = action.payload;
       })
-      .addCase(checkAuthAsync.rejected, (state, action) => {
+      .addCase(checkAuthAsync.rejected, (state) => {
         state.loggedInUserToken = null;
       })
       .addCase(logoutUserAsync.pending, (state) => {

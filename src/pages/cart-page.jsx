@@ -22,7 +22,7 @@ const Cart = ({ isOpen, handleCartOpen }) => {
 
   const subTotal = cartItemsWithQuantity?.reduce(
     (prev, curr) => prev + curr.total,
-    0
+    0,
   );
   const delivary = 0;
   const total = subTotal + delivary;
@@ -54,7 +54,7 @@ const Cart = ({ isOpen, handleCartOpen }) => {
           <div className=" flex-grow overflow-y-auto">
             <div className="px-4 flex flex-col gap-3">
               {cart?.cartItems?.map((item, idx) => {
-                console.log(item);
+                return <CartItem key={idx + "" + item?.id} item={item} />;
               })}
             </div>
           </div>
@@ -114,7 +114,7 @@ const Cart = ({ isOpen, handleCartOpen }) => {
         <div
           onClick={handleCartOpen}
           className={cn(
-            " z-[100] fixed top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
+            " z-[100] fixed top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]",
           )}
         />
       )}
@@ -122,7 +122,7 @@ const Cart = ({ isOpen, handleCartOpen }) => {
       <div
         className={cn(
           "transition-all duration-200 z-[110] h-screen  w-full flex flex-col gap-4 max-w-[35rem] fixed right-0 bg-white",
-          isOpen ? "clip-inset-100" : "-clip-inset-0"
+          isOpen ? "clip-inset-100" : "-clip-inset-0",
         )}
       >
         <div>
