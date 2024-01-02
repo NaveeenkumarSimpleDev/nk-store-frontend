@@ -1,5 +1,5 @@
 import { addToCartAsync, selectCartItems } from "../feautures/cart/cartSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { useContext, useState } from "react";
@@ -11,10 +11,11 @@ export const useCart = () => {
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const cartContext = useContext(CartContext);
+  const location = useLocation();
 
   const addToCartHandler = async (product) => {
     if (!loggedInUser) {
-      return navigate("/login");
+      return navigate("/login", { state: { from: location.pathname } });
     }
     const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
     if (exsistingCartItem) {

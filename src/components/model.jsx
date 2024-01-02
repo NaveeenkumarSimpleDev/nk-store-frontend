@@ -1,7 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
 
-const Model = ({ className, children, backButtonHref }) => {
+const Model = ({ className, children, backButtonHref = -1 }) => {
+  const navigate = useNavigate();
   return (
     <div>
       {/* backdrop */}
