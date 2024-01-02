@@ -7,12 +7,15 @@ import { selectCart, updateCartAsync } from "../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
   const cart = useSelector(selectCart);
   const currentItem = cart?.cartItems?.find((p) => p.id === item?.id);
+
+  const { handleCartOpen } = useCart();
 
   const handleDelete = () => {
     const res = confirm("Are you sure to remove item from cart?");
@@ -65,7 +68,7 @@ const CartItem = ({ item }) => {
       {cart?.cartItems && (
         <div className="flex items-center gap-2 justify-between">
           <div className="flex flex-row gap-2">
-            <Link to={linkTo}>
+            <Link onClick={handleCartOpen} to={linkTo}>
               <img
                 src={item?.variations?.images[0]}
                 className="h-12 w-20 sm:w-28 sm:h-20 object-cover object-center rounded-md"

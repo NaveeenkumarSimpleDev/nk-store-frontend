@@ -89,6 +89,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (!product?.variations) return;
+    if (!selectedAttributes) return;
     // setAvailabe for First
     const fAtt = attributes[0] == "color" ? "color" : attributes[1];
     const availableProducts = product?.variations?.filter(
@@ -127,7 +128,7 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     if (!loggedInUser) {
-      return navigate("/login");
+      return navigate("/login", { state: { from: location.pathname } });
     }
 
     const selectedVariation = product?.variations?.find((item) => {
@@ -164,7 +165,7 @@ const ProductDetails = () => {
     });
   };
 
-  const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
+  const exsistingCartItem = cartItems?.find((item) => item?.id === product?.id);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +20,8 @@ const LoginPage = () => {
   const authStatus = useSelector(selectAuthStatus);
   const loginError = useSelector(selectError)?.login;
   const [errorsState, setErrorsState] = useState({});
+  const location = useLocation();
+  const from = location.state?.from?.pathname || -1;
 
   const {
     handleSubmit,
@@ -27,7 +29,6 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  console.log(loginError);
   const onSubmit = (data) => {
     const { email, password } = data;
 
@@ -54,7 +55,7 @@ const LoginPage = () => {
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
 
-      <Model>
+      <Model backButtonHref={from}>
         <div className="flex items-center justify-center  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Welcome back!" />
