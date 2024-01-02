@@ -132,34 +132,49 @@ const ProductDetails = () => {
     }
 
     const selectedVariation = product?.variations?.find((item) => {
-      if (attributes?.length == 1) {
-        if (item?.customAttributes[attributes[0]] == selectedAttributes[0])
-          return item;
-      }
-
-      if (attributes.length == 2) {
+      if (attributes?.length === 1) {
         if (
-          item?.customAttributes[attributes[0]] == selectedAttributes[0] &&
-          item?.customAttributes[attributes[1]] == selectedAttributes[1]
-        )
+          item?.customAttributes[attributes[0]] ===
+          selectedAttributes[attributes[0]]
+        ) {
+          console.log("Found variation for attributes length 1:", item);
           return item;
+        }
+      } else if (attributes?.length === 2) {
+        if (
+          item?.customAttributes[attributes[0]] ===
+            selectedAttributes[attributes[0]] &&
+          item?.customAttributes[attributes[1]] ===
+            selectedAttributes[attributes[1]]
+        ) {
+          console.log("Found variation for attributes length 2:", item);
+          return item;
+        }
+      } else if (attributes?.length === 3) {
+        if (
+          item?.customAttributes[attributes[0]] ===
+            selectedAttributes[attributes[0]] &&
+          item?.customAttributes[attributes[1]] ===
+            selectedAttributes[attributes[1]] &&
+          item?.customAttributes[attributes[2]] ===
+            selectedAttributes[attributes[2]]
+        ) {
+          console.log("Found variation for attributes length 3:", item);
+          return item;
+        }
       }
-
-      if (
-        item?.customAttributes[attributes[0]] == selectedAttributes[0] &&
-        item?.customAttributes[attributes[1]] == selectedAttributes[1] &&
-        item?.customAttributes[attributes[2]] == selectedAttributes[2]
-      )
-        return item;
+      return undefined;
     });
+
     const hasImage = selectedVariation?.images;
     setLoading(true);
     addToCart({
       ...product,
       quantity,
-      variations: hasImage
-        ? selectedVariation
-        : { ...selectedVariation, images: product?.variations[0]?.images },
+      variations:
+        hasImage && hasImage.length > 0
+          ? selectedVariation
+          : { ...selectedVariation, images: product?.variations[0]?.images },
     }).finally(() => {
       setLoading(false);
     });

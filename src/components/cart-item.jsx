@@ -44,6 +44,7 @@ const CartItem = ({ item }) => {
   // link for the product
   let linkTo = "/products/" + item?.id;
   const customAttributes = item?.variations?.customAttributes;
+  console.log({ customAttributes });
   if (customAttributes) {
     const customValues = Object.keys(customAttributes);
 
