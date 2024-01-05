@@ -16,6 +16,7 @@ import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 import Favorites from "./pages/favorites";
 import CartProvider from "./context/cart-context";
 import AdminDashboard from "./admin/pages/dashboard";
+import ProtectedRoute from "./admin/components/protected";
 
 const routes = createBrowserRouter([
   {
@@ -61,7 +62,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <P,
+        element: (
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
