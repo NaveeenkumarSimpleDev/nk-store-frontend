@@ -28,8 +28,6 @@ const Cart = () => {
   const delivary = 0;
   const total = subTotal + delivary;
 
-  console.log(cart);
-
   let content;
 
   if (!loggedInUser) {

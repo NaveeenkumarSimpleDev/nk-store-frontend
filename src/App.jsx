@@ -15,6 +15,7 @@ import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 import Favorites from "./pages/favorites";
 import CartProvider from "./context/cart-context";
+import AdminDashboard from "./admin/pages/dashboard";
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const routes = createBrowserRouter([
       {
         path: "/favourites",
         element: <Favorites />,
+      },
+      {
+        path: "/admin",
+        element: <P,
       },
     ],
   },

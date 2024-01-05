@@ -39,8 +39,21 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (!product) return;
-    setSelectedAttributes(product?.variations[0]?.customAttributes);
+    const searchParams = new URLSearchParams(location.search);
+    const keys = Array.from(searchParams.keys());
+    const values = Array.from(searchParams.values());
 
+    if (!keys.length) {
+      setSelectedAttributes(product?.variations[0]?.customAttributes);
+      return;
+    }
+
+    let keyValuePair = {};
+    keys.forEach((key, index) => {
+      keyValuePair[key] = values[index];
+    });
+
+    setSelectedAttributes(keyValuePair);
     const attributes = Object.keys(
       product?.variations[0]?.customAttributes || {},
     );
@@ -137,7 +150,6 @@ const ProductDetails = () => {
           item?.customAttributes[attributes[0]] ===
           selectedAttributes[attributes[0]]
         ) {
-          console.log("Found variation for attributes length 1:", item);
           return item;
         }
       } else if (attributes?.length === 2) {
@@ -147,7 +159,6 @@ const ProductDetails = () => {
           item?.customAttributes[attributes[1]] ===
             selectedAttributes[attributes[1]]
         ) {
-          console.log("Found variation for attributes length 2:", item);
           return item;
         }
       } else if (attributes?.length === 3) {
@@ -159,7 +170,6 @@ const ProductDetails = () => {
           item?.customAttributes[attributes[2]] ===
             selectedAttributes[attributes[2]]
         ) {
-          console.log("Found variation for attributes length 3:", item);
           return item;
         }
       }
@@ -309,8 +319,7 @@ const ProductDetails = () => {
             <div className="flex gap-6">
               <Button
                 disabled={loading}
-                // isLoading={loading}
-
+                isLoading={loading}
                 onClick={() => {
                   return exsistingCartItem
                     ? handleCartOpen()
