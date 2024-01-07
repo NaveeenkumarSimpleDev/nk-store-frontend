@@ -10,6 +10,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
+import { Link } from "react-router-dom";
 
 const components = [
   {
@@ -92,7 +93,7 @@ export function NavigationLinks() {
           <NavigationMenuTrigger
             className={cn(
               "font-semibold text-sm mr-2",
-              navigationMenuTriggerStyle
+              navigationMenuTriggerStyle,
             )}
           >
             Components
@@ -114,7 +115,7 @@ export function NavigationLinks() {
         <NavigationMenuItem>
           {/* <Link href="/docs" legacyBehavior passHref> */}
           <NavigationMenuLink className="font-semibold text-sm mr-2">
-            Documentation
+            <Link to={"/admin"}>Dashboard</Link>
           </NavigationMenuLink>
           {/* </Link> */}
         </NavigationMenuItem>
@@ -132,7 +133,7 @@ const ListItem = React.forwardRef(
             ref={ref}
             className={cn(
               "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className
+              className,
             )}
             {...props}
           >
@@ -144,6 +145,6 @@ const ListItem = React.forwardRef(
         </NavigationMenuLink>
       </li>
     );
-  }
+  },
 );
 ListItem.displayName = "ListItem";

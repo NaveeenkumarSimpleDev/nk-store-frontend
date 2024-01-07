@@ -17,6 +17,9 @@ import Favorites from "./pages/favorites";
 import CartProvider from "./context/cart-context";
 import AdminDashboard from "./admin/pages/dashboard";
 import ProtectedRoute from "./admin/components/protected";
+import AdminLayout from "./admin/pages/admin-laout";
+import AdminProducts from "./admin/pages/admin-products";
+import AddProduct from "./admin/pages/new-product";
 
 const routes = createBrowserRouter([
   {
@@ -62,11 +65,16 @@ const routes = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: (
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        ),
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <p>Afmin Panel</p> },
+          {
+            path: "products",
+            element: <AdminProducts />,
+          },
+          { path: "orders", element: <p>Orders</p> },
+          { path: "products/new-product", element: <AddProduct /> },
+        ],
       },
     ],
   },
