@@ -1,10 +1,10 @@
+import React from "react";
 import CreatableSelect from "react-select/creatable";
 import Button from "../../components/ui/button";
-import { useNewProduct } from "../../hooks/use-new-product";
 import { useRef, useState } from "react";
 import { cn } from "../../lib/utils";
 
-const VartationForm = ({ setVariationOpen }) => {
+const VartationForm = ({ setVariationOpen, setVariations }) => {
   const [attribute1, setAttribute1] = useState();
   const [attribute2, setAttribute2] = useState();
   const [attribute3, setAttribute3] = useState();
@@ -17,7 +17,6 @@ const VartationForm = ({ setVariationOpen }) => {
   const stockRef = useRef();
   const specRef = useRef();
   const imageRef = useRef();
-  const { variations, setVariations } = useNewProduct();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +68,6 @@ const VartationForm = ({ setVariationOpen }) => {
     specRef.current.value = "";
     imageRef.current.value = "";
     setError({});
-
     setVariationOpen((prev) => !prev);
   };
 
@@ -201,7 +199,7 @@ const VartationForm = ({ setVariationOpen }) => {
       </div>
       <div>
         <Button onClick={handleSubmit}>Save</Button>
-        <Button type="button" onClick={() => {}}>
+        <Button type="button" onClick={() => setVariationOpen((prev) => !prev)}>
           Cancel
         </Button>
       </div>
@@ -209,4 +207,4 @@ const VartationForm = ({ setVariationOpen }) => {
   );
 };
 
-export default VartationForm;
+export default React.memo(VartationForm);

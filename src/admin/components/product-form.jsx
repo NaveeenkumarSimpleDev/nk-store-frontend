@@ -8,18 +8,16 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import { useState } from "react";
-import CreatableSelect from "react-select/creatable";
 import Button from "../../components/ui/button";
 import { PlusIcon } from "lucide-react";
-import { useNewProduct } from "../../hooks/use-new-product";
 import VartationForm from "./variations-form";
 
 const ProductForm = () => {
   const [isNewBrand, setNewBrand] = useState(false);
+  const [variations, setVariations] = useState([]);
+  const [variationOpen, setVariationOpen] = useState(false);
 
-  const { setVariations, variations, variationOpen, setVariationOpen } =
-    useNewProduct();
-    console.log(variations);
+  console.log({ variations });
   return (
     <div>
       <form action="" onSubmit={(e) => e.preventDefault()}>
@@ -154,13 +152,18 @@ const ProductForm = () => {
         {/* Variations */}
         <div>
           <p className=" font-bold text-xl">Variations</p>
+          div
+          
           {!variationOpen && (
             <Button type="button" onClick={() => setVariationOpen(true)}>
               <PlusIcon className="h-4 w-4" />
             </Button>
           )}
           {variationOpen && (
-            <VartationForm setVariationOpen={setVariationOpen} />
+            <VartationForm
+              setVariationOpen={setVariationOpen}
+              setVariations={setVariations}
+            />
           )}
         </div>
         <Button>Submit</Button>
