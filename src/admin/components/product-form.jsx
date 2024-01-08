@@ -153,7 +153,6 @@ const ProductForm = () => {
         <div>
           <p className=" font-bold text-xl">Variations</p>
           div
-          
           {!variationOpen && (
             <Button type="button" onClick={() => setVariationOpen(true)}>
               <PlusIcon className="h-4 w-4" />
