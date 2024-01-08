@@ -11,13 +11,18 @@ import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Button from "../../components/ui/button";
 import { PlusIcon } from "lucide-react";
+import { useNewProduct } from "../../hooks/use-new-product";
+import VartationForm from "./variations-form";
 
 const ProductForm = () => {
   const [isNewBrand, setNewBrand] = useState(false);
-  const [variationOpen, setVariationOpen] = useState(false);
+
+  const { setVariations, variations, variationOpen, setVariationOpen } =
+    useNewProduct();
+    console.log(variations);
   return (
     <div>
-      <form action="">
+      <form action="" onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col ">
           <label htmlFor="title" className=" font-bold text-xl">
             Title
@@ -155,109 +160,10 @@ const ProductForm = () => {
             </Button>
           )}
           {variationOpen && (
-            <>
-              <div className="space-y-4">
-                <p>Custom Attributes</p>
-                <div className="grid grid-cols-2 gap-4 w-full">
-                  <CreatableSelect
-                    isClearable
-                    options={[{ value: "test", label: "test" }]}
-                  />
-                  <input
-                    type="text"
-                    className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                    placeholder="Value"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4 w-full">
-                  <CreatableSelect
-                    isClearable
-                    options={[{ value: "test", label: "test" }]}
-                  />
-                  <input
-                    type="text"
-                    className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                    placeholder="Value"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4 w-full">
-                  <CreatableSelect
-                    isClearable
-                    options={[{ value: "test", label: "test" }]}
-                  />
-                  <input
-                    type="text"
-                    className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                    placeholder="Value"
-                  />
-                </div>
-                <p>
-                  Required : Please select at least one attribute for this
-                  product
-                </p>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex flex-col ">
-                  <label htmlFor="var-price" className=" font-bold text-xl">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                    name="var-price"
-                    id="var-price"
-                    min={1}
-                  />
-                </div>
-                <div className="flex flex-col ">
-                  <label htmlFor="stock" className=" font-bold text-xl">
-                    Stock
-                  </label>
-                  <input
-                    type="number"
-                    className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                    name="stock"
-                    id="stock"
-                    min={1}
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col ">
-                <label htmlFor="specs" className=" font-bold text-xl">
-                  Specifications
-                </label>
-                <input
-                  type="text"
-                  className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                  name="specs"
-                  id="specs"
-                />
-              </div>
-              <div className="flex flex-col ">
-                <label htmlFor="images" className=" font-bold text-xl">
-                  Images
-                </label>
-                <input
-                  type="file"
-                  className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                  name="images"
-                  id="images"
-                  multiple
-                />
-              </div>
-              <div>
-                <Button type="button" onClick={() => setVariationOpen(false)}>
-                  Save
-                </Button>
-                <Button type="button" onClick={() => setVariationOpen(false)}>
-                  Cancel
-                </Button>
-              </div>
-            </>
+            <VartationForm setVariationOpen={setVariationOpen} />
           )}
         </div>
+        <Button>Submit</Button>
       </form>
     </div>
   );
