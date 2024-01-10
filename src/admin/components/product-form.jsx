@@ -155,7 +155,10 @@ const ProductForm = () => {
         <div>
           <p className=" font-bold text-xl">Variations</p>
           {variations && variations.length > 0 && (
-            <VariationsTable variations={variations} />
+            <VariationsTable
+              variations={variations}
+              setVariations={setVariations}
+            />
           )}
           {!variationOpen && (
             <Button type="button" onClick={() => setVariationOpen(true)}>

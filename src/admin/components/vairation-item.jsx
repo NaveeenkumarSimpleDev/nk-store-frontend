@@ -7,11 +7,11 @@ import {
   DropdownMenuItem,
 } from "../../components/ui/dropdown-menu";
 
-const VariationItem = ({ variation }) => {
+const VariationItem = ({ variation, idx, setEditing, setVariations }) => {
   console.log({ variation });
   return (
     <tr className="p-4 text-lg">
-      {/* <td>{variation?.attributes}</td> */}
+      <td>{idx + 1}</td>
       <td>
         {Object.keys(variation?.customAtributes).map((key) => {
           if (key && variation?.customAtributes[key]) {
@@ -36,13 +36,28 @@ const VariationItem = ({ variation }) => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <div className="flex items-center">
+              <div
+                className="flex items-center"
+                onClick={() => setEditing(variation)}
+              >
                 <FileTypeIcon className="text-green-500 " />
                 <span className="ml-2">Edit</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <div className="flex items-center">
+              <div
+                className="flex items-center"
+                onClick={() => {
+                  const confirm = window.confirm(
+                    "Are you sure you want to delete this Variation?",
+                  );
+                  if (confirm) {
+                    setVariations((prev) =>
+                      prev.filter((v) => v.id !== variation.id),
+                    );
+                  }
+                }}
+              >
                 <Trash2 className="text-red-500" />
                 <span className="ml-2">Delete</span>
               </div>

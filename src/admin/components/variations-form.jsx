@@ -4,7 +4,7 @@ import Button from "../../components/ui/button";
 import { useRef, useState } from "react";
 import { cn } from "../../lib/utils";
 
-const VartationForm = ({ setVariationOpen, setVariations }) => {
+const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
   const [attribute1, setAttribute1] = useState();
   const [attribute2, setAttribute2] = useState();
   const [attribute3, setAttribute3] = useState();
@@ -45,6 +45,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
     setVariations((prev) => [
       ...prev,
       {
+        id: new Date().getTime() + "" + Math.random(),
         customAtributes: {
           [attribute1]: attribute1ref.current.value,
           [attribute2]: attribute2ref.current.value,
@@ -70,7 +71,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
     setError({});
     setVariationOpen((prev) => !prev);
   };
-
+  console.log({ variation });
   return (
     <form>
       <div className="space-y-4">
@@ -90,6 +91,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
             placeholder="Value"
             ref={attribute1ref}
             required
+            // value={variation?.customAtributes[]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4 w-full">
@@ -141,6 +143,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
             min={1}
             ref={priceRef}
             required
+            defaultValue={variation?.price}
           />
           {error.price && (
             <span className="text-red-500">
@@ -160,6 +163,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
             min={1}
             ref={stockRef}
             required
+            defaultValue={variation?.stock}
           />
           {error.stock && (
             <span className="text-red-500">
@@ -179,6 +183,7 @@ const VartationForm = ({ setVariationOpen, setVariations }) => {
           name="specs"
           id="specs"
           ref={specRef}
+          defaultValue={variation?.specs}
         />
       </div>
       <div className="flex flex-col ">
