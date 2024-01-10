@@ -11,6 +11,8 @@ import { useState } from "react";
 import Button from "../../components/ui/button";
 import { PlusIcon } from "lucide-react";
 import VartationForm from "./variations-form";
+import VariationItem from "./vairation-item";
+import VariationsTable from "./variations-table";
 
 const ProductForm = () => {
   const [isNewBrand, setNewBrand] = useState(false);
@@ -152,7 +154,9 @@ const ProductForm = () => {
         {/* Variations */}
         <div>
           <p className=" font-bold text-xl">Variations</p>
-          div
+          {variations && variations.length > 0 && (
+            <VariationsTable variations={variations} />
+          )}
           {!variationOpen && (
             <Button type="button" onClick={() => setVariationOpen(true)}>
               <PlusIcon className="h-4 w-4" />
