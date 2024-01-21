@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import Button from "../../components/ui/button";
 import { useRef, useState } from "react";
@@ -9,7 +9,7 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
   const [attribute2, setAttribute2] = useState();
   const [attribute3, setAttribute3] = useState();
   const [error, setError] = useState({});
-
+  const [customDeafault, setCustmoDefault] = useState([]);
   const attribute1ref = useRef();
   const attribute2ref = useRef();
   const attribute3ref = useRef();
@@ -18,6 +18,22 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
   const specRef = useRef();
   const imageRef = useRef();
 
+  useEffect(() => {
+    if (!variation) return;
+
+    let customValues = [];
+    Object.keys(variation?.customAtributes).forEach((key) => {
+      key != "undefined" &&
+        customValues.push({
+          label: key,
+          value: variation.customAtributes[key],
+        });
+    });
+
+    setCustmoDefault(customValues);
+  }, []);
+
+  console.log(customDeafault);
   const handleSubmit = (e) => {
     e.preventDefault();
     let errors = {};
@@ -71,7 +87,7 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
     setError({});
     setVariationOpen((prev) => !prev);
   };
-  console.log({ variation });
+
   return (
     <form>
       <div className="space-y-4">
@@ -84,6 +100,7 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
               setAttribute1(value.value);
             }}
             required
+            defaultInputValue={customDeafault[0]}
           />
           <input
             type="text"
@@ -91,7 +108,7 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
             placeholder="Value"
             ref={attribute1ref}
             required
-            // value={variation?.customAtributes[]}
+            value={customDeafault[0]?.value}
           />
         </div>
         <div className="grid grid-cols-2 gap-4 w-full">
@@ -101,12 +118,14 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
             onChange={(value) => {
               setAttribute2(value.value);
             }}
+            defaultValue={customDeafault[0]}
           />
           <input
             type="text"
             className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
             placeholder="Value"
             ref={attribute2ref}
+            value={customDeafault[1]?.value}
           />
         </div>
         <div className="grid grid-cols-2 gap-4 w-full">
@@ -122,8 +141,10 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
             className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
             placeholder="Value"
             ref={attribute3ref}
+            value={customDeafault[2]?.value}
           />
         </div>
+
         <p className={cn("", error.attribute ? "text-red-500" : "text-black")}>
           Required : Please select at least one attribute for this product{" "}
           <span className="font-bold"> EX: COLOR : RED, SIZE:XL</span>
