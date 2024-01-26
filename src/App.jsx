@@ -20,6 +20,7 @@ import ProtectedRoute from "./admin/components/protected";
 import AdminLayout from "./admin/pages/admin-laout";
 import AdminProducts from "./admin/pages/admin-products";
 import AddProduct from "./admin/pages/new-product";
+import EdidProduct from "./admin/pages/edit-product";
 
 const routes = createBrowserRouter([
   {
@@ -65,15 +66,38 @@ const routes = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <AdminLayout />,
+        element: (
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        ),
         children: [
           { index: true, element: <p>Afmin Panel</p> },
           {
             path: "products",
-            element: <AdminProducts />,
+            element: (
+              <ProtectedRoute>
+                <AdminProducts />
+              </ProtectedRoute>
+            ),
           },
           { path: "orders", element: <p>Orders</p> },
-          { path: "products/new-product", element: <AddProduct /> },
+          {
+            path: "products/new-product",
+            element: (
+              <ProtectedRoute>
+                <AddProduct />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "products/edit/:editId",
+            element: (
+              <ProtectedRoute>
+                <EdidProduct />
+              </ProtectedRoute>
+            ),
+          },
         ],
       },
     ],

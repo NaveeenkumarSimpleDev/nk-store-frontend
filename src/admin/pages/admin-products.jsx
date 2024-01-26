@@ -4,8 +4,17 @@ import ProductCard from "../components/product-card";
 import Heading from "../../components/ui/heading";
 import Button from "../../components/ui/button";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchAdminProducts } from "../../feautures/admin/adminApi";
 const AdminProducts = () => {
   const products = useSelector(selectAllProducts);
+
+  async function fetchProducts() {
+    await fetchAdminProducts();
+  }
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <section className="flex flex-col gap-6">

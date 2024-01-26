@@ -24,13 +24,14 @@ const ProductDetails = () => {
   const loggedInUser = useSelector(selectLoggedInUser);
 
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState();
   const [quantity, setQuantity] = useState(1);
   const { addToCart, cartItems, handleCartOpen } = useCart();
   const [selectedAttributes, setSelectedAttributes] = useState();
   const [attributes, setAttributes] = useState([]);
   const [firstAvailabeAttributes, setFirstAvaileAttributes] = useState([]);
   const [secondAvailableAttributes, setSecondAvailableAttributes] = useState(
-    [],
+    []
   );
 
   useEffect(() => {
@@ -42,6 +43,8 @@ const ProductDetails = () => {
     const searchParams = new URLSearchParams(location.search);
     const keys = Array.from(searchParams.keys());
     const values = Array.from(searchParams.values());
+
+    setImages(product?.variations[0]?.images);
 
     if (!keys.length) {
       setSelectedAttributes(product?.variations[0]?.customAttributes);
@@ -55,7 +58,7 @@ const ProductDetails = () => {
 
     setSelectedAttributes(keyValuePair);
     const attributes = Object.keys(
-      product?.variations[0]?.customAttributes || {},
+      product?.variations[0]?.customAttributes || {}
     );
     setAttributes(attributes);
   }, [product]);
@@ -79,11 +82,12 @@ const ProductDetails = () => {
 
   const handleFirstAttributeChange = (value) => {
     const defaultSelected = product?.variations?.find(
-      (item) => item.customAttributes[attributes[0]] == value,
+      (item) => item.customAttributes[attributes[0]] == value
     );
 
     if (defaultSelected) {
       setSelectedAttributes(defaultSelected?.customAttributes);
+      setImages(defaultSelected?.images);
     }
   };
 
@@ -107,10 +111,10 @@ const ProductDetails = () => {
     const fAtt = attributes[0] == "color" ? "color" : attributes[1];
     const availableProducts = product?.variations?.filter(
       (variation) =>
-        variation.customAttributes[fAtt] === selectedAttributes[fAtt],
+        variation.customAttributes[fAtt] === selectedAttributes[fAtt]
     );
     const availableFirstValues = availableProducts?.map(
-      (item) => item.customAttributes[attributes[1]],
+      (item) => item.customAttributes[attributes[1]]
     );
     setFirstAvaileAttributes(availableFirstValues);
 
@@ -119,10 +123,10 @@ const ProductDetails = () => {
       const availableSeconstAttributes = availableProducts?.filter(
         (item) =>
           item.customAttributes[attributes[1]] ==
-          selectedAttributes[attributes[1]],
+          selectedAttributes[attributes[1]]
       );
       const availabelSecondValues = availableSeconstAttributes?.map(
-        (item) => item.customAttributes[attributes[2]],
+        (item) => item.customAttributes[attributes[2]]
       );
       setSecondAvailableAttributes(availabelSecondValues);
     }
@@ -201,7 +205,7 @@ const ProductDetails = () => {
       ) : (
         <section className="mt-6 pb-[3rem] gap-6 grid lg:grid-cols-2 lg:gap-8">
           <div>
-            <ImageCarousel />
+            <ImageCarousel images={images} />
             <hr className=" mt-8 lg:hidden" />
           </div>
 
@@ -257,7 +261,7 @@ const ProductDetails = () => {
                           type={"size"}
                           id={`${item}${idx}`}
                           label={item}
-                          checked={selectedAttributes[attributes[1]] === item}
+                          checked={selectedAttributes[attributes[1]] == item}
                           disabled={disabled}
                           onChange={() => handleChange(attributes[1], item)}
                           className={

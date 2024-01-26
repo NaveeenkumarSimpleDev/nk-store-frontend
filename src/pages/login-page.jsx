@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,13 +16,15 @@ import { Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(selectLoggedInUser);
   const authStatus = useSelector(selectAuthStatus);
   const loginError = useSelector(selectError)?.login;
   const [errorsState, setErrorsState] = useState({});
   const location = useLocation();
-  const from = location.state?.from?.pathname || -1;
+  const from = location.state?.from || -1;
 
+  if (user) return navigate(from);
   const {
     handleSubmit,
     register,
@@ -50,11 +52,10 @@ const LoginPage = () => {
 
     dispatch(loginUserAsync(data));
   };
+  console.log({ from });
 
   return (
     <>
-      {user && <Navigate to="/" replace={true}></Navigate>}
-
       <Model backButtonHref={from}>
         <div className="flex items-center justify-center  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">

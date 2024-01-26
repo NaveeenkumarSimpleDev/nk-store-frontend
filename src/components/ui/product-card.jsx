@@ -67,17 +67,17 @@ const ProductCard = ({ product }) => {
 
     if (customValues[0]) {
       linkTo += `?${customValues[0]}=${encodeURIComponent(
-        customAttributes[customValues[0]],
+        customAttributes[customValues[0]]
       )}`;
     }
     if (customValues[1]) {
       linkTo += `&${customValues[1]}=${encodeURIComponent(
-        customAttributes[customValues[1]],
+        customAttributes[customValues[1]]
       )}`;
     }
     if (customValues[2]) {
       linkTo += `&${customValues[2]}=${encodeURIComponent(
-        customAttributes[customValues[2]],
+        customAttributes[customValues[2]]
       )}`;
     }
   }
@@ -91,7 +91,7 @@ const ProductCard = ({ product }) => {
                 loading="lazy"
                 src={product?.variations[0]?.images[0]}
                 sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
-                className="object-cover rounded-t-lg relative h-full w-full"
+                className="object-contain object-center rounded-t-lg relative h-full w-full"
                 alt={product?.title}
               />
             ) : (

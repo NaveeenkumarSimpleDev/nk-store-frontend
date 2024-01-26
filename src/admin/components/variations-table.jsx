@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VariationItem from "./vairation-item";
 import VartationForm from "./variations-form";
 
-const VariationTable = ({ variations, setVariations }) => {
-  const [editing, setEditing] = React.useState(false);
+const VariationTable = ({
+  variations,
+  setVariations,
+  variationAttributes,
+  setVariationAttributes,
+}) => {
+  const [editing, setEditing] = useState(false);
 
   return (
     <>
@@ -22,10 +27,11 @@ const VariationTable = ({ variations, setVariations }) => {
         <tbody className="text-center">
           {variations.map((variation, idx) => (
             <VariationItem
-              key={variation.id}
+              key={idx}
               variation={variation}
               idx={idx}
               setEditing={setEditing}
+              setVariationAttributes={setVariationAttributes}
               setVariations={setVariations}
             />
           ))}
@@ -36,6 +42,10 @@ const VariationTable = ({ variations, setVariations }) => {
           setVariationOpen={setEditing}
           setVariations={setVariations}
           variation={editing}
+          variations={variations}
+          type="edit"
+          variationAttributes={variationAttributes}
+          setVariationAttributes={setVariationAttributes}
         />
       )}
     </>

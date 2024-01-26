@@ -1,23 +1,23 @@
-import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-import { selectProductById } from "../feautures/product/productSlice";
 import { Carousel } from "react-responsive-carousel";
 
-const ImageCarousel = () => {
-  const product = useSelector(selectProductById);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const carouselRef = useRef(null);
+const ImageCarousel = ({ images }) => {
+  const [currentSlide, setCurrentSlide] = useState();
+  const carouselRef = useRef();
 
   // Replace these image URLs with your actual image URLs
-  const mainImages = product?.variations[0]?.images;
-  const smallImages = product?.variations[0]?.images;
-  
+  const mainImages = images;
+  const smallImages = images;
+
   const handleSmallImageClick = (index) => {
     setCurrentSlide(index);
   };
+
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [images]);
 
   return (
     <div className="min-w-full">
@@ -35,6 +35,7 @@ const ImageCarousel = () => {
                 src={mainImage}
                 loading="lazy"
                 alt={`Main Image ${index + 1}`}
+                className="object-contain object-center h-full w-full"
               />
             </AspectRatio>
           </div>

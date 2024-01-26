@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
 import React, { useState } from "react";
+import { deleteProductById } from "../../feautures/admin/adminApi";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -32,17 +33,17 @@ const ProductCard = ({ product }) => {
 
     if (customValues[0]) {
       linkTo += `?${customValues[0]}=${encodeURIComponent(
-        customAttributes[customValues[0]],
+        customAttributes[customValues[0]]
       )}`;
     }
     if (customValues[1]) {
       linkTo += `&${customValues[1]}=${encodeURIComponent(
-        customAttributes[customValues[1]],
+        customAttributes[customValues[1]]
       )}`;
     }
     if (customValues[2]) {
       linkTo += `&${customValues[2]}=${encodeURIComponent(
-        customAttributes[customValues[2]],
+        customAttributes[customValues[2]]
       )}`;
     }
   }
@@ -68,7 +69,16 @@ const ProductCard = ({ product }) => {
               />
             )}
 
-            <Button className="absolute bg-red-200 top-2 right-2 p-1.5 rounded-full">
+            <Button
+              className="absolute bg-red-200 top-2 right-2 p-1.5 rounded-full"
+              onClick={() => {
+                const isDelete = confirm(
+                  "Are you sure delete this product!!, product cannot be recovered."
+                );
+
+                if (isDelete) deleteProductById(product?.id);
+              }}
+            >
               <Trash className="w-5 h-5 text-destructive text-center" />
             </Button>
           </AspectRatio>
@@ -77,7 +87,7 @@ const ProductCard = ({ product }) => {
         <div className="py-4">
           <div className="px-6 flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <Link to={productId}>
+              <Link to={linkTo}>
                 <div className="flex flex-col">
                   <span className="text-xl xl:text-2xl mb-1 w-[10rem] truncate font-bold">
                     {formatTitle}
@@ -106,12 +116,14 @@ const ProductCard = ({ product }) => {
                   View Product
                 </Button>
               </Link>
-              <Button
-                disabled={loading}
-                className="m-0 px-6 font-semibold disabled:opacity-75 bg-blue-500"
-              >
-                Edit
-              </Button>
+              <Link to={"edit/" + product?.id}>
+                <Button
+                  disabled={loading}
+                  className="m-0 px-6 font-semibold disabled:opacity-75 bg-blue-500"
+                >
+                  Edit
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -7,26 +7,32 @@ import {
   DropdownMenuItem,
 } from "../../components/ui/dropdown-menu";
 
-const VariationItem = ({ variation, idx, setEditing, setVariations }) => {
-  console.log({ variation });
+const VariationItem = ({
+  variation,
+  idx,
+  setEditing,
+  setVariations,
+  setVariationAttributes,
+}) => {
+  // console.log({ variation });
   return (
     <tr className="p-4 text-lg">
       <td>{idx + 1}</td>
       <td>
-        {Object.keys(variation?.customAtributes).map((key) => {
-          if (key && variation?.customAtributes[key]) {
+        {Object.keys(variation?.customAttributes).map((key) => {
+          if (key && variation?.customAttributes[key]) {
             return (
               <p key={key}>
-                {key} : {variation?.customAtributes[key]}
+                {key} : {variation?.customAttributes[key]}
               </p>
             );
           }
         })}
       </td>
       <td>{variation?.price}</td>
-      <td>{variation?.specs}</td>
+      <td>{variation?.specification}</td>
       <td>{variation?.stock}</td>
-      {/* <td>{variation?.images}</td> */}
+      {/* <td>{variation?.images}</td> */}+-----.0
       <td>images</td>
       <td>
         <DropdownMenu>
@@ -49,12 +55,13 @@ const VariationItem = ({ variation, idx, setEditing, setVariations }) => {
                 className="flex items-center"
                 onClick={() => {
                   const confirm = window.confirm(
-                    "Are you sure you want to delete this Variation?",
+                    "Are you sure you want to delete this Variation?"
                   );
                   if (confirm) {
-                    setVariations((prev) =>
-                      prev.filter((v) => v.id !== variation.id),
-                    );
+                    setVariations((prev) => {
+                      if (prev?.length === 1) setVariationAttributes([]);
+                      return prev.filter((v) => v.id !== variation.id);
+                    });
                   }
                 }}
               >

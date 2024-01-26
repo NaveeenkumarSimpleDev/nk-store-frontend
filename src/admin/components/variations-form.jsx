@@ -1,46 +1,37 @@
 import React, { useEffect } from "react";
-import CreatableSelect from "react-select/creatable";
 import Button from "../../components/ui/button";
 import { useRef, useState } from "react";
 import { cn } from "../../lib/utils";
+import { upLoadImage } from "../../feautures/admin/adminApi";
 
-const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
-  const [attribute1, setAttribute1] = useState();
-  const [attribute2, setAttribute2] = useState();
-  const [attribute3, setAttribute3] = useState();
+const VartationForm = ({
+  setVariationOpen,
+  setVariations,
+  variation,
+  variations = [],
+  variationAttributes,
+  setVariationAttributes,
+}) => {
+  const [attributes, setAttributes] = useState([]);
   const [error, setError] = useState({});
-  const [customDeafault, setCustmoDefault] = useState([]);
-  const attribute1ref = useRef();
-  const attribute2ref = useRef();
-  const attribute3ref = useRef();
   const priceRef = useRef();
   const stockRef = useRef();
   const specRef = useRef();
   const imageRef = useRef();
-
-  useEffect(() => {
-    if (!variation) return;
-
-    let customValues = [];
-    Object.keys(variation?.customAtributes).forEach((key) => {
-      key != "undefined" &&
-        customValues.push({
-          label: key,
-          value: variation.customAtributes[key],
-        });
+  const valuesRefs = [useRef(), useRef(), useRef()];
+  const newValuesRefs = [useRef(), useRef(), useRef()];
+  const isFirstVariation = variations[0] && variations.length === 1;
+  const handleAttributeChange = (idx, value) => {
+    setAttributes((prevAttributes) => {
+      const newAttributes = [...prevAttributes];
+      newAttributes[idx].att = value;
+      return newAttributes;
     });
+  };
 
-    setCustmoDefault(customValues);
-  }, []);
-
-  console.log(customDeafault);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = {};
-
-    if (!attribute1ref.current.value || !attribute1) {
-      errors.attribute = true;
-    }
 
     if (!priceRef.current.value && priceRef.current.value == "") {
       errors.price = true;
@@ -53,33 +44,82 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
       errors.images = "Please select at least one image";
     }
 
+    if (!isFirstVariation || variations) {
+      let error = false;
+      attributes.forEach((x, idx) => {
+        if (x.att.length < 1) return;
+        if (valuesRefs[idx].current?.value?.length < 1) error = true;
+      });
+
+      if (error) {
+        errors.attribute = "Please enter all values";
+      }
+    } else {
+      if (
+        attributes[0].att.length < 1 ||
+        valuesRefs[0].current?.value?.length < 1
+      ) {
+        errors.attribute =
+          "Please select atleast one attribute pair  ex: COLOR : RED,  SIZE : XL ";
+      }
+
+      if (
+        attributes[0].att == "Create new" &&
+        newValuesRefs[0].current?.value?.length < 1
+      ) {
+        errors.attribute = "Please enter values";
+      }
+    }
+
     if (Object.keys(errors).length > 0) {
       setError(errors);
       return;
     }
 
-    setVariations((prev) => [
-      ...prev,
-      {
-        id: new Date().getTime() + "" + Math.random(),
-        customAtributes: {
-          [attribute1]: attribute1ref.current.value,
-          [attribute2]: attribute2ref.current.value,
-          [attribute3]: attribute3ref.current.value,
-        },
+    const images = await upLoadImage(imageRef.current.files, variation?.images);
+
+    if (!images) {
+      setError({ images: "Something wrong!, pls try again " });
+      return;
+    }
+
+    const customAttributes = {
+      [newValuesRefs[0].current?.value || attributes[0].att]:
+        valuesRefs[0].current?.value,
+      [newValuesRefs[1].current?.value || attributes[1]?.att]:
+        valuesRefs[1].current?.value,
+      [newValuesRefs[2].current?.value || attributes[2]?.att]:
+        valuesRefs[2].current?.value,
+    };
+
+    const cleanedObject = Object.fromEntries(
+      Object.entries(customAttributes).filter(
+        ([key, value]) => key !== "" && value !== undefined
+      )
+    );
+    setVariations((prev) => {
+      const dpArr =
+        prev?.filter((x) => {
+          if (x.id !== variation?.id) return x;
+
+          if (x.idRef !== variation.idRef) return x;
+        }) || [];
+      const newVari = {
+        idRef: Math.random() * 2121 * Math.random(),
+        customAttributes: cleanedObject,
         price: priceRef.current.value,
         stock: stockRef.current.value,
-        specs: specRef.current.value,
-        images: [
-          imageRef.current.files[0],
-          imageRef.current.files[1],
-          imageRef.current.files[2],
-        ],
-      },
-    ]);
-    setAttribute1("");
-    setAttribute2("");
-    setAttribute3("");
+        specification: specRef.current.value,
+        images,
+      };
+      return isFirstVariation ? [newVari, ...dpArr] : [...dpArr, newVari];
+    });
+
+    if (!variationAttributes || variationAttributes.length < 1) {
+      const keys = Object.keys(cleanedObject);
+      setVariationAttributes(keys);
+    }
+
     priceRef.current.value = "";
     stockRef.current.value = "";
     specRef.current.value = "";
@@ -88,67 +128,119 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
     setVariationOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (variation) {
+      let attribute = [];
+      variationAttributes.forEach((v) => {
+        attribute.push({
+          att: v,
+          defaultVal: variation.customAttributes[v],
+        });
+      });
+
+      setAttributes(attribute);
+      return;
+    }
+
+    if (variationAttributes.length > 0) {
+      let attribute = [];
+      variationAttributes.forEach((v) => {
+        attribute.push({
+          att: v,
+          defaultVal: "",
+        });
+      });
+
+      setAttributes(attribute);
+      return;
+    } else {
+      setAttributes([
+        { att: "", defaultVal: "" },
+        { att: "", defaultVal: "" },
+        { att: "", defaultVal: "" },
+      ]);
+    }
+  }, []);
+
+  console.log({ variations });
+  console.log({ attributes });
+  console.log({ variationAttributes });
+
+  const opt = ["Select", "sldmsmdms", "Create new"];
   return (
     <form>
       <div className="space-y-4">
         <p>Custom Attributes</p>
-        <div className="grid grid-cols-2 gap-4 w-full">
-          <CreatableSelect
-            isClearable
-            options={[{ value: "test", label: "test" }]}
-            onChange={(value) => {
-              setAttribute1(value.value);
-            }}
-            required
-            defaultInputValue={customDeafault[0]}
-          />
-          <input
-            type="text"
-            className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-            placeholder="Value"
-            ref={attribute1ref}
-            required
-            value={customDeafault[0]?.value}
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 w-full">
-          <CreatableSelect
-            isClearable
-            options={[{ value: "test", label: "test" }]}
-            onChange={(value) => {
-              setAttribute2(value.value);
-            }}
-            defaultValue={customDeafault[0]}
-          />
-          <input
-            type="text"
-            className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-            placeholder="Value"
-            ref={attribute2ref}
-            value={customDeafault[1]?.value}
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 w-full">
-          <CreatableSelect
-            isClearable
-            options={[{ value: "test", label: "test" }]}
-            onChange={(value) => {
-              setAttribute3(value.value);
-            }}
-          />
-          <input
-            type="text"
-            className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-            placeholder="Value"
-            ref={attribute3ref}
-            value={customDeafault[2]?.value}
-          />
-        </div>
+        {/* attributes */}
+        {attributes.map((_, index) => (
+          <div
+            key={index + "" + index + 1}
+            className="grid grid-cols-2 gap-4 w-full"
+          >
+            <div className="flex">
+              {variationAttributes.length == 0 ? (
+                // customAttributes change option not available now.
 
-        <p className={cn("", error.attribute ? "text-red-500" : "text-black")}>
-          Required : Please select at least one attribute for this product{" "}
-          <span className="font-bold"> EX: COLOR : RED, SIZE:XL</span>
-        </p>
+                // || (variationAttributes.length > 0 &&
+                //   variations[0] &&
+                //   type === "edit" &&
+                //   isFirstVariation)
+                <select
+                  key={opt + "" + index}
+                  name={"attributes" + index}
+                  onChange={(e) => handleAttributeChange(index, e.target.value)}
+                >
+                  {opt.map((opt, idx) => (
+                    <option
+                      key={opt + "" + idx}
+                      value={opt}
+                      selected={
+                        opt === attributes[index]?.att && opt != "Create new"
+                      }
+                    >
+                      {opt}
+                    </option>
+                  ))}
+
+                  {attributes[index].att.length > 0 &&
+                    !opt.includes(attributes[index].att) && (
+                      <option attue={attributes[index].att} selected>
+                        {attributes[index].att}
+                      </option>
+                    )}
+                </select>
+              ) : (
+                <p>{attributes[index]?.att}</p>
+              )}
+
+              {attributes[index].att === "Create new" && (
+                <input
+                  ref={newValuesRefs[index]}
+                  type="text"
+                  placeholder="Enter new"
+                  className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+                />
+              )}
+            </div>
+            <input
+              type="text"
+              className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+              placeholder="Value"
+              required
+              ref={valuesRefs[index]}
+              defaultValue={attributes[index].defaultVal}
+            />
+          </div>
+        ))}
+        {/*  */}
+
+        {error.attribute && (
+          <p
+            className={cn("", error.attribute ? "text-red-500" : "text-black")}
+          >
+            Required : Please enter values
+          </p>
+        )}
       </div>
 
       <div className="flex gap-4">
@@ -204,7 +296,7 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
           name="specs"
           id="specs"
           ref={specRef}
-          defaultValue={variation?.specs}
+          defaultValue={variation?.specification}
         />
       </div>
       <div className="flex flex-col ">
@@ -233,4 +325,4 @@ const VartationForm = ({ setVariationOpen, setVariations, variation }) => {
   );
 };
 
-export default React.memo(VartationForm);
+export default VartationForm;

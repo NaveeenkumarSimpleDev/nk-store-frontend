@@ -7,22 +7,69 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/ui/button";
 import { PlusIcon } from "lucide-react";
 import VartationForm from "./variations-form";
 import VariationItem from "./vairation-item";
 import VariationsTable from "./variations-table";
+import { crateNewProduct, updateProduct } from "../../feautures/admin/adminApi";
 
-const ProductForm = () => {
+const ProductForm = ({ product }) => {
+  const [loading, setLoading] = useState(false);
   const [isNewBrand, setNewBrand] = useState(false);
-  const [variations, setVariations] = useState([]);
+  const [variations, setVariations] = useState(product?.variations);
   const [variationOpen, setVariationOpen] = useState(false);
+  const [variationAttributes, setVariationAttributes] = useState(() => {
+    if (!product) return [];
+    const attKeys = Object.keys(product?.variations[0].customAttributes);
+    if (!attKeys) return [];
 
-  console.log({ variations });
+    return attKeys;
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData(e.target);
+    const title = formData.get("title");
+    const desc = formData.get("desc");
+    const discountPrice = formData.get("discountPrice");
+    const mrp = formData.get("price");
+    const category = formData.get("category");
+    const brand = formData.get("brand");
+    const newBrand = formData.get("new Brand");
+    const productData = {
+      title,
+      description: desc,
+      mrp,
+      category,
+      brand: newBrand ? newBrand : brand,
+      discountPrice,
+      variations: variations.map((vari) => ({
+        id: vari.id,
+        price: vari.price,
+        stock: vari.stock,
+        customAttributes: vari.customAttributes,
+        images: vari.images,
+        specifications: vari.specification,
+      })),
+    };
+
+    if (product) {
+      updateProduct({ id: product.id, ...productData }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      crateNewProduct(productData).finally(() => {
+        setLoading(false);
+      });
+    }
+  }
+
   return (
     <div>
-      <form action="" onSubmit={(e) => e.preventDefault()}>
+      <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col ">
           <label htmlFor="title" className=" font-bold text-xl">
             Title
@@ -32,6 +79,8 @@ const ProductForm = () => {
             className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
             name="title"
             id="title"
+            required
+            defaultValue={product?.title}
           />
         </div>
 
@@ -42,8 +91,10 @@ const ProductForm = () => {
           <input
             type="text"
             className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-            name="description"
+            name="desc"
             id="description"
+            required
+            defaultValue={product?.description}
           />
         </div>
 
@@ -58,6 +109,8 @@ const ProductForm = () => {
               name="price"
               id="price"
               min={1}
+              required
+              defaultValue={product?.mrp}
             />
           </div>
 
@@ -71,6 +124,8 @@ const ProductForm = () => {
               name="discountPrice"
               id="discountPrice"
               min={1}
+              required
+              defaultValue={product?.discountPrice}
             />
           </div>
         </div>
@@ -78,11 +133,12 @@ const ProductForm = () => {
           <label htmlFor="category" className=" font-bold text-xl">
             Category
           </label>
-          <Select>
+          <Select name="category" required defaultValue={product?.category}>
             <SelectTrigger>
               <SelectValue
                 className="font-semibold"
-                placeholder="Select a category"
+                placeholder={"Select a category"}
+                defaultValue={product?.category.toLowerCase()}
               />
             </SelectTrigger>
             <SelectContent>
@@ -109,6 +165,9 @@ const ProductForm = () => {
           <div className="font-semibold flex gap-4">
             <div className="w-[12rem]">
               <Select
+                required
+                defaultValue={product?.brand?.toLowerCase()}
+                name="brand"
                 onValueChange={(value) => {
                   if (value === "new") {
                     setNewBrand(true);
@@ -134,6 +193,9 @@ const ProductForm = () => {
                         {brand.label}
                       </SelectItem>
                     ))}
+                    {!BRANDS.includes(product?.brand) && (
+                      <SelectItem>{product?.brand}</SelectItem>
+                    )}
                     <SelectItem className="font-semibold" value="new">
                       Create new brand
                     </SelectItem>
@@ -146,6 +208,7 @@ const ProductForm = () => {
                 type="text"
                 className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
                 placeholder="Brand name"
+                name="new Brand"
               />
             )}
           </div>
@@ -158,6 +221,8 @@ const ProductForm = () => {
             <VariationsTable
               variations={variations}
               setVariations={setVariations}
+              variationAttributes={variationAttributes}
+              setVariationAttributes={setVariationAttributes}
             />
           )}
           {!variationOpen && (
@@ -169,10 +234,13 @@ const ProductForm = () => {
             <VartationForm
               setVariationOpen={setVariationOpen}
               setVariations={setVariations}
+              variations={variations}
+              variationAttributes={variationAttributes}
+              setVariationAttributes={setVariationAttributes}
             />
           )}
         </div>
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
