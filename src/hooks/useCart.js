@@ -14,8 +14,11 @@ export const useCart = () => {
   const location = useLocation();
 
   const addToCartHandler = async (product) => {
+    const url = location.pathname + location.search;
     if (!loggedInUser) {
-      return navigate("/login", { state: { from: location.pathname } });
+      return navigate("/login", {
+        state: { from: url },
+      });
     }
     const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
     if (exsistingCartItem) {
@@ -26,7 +29,7 @@ export const useCart = () => {
       addToCartAsync({
         userId: loggedInUser?.id,
         product,
-      }),
+      })
     );
   };
 

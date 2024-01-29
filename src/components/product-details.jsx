@@ -57,6 +57,7 @@ const ProductDetails = () => {
     });
 
     setSelectedAttributes(keyValuePair);
+
     const attributes = Object.keys(
       product?.variations[0]?.customAttributes || {}
     );
@@ -145,7 +146,9 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     if (!loggedInUser) {
-      return navigate("/login", { state: { from: location.pathname } });
+      return navigate("/login", {
+        state: { from: location.pathname + location.search },
+      });
     }
 
     const selectedVariation = product?.variations?.find((item) => {

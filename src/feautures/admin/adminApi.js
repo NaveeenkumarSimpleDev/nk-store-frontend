@@ -8,11 +8,7 @@ export async function fetchAdminProducts(email) {
   return new Promise(async (resolve) => {
     try {
       const url = baseUrl + "/admin/products";
-      const response = await axios.get(url, {
-        data: {
-          email,
-        },
-      });
+      const response = await axios.post(url, { email });
 
       if (response.status === 200) {
         resolve(response.data);
@@ -24,7 +20,7 @@ export async function fetchAdminProducts(email) {
 }
 
 export async function crateNewProduct(product) {
-  const url = baseUrl + "/admin/products";
+  const url = baseUrl + "/admin/products/create";
   if (!product) return toast.error("Something worng!, pls try again");
 
   return new Promise(async (resolve) => {

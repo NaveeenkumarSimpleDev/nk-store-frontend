@@ -14,7 +14,6 @@ export async function fetchProducts() {
           "Content-Type": "application/json",
         },
       });
-
       if (response.status === 200) {
         resolve(response.data);
       }
@@ -43,30 +42,24 @@ export async function fetchProductById(productId) {
   });
 }
 
-/*
-priceRange,
-        brands: selectedBrands,
-        categories: selectCategories,
-*/
-
 export async function fetchProductByFilter(data) {
-  let querySting = '';
+  let querySting = "";
   if (data.priceRange[1] !== 0) {
     querySting += `price_renge=${data.priceRange[0]},${data.priceRange[1]}&`;
   }
 
   if (data.categories) {
-    querySting += 'cat='
+    querySting += "cat=";
     for (let cat in data.categories) {
-      querySting += `${cat},`
+      querySting += `${cat},`;
     }
-    querySting += '&';
+    querySting += "&";
   }
 
   if (data.brands) {
-    querySting += 'brands='
+    querySting += "brands=";
     for (let brand in data.brands) {
-      querySting += `${brand},`
+      querySting += `${brand},`;
     }
   }
 
@@ -164,6 +157,24 @@ export async function searchProducts(query) {
     } catch (error) {
       console.log(error);
       toast.error("Somthing wrong!");
+    }
+  });
+}
+
+export async function fetchBrands() {
+  const url = baseUrl + "/products/brands";
+
+  return new Promise(async (resolve) => {
+    try {
+      const res = await axios.get(url);
+
+      if (res.status === 200) {
+        resolve(res.data);
+      } else {
+        toast.error("Something worng!, pls try again");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
     }
   });
 }

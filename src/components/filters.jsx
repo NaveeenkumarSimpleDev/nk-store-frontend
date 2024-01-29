@@ -3,9 +3,12 @@ import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
 import { cn } from "../lib/utils";
-import { useDispatch } from "react-redux";
-import { BRANDS as brands, CATEGORIES as categories } from "../config/index";
-import { fetchProductsAsync } from "../feautures/product/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { CATEGORIES as categories } from "../config/index";
+import {
+  fetchProductsAsync,
+  selectBrands,
+} from "../feautures/product/productSlice";
 
 const Filters = ({ isOpen, setIsOpen }) => {
   const [mounted, setMounted] = useState(false);
@@ -14,6 +17,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
   const [selectCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const urlSearchParams = new URLSearchParams(window.location.search);
+  const brands = useSelector(selectBrands);
 
   useEffect(() => {
     const priceRange = urlSearchParams.get("price_range")?.split("-");
@@ -87,17 +91,17 @@ const Filters = ({ isOpen, setIsOpen }) => {
         <div
           onClick={onClose}
           className={cn(
-            " z-[100] fixed left-0 top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]",
+            " z-[100] fixed left-0 top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
           )}
         />
       )}
       <nav
         className={cn(
           "h-full z-[160] fixed top-0 right-0",
-          isOpen ? "clip-inset-100" : "-clip-inset-0",
+          isOpen ? "clip-inset-100" : "-clip-inset-0"
         )}
       >
-        <section className=" w-[90vw] sm:max-w-[600px] h-full overflow-auto bg-white">
+        <section className="w-[90vw] sm:max-w-[600px] h-full overflow-auto bg-white">
           <div className="flex p-4 pt-5 items-center">
             <div
               onClick={onClose}
@@ -106,6 +110,14 @@ const Filters = ({ isOpen, setIsOpen }) => {
               <X strokeWidth={3} size={20} />
             </div>
             <span className="font-bold ml-12 text-xl">FILTERS</span>
+            <div className="w-full flex items-center gap-6  bottom-6">
+              <Button
+                onClick={clearFilters}
+                className="font-bold w-fit ml-auto mr-4 my-auto"
+              >
+                Clear Filters
+              </Button>
+            </div>
           </div>
 
           <hr className="my-1" />
@@ -163,8 +175,8 @@ const Filters = ({ isOpen, setIsOpen }) => {
                               ])
                             : setSelectedCategories(
                                 selectCategories.filter(
-                                  (item) => item !== cat.value,
-                                ),
+                                  (item) => item !== cat.value
+                                )
                               )
                         }
                       />
@@ -180,24 +192,24 @@ const Filters = ({ isOpen, setIsOpen }) => {
               </div>
 
               {/* Brand */}
-              <div>
+              <div className="flex-grow">
                 <span className="text-lg font-bold">Brands</span>
-                <div className="mt-3 h-[200px] overflow-y-scroll space-y-3">
+                <div className="mt-3 max-h-[30vh] overflow-y-scroll space-y-3">
                   {brands.map((brand) => (
                     <div key={brand.id} className="flex gap-1 items-center">
                       <Checkbox
                         id={brand.id}
-                        checked={selectedBrands.includes(brand.label)}
+                        checked={selectedBrands.includes(brand.value)}
                         onCheckedChange={(value) =>
                           value
                             ? setSelectedBrands((prev) => [
                                 ...prev,
-                                brand.label,
+                                brand.value,
                               ])
                             : setSelectedBrands(
                                 selectedBrands.filter(
-                                  (item) => item !== brand.label,
-                                ),
+                                  (item) => item !== brand.value
+                                )
                               )
                         }
                       />
@@ -205,17 +217,12 @@ const Filters = ({ isOpen, setIsOpen }) => {
                         className="text-sm font-semibold cursor-pointer"
                         htmlFor={brand.id}
                       >
-                        {brand.label}
+                        {brand.value}
                       </label>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="w-full flex items-center gap-6">
-              <Button onClick={clearFilters} className="font-bold w-full">
-                Clear Filters
-              </Button>
             </div>
           </div>
         </section>

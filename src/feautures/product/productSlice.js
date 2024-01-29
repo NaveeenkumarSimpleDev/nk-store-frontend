@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addToFavourites,
+  fetchBrands,
   fetchFavourites,
   fetchProductById,
   fetchProducts,
@@ -11,12 +12,17 @@ const initialState = {
   status: "idle",
   products: [],
   selectedProduct: null,
+  brands: [],
   favourites: null,
   error: null,
 };
 
 export const fetchProductsAsync = createAsyncThunk("products", async () => {
   const response = await fetchProducts();
+  return response;
+});
+export const fetchBrandsAsync = createAsyncThunk("brands", async () => {
+  const response = await fetchBrands();
   return response;
 });
 
@@ -89,6 +95,9 @@ const productSlice = createSlice({
       .addCase(removeFavouritesAsync.fulfilled, (state, action) => {
         state.favourites = action.payload;
       })
+      .addCase(fetchBrandsAsync.fulfilled, (state, action) => {
+        state.brands = action.payload;
+      });
   },
 });
 
@@ -97,3 +106,4 @@ export default productSlice.reducer;
 export const selectAllProducts = (state) => state.product.products;
 export const selectProductById = (state) => state.product.selectedProduct;
 export const selectFavourites = (state) => state.product.favourites;
+export const selectBrands = (state) => state.product.brands;

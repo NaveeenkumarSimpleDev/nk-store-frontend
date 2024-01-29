@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,14 +20,15 @@ const RegisterPage = () => {
   const [errorsState, setErrorsState] = useState({});
   const authStatus = useSelector(selectAuthStatus);
   const error = useSelector(selectError);
+  const location = useLocation();
+  const from = location.state?.from;
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  console.log(error);
-
+  console.log({ from });
   const onSubmit = async (data) => {
     const { name, email, password, confirmPass } = data;
     // name validation
@@ -69,7 +70,7 @@ const RegisterPage = () => {
   return (
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
-      <Model>
+      <Model backButtonHref={from}>
         <div className="flex items-center justify-center min-h-screen max-h-screen">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Create an account." />

@@ -14,7 +14,6 @@ const VariationItem = ({
   setVariations,
   setVariationAttributes,
 }) => {
-  // console.log({ variation });
   return (
     <tr className="p-4 text-lg">
       <td>{idx + 1}</td>
@@ -30,9 +29,8 @@ const VariationItem = ({
         })}
       </td>
       <td>{variation?.price}</td>
-      <td>{variation?.specification}</td>
+      <td>{variation?.specification || "not available"}</td>
       <td>{variation?.stock}</td>
-      {/* <td>{variation?.images}</td> */}+-----.0
       <td>images</td>
       <td>
         <DropdownMenu>

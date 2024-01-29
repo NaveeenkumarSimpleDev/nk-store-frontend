@@ -72,7 +72,14 @@ const routes = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
-          { index: true, element: <p>Afmin Panel</p> },
+          {
+            index: true,
+            element: (
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            ),
+          },
           {
             path: "products",
             element: (

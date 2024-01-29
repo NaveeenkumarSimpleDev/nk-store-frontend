@@ -1,4 +1,4 @@
-import { BRANDS, CATEGORIES } from "../../config";
+import { CATEGORIES } from "../../config";
 import {
   Select,
   SelectContent,
@@ -11,14 +11,20 @@ import { useEffect, useState } from "react";
 import Button from "../../components/ui/button";
 import { PlusIcon } from "lucide-react";
 import VartationForm from "./variations-form";
-import VariationItem from "./vairation-item";
 import VariationsTable from "./variations-table";
 import { crateNewProduct, updateProduct } from "../../feautures/admin/adminApi";
+import { useSelector } from "react-redux";
+import { selectBrands } from "../../feautures/product/productSlice";
+import { selectLoggedInUser } from "../../feautures/auth/authSlice";
+import Heading from "../../components/ui/heading";
+import VariationModal from "./variation-modal";
 
 const ProductForm = ({ product }) => {
   const [loading, setLoading] = useState(false);
-  const [isNewBrand, setNewBrand] = useState(false);
+  const brands = useSelector(selectBrands);
   const [variations, setVariations] = useState(product?.variations);
+  const user = useSelector(selectLoggedInUser);
+  const [isNewBrand, setNewBrand] = useState(false);
   const [variationOpen, setVariationOpen] = useState(false);
   const [variationAttributes, setVariationAttributes] = useState(() => {
     if (!product) return [];
@@ -28,6 +34,7 @@ const ProductForm = ({ product }) => {
     return attKeys;
   });
 
+  console.log({ brands });
   function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -39,12 +46,15 @@ const ProductForm = ({ product }) => {
     const category = formData.get("category");
     const brand = formData.get("brand");
     const newBrand = formData.get("new Brand");
+
+    if (!user.email) return;
     const productData = {
-      title,
+      email: user.email,
+      title: title,
       description: desc,
       mrp,
       category,
-      brand: newBrand ? newBrand : brand,
+      brand: newBrand ? { newBrand } : { id: brand },
       discountPrice,
       variations: variations.map((vari) => ({
         id: vari.id,
@@ -69,14 +79,15 @@ const ProductForm = ({ product }) => {
 
   return (
     <div>
-      <form action="" onSubmit={handleSubmit}>
+      <Heading title="Create Product" />
+      <form action="" className="mt-4 space-y-6" onSubmit={handleSubmit}>
         <div className="flex flex-col ">
-          <label htmlFor="title" className=" font-bold text-xl">
+          <label htmlFor="title" className=" font-semibold text-xl">
             Title
           </label>
           <input
             type="text"
-            className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+            className="px-2 py-1 mt-2 border rounded-sm focus:outline-none border-[#eee]"
             name="title"
             id="title"
             required
@@ -85,12 +96,12 @@ const ProductForm = ({ product }) => {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="description" className=" font-bold text-xl">
+          <label htmlFor="description" className=" font-semibold text-xl">
             Description
           </label>
-          <input
+          <textarea
             type="text"
-            className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+            className="px-2 py-1 mt-2 border rounded-sm flex-wrap focus:outline-none border-[#eee] "
             name="desc"
             id="description"
             required
@@ -100,12 +111,12 @@ const ProductForm = ({ product }) => {
 
         <div className="flex gap-4">
           <div className="flex flex-col ">
-            <label htmlFor="price" className=" font-bold text-xl">
+            <label htmlFor="price" className=" font-semibold text-xl">
               Price (MRP)
             </label>
             <input
               type="number"
-              className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+              className="px-2 py-1 mt-2 border rounded-sm focus:outline-none border-[#eee]"
               name="price"
               id="price"
               min={1}
@@ -115,12 +126,12 @@ const ProductForm = ({ product }) => {
           </div>
 
           <div className="flex flex-col ">
-            <label htmlFor="discountPrice" className=" font-bold text-xl">
+            <label htmlFor="discountPrice" className=" font-semibold text-xl">
               Discount Price
             </label>
             <input
               type="number"
-              className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+              className="px-2 py-1 mt-2 border rounded-sm focus:outline-none border-[#eee]"
               name="discountPrice"
               id="discountPrice"
               min={1}
@@ -129,94 +140,94 @@ const ProductForm = ({ product }) => {
             />
           </div>
         </div>
-        <div className="w-[10rem] font-semibold space-y-2">
-          <label htmlFor="category" className=" font-bold text-xl">
-            Category
-          </label>
-          <Select name="category" required defaultValue={product?.category}>
-            <SelectTrigger>
-              <SelectValue
-                className="font-semibold"
-                placeholder={"Select a category"}
-                defaultValue={product?.category.toLowerCase()}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {CATEGORIES.map((category) => (
-                  <SelectItem
-                    key={category.id}
-                    className="font-semibold"
-                    value={category.value}
-                  >
-                    {category.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
 
-        {/* brand */}
-        <div className="space-y-2">
-          <label htmlFor="category" className=" font-bold text-xl">
-            Brand
-          </label>
-          <div className="font-semibold flex gap-4">
-            <div className="w-[12rem]">
-              <Select
-                required
-                defaultValue={product?.brand?.toLowerCase()}
-                name="brand"
-                onValueChange={(value) => {
-                  if (value === "new") {
-                    setNewBrand(true);
-                  } else {
-                    setNewBrand(false);
-                  }
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue
-                    className="font-semibold"
-                    placeholder="Select a Brand"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {BRANDS.map((brand) => (
-                      <SelectItem
-                        key={brand.id}
-                        className="font-semibold"
-                        value={brand.value}
-                      >
-                        {brand.label}
-                      </SelectItem>
-                    ))}
-                    {!BRANDS.includes(product?.brand) && (
-                      <SelectItem>{product?.brand}</SelectItem>
-                    )}
-                    <SelectItem className="font-semibold" value="new">
-                      Create new brand
+        <div className="lg:flex gap-8">
+          <div className="w-[10rem] font-semibold space-y-2">
+            <label htmlFor="category" className=" font-semibold text-xl">
+              Category
+            </label>
+            <Select name="category" required defaultValue={product?.category}>
+              <SelectTrigger>
+                <SelectValue
+                  className="font-semibold"
+                  placeholder={"Select a category"}
+                  defaultValue={product?.category.toLowerCase()}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {CATEGORIES.map((category) => (
+                    <SelectItem
+                      key={category.id}
+                      className="font-semibold"
+                      value={category.value}
+                    >
+                      {category.label}
                     </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* brand */}
+          <div className="space-y-2">
+            <label htmlFor="category" className=" font-semibold text-xl">
+              Brand
+            </label>
+            <div className="font-semibold flex gap-4">
+              <div className="w-[12rem]">
+                <Select
+                  required
+                  defaultValue={product?.brand?.value}
+                  name="brand"
+                  onValueChange={(value) => {
+                    if (value === "new") {
+                      setNewBrand(true);
+                    } else {
+                      setNewBrand(false);
+                    }
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      className="font-semibold"
+                      placeholder="Select a Brand"
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {brands.map((brand) => (
+                        <SelectItem
+                          key={brand.id}
+                          className="font-semibold"
+                          value={brand.id}
+                        >
+                          {brand.value}
+                        </SelectItem>
+                      ))}
+                      <SelectItem className="font-semibold" value="new">
+                        Create new brand
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              {isNewBrand && (
+                <input
+                  type="text"
+                  className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
+                  placeholder="Brand name"
+                  name="new Brand"
+                />
+              )}
             </div>
-            {isNewBrand && (
-              <input
-                type="text"
-                className="px-2 py-1 border rounded-sm focus:outline-none border-[#eee]"
-                placeholder="Brand name"
-                name="new Brand"
-              />
-            )}
           </div>
         </div>
 
         {/* Variations */}
         <div>
-          <p className=" font-bold text-xl">Variations</p>
+          <p className=" font-semibold text-xl mb-3">Variations</p>
           {variations && variations.length > 0 && (
             <VariationsTable
               variations={variations}
@@ -226,18 +237,24 @@ const ProductForm = ({ product }) => {
             />
           )}
           {!variationOpen && (
-            <Button type="button" onClick={() => setVariationOpen(true)}>
+            <Button
+              type="button"
+              className="my-4"
+              onClick={() => setVariationOpen(true)}
+            >
               <PlusIcon className="h-4 w-4" />
             </Button>
           )}
           {variationOpen && (
-            <VartationForm
-              setVariationOpen={setVariationOpen}
-              setVariations={setVariations}
-              variations={variations}
-              variationAttributes={variationAttributes}
-              setVariationAttributes={setVariationAttributes}
-            />
+            <VariationModal>
+              <VartationForm
+                setVariationOpen={setVariationOpen}
+                setVariations={setVariations}
+                variations={variations}
+                variationAttributes={variationAttributes}
+                setVariationAttributes={setVariationAttributes}
+              />
+            </VariationModal>
           )}
         </div>
         <Button type="submit">Submit</Button>

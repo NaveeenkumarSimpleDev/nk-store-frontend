@@ -162,15 +162,12 @@ const VartationForm = ({
     }
   }, []);
 
-  console.log({ variations });
-  console.log({ attributes });
-  console.log({ variationAttributes });
-
   const opt = ["Select", "sldmsmdms", "Create new"];
   return (
     <form>
+      <p className="font-bold text-2xl">Variation</p>
       <div className="space-y-4">
-        <p>Custom Attributes</p>
+        <p className="font-semibold">Custom Attributes</p>
         {/* attributes */}
         {attributes.map((_, index) => (
           <div

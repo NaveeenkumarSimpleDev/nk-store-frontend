@@ -7,8 +7,10 @@ import ProductCard from "../components/ui/product-card";
 import ProductLoading from "../components/product-loading";
 import Filters from "../components/filters";
 import {
+  fetchBrandsAsync,
   fetchProductsAsync,
   selectAllProducts,
+  selectBrands,
 } from "../feautures/product/productSlice";
 import SortSelectionButton from "../components/sortSelectionButton";
 
@@ -23,6 +25,8 @@ const ProductPage = () => {
     setLoading(true);
     await dispatch(fetchProductsAsync());
     setLoading(false);
+
+    dispatch(fetchBrandsAsync());
   };
   useEffect(() => {
     fetchProducts();

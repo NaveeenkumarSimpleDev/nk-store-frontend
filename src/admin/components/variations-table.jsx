@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import VariationItem from "./vairation-item";
 import VartationForm from "./variations-form";
+import VariationModal from "./variation-modal";
 
 const VariationTable = ({
   variations,
@@ -38,15 +39,17 @@ const VariationTable = ({
         </tbody>
       </table>
       {editing && (
-        <VartationForm
-          setVariationOpen={setEditing}
-          setVariations={setVariations}
-          variation={editing}
-          variations={variations}
-          type="edit"
-          variationAttributes={variationAttributes}
-          setVariationAttributes={setVariationAttributes}
-        />
+        <VariationModal>
+          <VartationForm
+            setVariationOpen={setEditing}
+            setVariations={setVariations}
+            variation={editing}
+            variations={variations}
+            type="edit"
+            variationAttributes={variationAttributes}
+            setVariationAttributes={setVariationAttributes}
+          />
+        </VariationModal>
       )}
     </>
   );

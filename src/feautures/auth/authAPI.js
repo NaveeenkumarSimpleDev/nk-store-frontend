@@ -64,9 +64,12 @@ export const checkAuth = () => {
           "Content-Type": "application/json",
         },
       });
-
       if (response.status === 200) {
-        const data = { id: response.data.id, role: response.data.role };
+        const data = {
+          id: response.data.id,
+          email: response.data.email,
+          role: response.data.role,
+        };
         resolve(data);
       }
     } catch (error) {

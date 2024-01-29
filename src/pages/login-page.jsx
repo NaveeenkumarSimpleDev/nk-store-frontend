@@ -25,6 +25,7 @@ const LoginPage = () => {
   const from = location.state?.from || -1;
 
   if (user) return navigate(from);
+
   const {
     handleSubmit,
     register,
@@ -49,14 +50,12 @@ const LoginPage = () => {
       }));
       return;
     }
-
     dispatch(loginUserAsync(data));
   };
-  console.log({ from });
 
   return (
     <>
-      <Model backButtonHref={from}>
+      <Model backButtonHref={from.toString().startsWith("/login") ? "/" : from}>
         <div className="flex items-center justify-center  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Welcome back!" />
@@ -144,6 +143,7 @@ const LoginPage = () => {
               Don't have an account?{" "}
               <Link
                 to={authStatus === "loading" ? null : "/signUp"}
+                state={{ from }}
                 className={`font-semibold text-purple-600 ${
                   authStatus === "loading" ? "pointer-events-none" : ""
                 }`}
