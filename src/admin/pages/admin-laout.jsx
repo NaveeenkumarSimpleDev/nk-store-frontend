@@ -2,9 +2,12 @@ import { Outlet } from "react-router-dom";
 import AdminNavbar from "../components/navbar";
 const AdminLayout = () => {
   return (
-    <div className="flex ">
-      <AdminNavbar />
-      <section className="flex-grow ml-[8rem]">
+    <div className="flex">
+      <div className="mt-4  w-[8rem]">
+        <AdminNavbar />
+      </div>
+
+      <section className="flex-grow overflow-hidden">
         <Outlet />
       </section>
     </div>

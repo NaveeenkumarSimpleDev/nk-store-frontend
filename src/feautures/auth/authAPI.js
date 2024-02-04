@@ -20,7 +20,7 @@ export const createUser = (userData) => {
     } catch (err) {
       if (err.response?.status === 400) {
         const error = err.response?.data;
-        resolve({ error });
+        toast.error(error?.message);
       }
 
       reject("Somthing wrong in auth");
@@ -45,7 +45,7 @@ export const loginUser = (loginData) => {
     } catch (err) {
       const error = err.response?.data;
       if (error) {
-        resolve({ error });
+        toast.error(error?.message?.email || error?.message?.password);
       } else {
         toast.error("somthing went wrong!");
       }
@@ -82,10 +82,13 @@ export const checkAuth = () => {
 
 export const logout = () => {
   const url = baseUrl + "/auth/logout";
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async () => {
     try {
       const response = await axios.get(url, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (response.status === 200) {

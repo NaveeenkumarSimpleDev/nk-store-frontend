@@ -7,47 +7,28 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createuserAsync,
-  selectAuthStatus,
-  selectError,
   selectLoggedInUser,
 } from "../feautures/auth/authSlice";
 import { Loader2 } from "lucide-react";
 import Model from "../components/model";
+import Input from "../admin/components/input";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const [errorsState, setErrorsState] = useState({});
-  const authStatus = useSelector(selectAuthStatus);
-  const error = useSelector(selectError);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const from = location.state?.from;
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm();
 
-  console.log({ from });
   const onSubmit = async (data) => {
-    const { name, email, password, confirmPass } = data;
-    // name validation
-    if (!name || name.length === 0 || name === "") {
-      setErrorsState((prev) => ({
-        ...prev,
-        name: "Enter name",
-      }));
-      return;
-    }
-
-    // email validation
-    if (!email.includes("@") || email.trim() === "" || !email) {
-      setErrorsState((prev) => ({
-        ...prev,
-        email: "Invalid Email",
-      }));
-      return;
-    }
+    const { password, confirmPass } = data;
 
     // password check
     if (password !== confirmPass) {
@@ -57,14 +38,13 @@ const RegisterPage = () => {
       }));
       return;
     }
+    setLoading(true);
 
-    try {
-      dispatch(createuserAsync(data));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setErrorsState({});
-    }
+    await dispatch(createuserAsync(data));
+
+    setLoading(false);
+    setErrorsState({});
+    reset();
   };
 
   return (
@@ -80,99 +60,50 @@ const RegisterPage = () => {
               className="mt-4 space-y-4"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  {...register("name", {
-                    required: "Name is required.",
-                    maxLength: {
-                      value: 20,
-                      message: "Maximum 20 characters.",
-                    },
-                  })}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
-                />
-                {(errors?.name || errorsState.name) && (
-                  <span className="text-xs text-red-600 font-semibold">
-                    {errorsState.name
-                      ? errorsState.name
-                      : errors?.name?.message}
-                  </span>
-                )}
-              </div>
+              <Input
+                label="Name"
+                errors={errors}
+                register={register}
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                name="name"
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message: "Maximum 20 characters.",
+                  },
+                }}
+                required="Name is required."
+              />
+
+              <Input
+                label="Email"
+                errors={errors}
+                register={register}
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                name="email"
+                required="Email is required."
+                type="email"
+              />
+
+              <Input
+                label="Password"
+                errors={errors}
+                register={register}
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                name="password"
+                required="Password is required."
+                type="password"
+              />
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email", { required: "Email is required." })}
+                <Input
+                  label="Confirm Password"
+                  errors={errors}
+                  register={register}
                   className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
-                />
-                {error && error.signUp?.error?.message && (
-                  <span className="text-xs text-red-600 font-semibold">
-                    {error.signUp?.error?.message}
-                  </span>
-                )}
-                {(errors?.email || errorsState.email) && (
-                  <span className="text-xs text-red-600 font-semibold">
-                    {errorsState.email
-                      ? errorsState.email
-                      : errors?.email?.message}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
+                  name="confirmPass"
+                  required="Confirm password is required."
                   type="password"
-                  {...register("password", {
-                    required: "Password is required.",
-                  })}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
-                />
-                {(errors?.password || errorsState.password) && (
-                  <span className="text-xs text-red-600 font-semibold">
-                    {errorsState.password
-                      ? errorsState.password
-                      : errors?.password?.message}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="confirmPass"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPass"
-                  type="password"
-                  {...register("confirmPass", {
-                    required: "Confirm Password is required.",
-                  })}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
                 />
                 {errorsState.confirmPass && (
                   <span className="text-xs text-red-600 font-semibold">
@@ -183,11 +114,11 @@ const RegisterPage = () => {
 
               <Button
                 type="submit"
-                disabled={authStatus === "loading"}
-                isLoading={authStatus === "loading"}
-                className="w-full uppercase text-sm font-semibold disabled:bg-muted-foreground"
+                disabled={loading}
+                isLoading={loading}
+                className="w-full uppercase text-sm font-semibold disabled:bg-black/60"
               >
-                {authStatus === "loading" ? (
+                {loading ? (
                   <div className="flex items-center gap-x-2 justify-center">
                     <Loader2 className="h-6 animate-spin" />
                     <span className="text-sm font-semibold">
@@ -203,9 +134,9 @@ const RegisterPage = () => {
             <p className="mt-4 text-sm">
               Already have an account?{" "}
               <Link
-                to={authStatus === "loading" ? null : "/login"}
+                to={loading ? null : "/login"}
                 className={`font-semibold text-purple-600 ${
-                  authStatus === "loading" ? "pointer-events-none" : ""
+                  loading ? "pointer-events-none" : ""
                 }`}
               >
                 Click here to login

@@ -89,7 +89,7 @@ const ProductCard = ({ product }) => {
                 loading="lazy"
                 src={product?.variations[0]?.images[0]}
                 sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
-                className="object-contain object-center rounded-t-lg relative h-full w-full"
+                className="object-cover object-center rounded-t-lg relative h-full w-full"
                 alt={product?.title}
               />
             ) : (
@@ -114,7 +114,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="py-4">
-          <div className="px-6 flex flex-col gap-4">
+          <div className="px-4 flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <div className="flex-1 overflow-hidden">
                 <Link to={linkTo}>
@@ -144,7 +144,7 @@ const ProductCard = ({ product }) => {
             <div className="flex items-center justify-between">
               <Link to={linkTo}>
                 <Button className="m-0 font-semibold bg-transparent text-black border hover:bg-accent">
-                  Preview
+                  View Product
                 </Button>
               </Link>
               <Button

@@ -143,14 +143,19 @@ export async function fetchFavourites(userId) {
 
 // product search
 export async function searchProducts(query) {
-  const url = baseUrl + "/products/find";
+  if (!query) return;
+  const url = baseUrl + "/search";
   return new Promise(async (resolve) => {
     try {
-      const response = await axios.post(url, query, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        url,
+        { searchQuery: query },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         resolve(response.data);
       }

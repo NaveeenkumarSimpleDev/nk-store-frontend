@@ -25,7 +25,7 @@ const CartItem = ({ item }) => {
           userId: loggedInUser?.id,
           productId: item?.id,
           type: "delete",
-        }),
+        })
       );
     }
   };
@@ -37,7 +37,7 @@ const CartItem = ({ item }) => {
       return toast.error("Max-quantity reached");
     }
     dispatch(
-      updateCartAsync({ userId: loggedInUser?.id, productId: item?.id, type }),
+      updateCartAsync({ userId: loggedInUser?.id, productId: item?.id, type })
     );
   };
   const total = Number(item?.discountPrice) * Number(currentItem?.quantity);
@@ -51,17 +51,17 @@ const CartItem = ({ item }) => {
 
     if (customValues[0]) {
       linkTo += `?${customValues[0]}=${encodeURIComponent(
-        customAttributes[customValues[0]],
+        customAttributes[customValues[0]]
       )}`;
     }
     if (customValues[1]) {
       linkTo += `&${customValues[1]}=${encodeURIComponent(
-        customAttributes[customValues[1]],
+        customAttributes[customValues[1]]
       )}`;
     }
     if (customValues[2]) {
       linkTo += `&${customValues[2]}=${encodeURIComponent(
-        customAttributes[customValues[2]],
+        customAttributes[customValues[2]]
       )}`;
     }
   }
@@ -69,18 +69,22 @@ const CartItem = ({ item }) => {
   return (
     <>
       {cart?.cartItems && (
-        <div className="flex items-center gap-2 justify-between">
+        <div className="flex items-center gap-2 justify-between overflow-hidden">
           <div className="flex flex-row gap-2">
-            <Link onClick={handleCartOpen} to={linkTo}>
+            <Link
+              onClick={handleCartOpen}
+              to={linkTo}
+              className="border rounded-md h-12 w-20 sm:w-28 sm:h-20 "
+            >
               <img
                 src={item?.variations?.images[0]}
-                className="h-12 w-20 sm:w-28 sm:h-20 object-cover object-center rounded-md"
+                className="object-contain h-full w-full object-center rounded-md"
                 alt={item?.title}
               />
             </Link>
 
             <div className="flex flex-col sm:-mt-1 overflow-hidden">
-              <span className="overflow-ellipsis text-xs font-bold truncate sm:text-lg sm:font-semibold">
+              <span className="overflow-ellipsis w-[15rem] text-xs font-bold truncate sm:text-lg sm:font-semibold">
                 {item?.title}
               </span>
               <span className=" text-xs sm:text-base font-semibold">

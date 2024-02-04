@@ -76,7 +76,7 @@ export async function deleteProductById(id) {
 }
 
 export async function upLoadImage(images, variationImages) {
-  if (!images || images?.length == 0) return;
+  if (!images || images.length == 0) return;
   const formData = new FormData();
 
   const varImgs = variationImages?.filter((x) => x != "" && x);

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const AdminNavbar = () => {
   return (
-    <nav className="flex flex-col w-[7rem] pr-4 mr-4 fixed top-15 h-screen z-10  border-r font-semibold">
+    <nav className="flex flex-col pr-4 mr-4  h-screen z-10  border-r font-semibold">
       <NavLink
         style={({ isActive }) => {
           if (isActive) {

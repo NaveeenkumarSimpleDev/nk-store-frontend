@@ -33,3 +33,13 @@ export const BRANDS = [
     value: "puma",
   },
 ];
+
+export const ATTRIBUTE_OPTIONS = [
+  "Select",
+  "Color",
+  "Size",
+  "Ram",
+  "Storage",
+  "Weight",
+  "Create new",
+];

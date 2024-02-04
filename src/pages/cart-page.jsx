@@ -23,7 +23,7 @@ const Cart = () => {
 
   const subTotal = cartItemsWithQuantity?.reduce(
     (prev, curr) => prev + curr.total,
-    0,
+    0
   );
   const delivary = 0;
   const total = subTotal + delivary;
@@ -49,8 +49,8 @@ const Cart = () => {
   if (loggedInUser) {
     content =
       cart && cart?.cartItems?.length != 0 ? (
-        <div className="h-full flex flex-col">
-          <div className=" flex-grow overflow-y-auto">
+        <div className="h-full flex flex-col justify-between overflow-auto">
+          <div className="overflow-y-auto">
             <div className="px-4 flex flex-col gap-3">
               {cart?.cartItems?.map((item, idx) => {
                 return <CartItem key={idx + "" + item?.id} item={item} />;
@@ -59,7 +59,7 @@ const Cart = () => {
           </div>
 
           {/* total,other payments */}
-          <div className="px-4 pb-6 mt-auto flex-shrink-0 h-auto flex flex-col bg-white py-4 justify-end w-full">
+          <div className="px-4 flex-shrink-0 flex flex-col bg-white py-4 w-full">
             <div>
               <hr className="my-2 sm:my-4" />
               <div className="flex items-center justify-between">
@@ -113,7 +113,7 @@ const Cart = () => {
         <div
           onClick={handleCartOpen}
           className={cn(
-            " z-[100] fixed top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]",
+            " z-[100] fixed top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
           )}
         />
       )}
@@ -121,7 +121,7 @@ const Cart = () => {
       <div
         className={cn(
           "transition-all duration-200 z-[110] h-screen  w-full flex flex-col gap-4 max-w-[35rem] fixed right-0 bg-white",
-          isOpen ? "clip-inset-100" : "-clip-inset-0",
+          isOpen ? "clip-inset-100" : "-clip-inset-0"
         )}
       >
         <div>

@@ -4,7 +4,6 @@ import { checkAuth, createUser, loginUser, logout } from "./authAPI";
 const initialState = {
   loggedInUserToken: null,
   status: "idle",
-  error: null,
   userChecked: false,
 };
 
@@ -37,32 +36,20 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createuserAsync.pending, (state) => {
-        state.error = {};
         state.status = "loading";
       })
       .addCase(createuserAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        if (action.payload?.error) {
-          state.error = { signUp: action.payload };
-        } else {
-          state.loggedInUserToken = action.payload;
-        }
+        state.loggedInUserToken = action.payload;
       })
       .addCase(createuserAsync.rejected, (state) => {
         state.status = "idle";
       })
       .addCase(loginUserAsync.pending, (state) => {
-        state.error = {};
         state.status = "loading";
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        if (action.payload?.error) {
-          state.error = { login: action.payload };
-        } else {
-          state.loggedInUserToken = action.payload;
-          state.error = {};
-        }
+        state.loggedInUserToken = action.payload;
       })
       .addCase(loginUserAsync.rejected, (state) => {
         state.status = "idle";
@@ -87,6 +74,5 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 export const selectLoggedInUser = (state) => state.auth.loggedInUserToken;
-export const selectError = (state) => state.auth.error;
 export const selectUserChecked = (state) => state.auth.userChecked;
 export const selectAuthStatus = (state) => state.auth.status;

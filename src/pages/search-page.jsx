@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { searchProducts } from "../feautures/product/productAPI";
 
 const SearchPage = ({ setOpen }) => {
-  const [loading, setLoading] = useState();
-  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
+
   let timeout;
 
   const onClose = () => setOpen(false);
@@ -16,36 +17,82 @@ const SearchPage = ({ setOpen }) => {
     clearTimeout(timeout);
 
     timeout = setTimeout(async () => {
-      const results = await searchProducts(query);
-      setProducts(results);
-      setLoading(false);
+      searchProducts(query)
+        .then((data) => {
+          setResults(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }, 1000);
-  });
+  }, []);
 
   let content;
 
   if (loading) {
-    content = <p className="w-full mx-auto">Loading....</p>;
+    content = <p className="w-full mx-auto flex p-3">Searching....</p>;
   }
 
-  if (products?.length > 0 && !loading) {
+  if (results && !loading) {
     content = (
-      <ul>
-        {products.map((product) => (
-          <li onClick={onClose} key={product.id}>
-            <Link to={`/products/${product.id}`}>
-              <p className="w-full cursor-pointer hover:bg-[#eee] p-2 rounded-md">
-                {product.title}
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="p-4">
+        {results?.brands?.length > 0 && (
+          <div className="space-y-2">
+            <p className="font-semibold text-lg">Brands</p>
+            <ul>
+              {results.brands.map((b) => (
+                <li onClick={onClose} key={b.id}>
+                  <Link to={`/products/${b.value?.toLowerCase()}`}>
+                    <p className="w-full tex-md p-2 cursor-pointer hover:bg-[#eee] rounded-md">
+                      {b.value}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {results.products?.length > 0 && (
+          <div className="my-4 space-y-2">
+            <p className="font-semibold text-lg">Products</p>
+            <ul className="">
+              {results.products?.map((product) => {
+                let linkTo = "/products/" + product?.id + "?";
+                const customValues = Object.keys(
+                  product?.variations[0]?.customAttributes
+                );
+                customValues.forEach((k, i) => {
+                  linkTo += `${k}=${encodeURIComponent(
+                    product?.variations[0]?.customAttributes[k]
+                  )}&`;
+                });
+                return (
+                  <li onClick={onClose} key={product.id}>
+                    <Link
+                      to={linkTo}
+                      className="flex items-center hover:bg-[#eee] overflow-hidden "
+                    >
+                      <img
+                        className="w-[2rem] h-[2rem] object-cover object-center  rounded-md "
+                        src={product.variations[0].images[0]}
+                        alt={product.title}
+                      />
+                      <p className="w-full cursor-pointer p-2 rounded-md truncate overflow-hidden">
+                        {product.title}
+                      </p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
     );
   }
 
-  if (loading !== undefined && !loading && products?.length === 0) {
-    content = <p>No results.</p>;
+  if (!loading && results?.error) {
+    content = <p className="w-full mx-auto flex p-3">{results.error}</p>;
   }
 
   return (
@@ -65,7 +112,7 @@ const SearchPage = ({ setOpen }) => {
           />
         </div>
         {content && (
-          <div className="w-[30rem] p-2 mx-auto overflow-y-auto bg-white rounded-md">
+          <div className="w-[30rem] mx-auto overflow-y-auto bg-white rounded-md">
             {content}
           </div>
         )}
