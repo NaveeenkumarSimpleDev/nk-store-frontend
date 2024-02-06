@@ -86,22 +86,24 @@ const ProductCard = ({ product }) => {
 
         <div className="py-4">
           <div className="px-6 flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <Link to={linkTo}>
-                <div className="flex flex-col">
-                  <span className="text-xl xl:text-2xl mb-1 w-[10rem] truncate font-bold">
-                    {formatTitle}
-                  </span>
-                  <span className="text-sm xl:text-md m-0 w-[10rem] font-medium truncate overflow-ellipsis">
-                    {description}
-                  </span>
-                  <div className="mt-4">
-                    <StarRating rating={4.5} totalRatings={rating} />
+            <div className="flex items-center gap-2">
+              <div className="flex-1 overflow-hidden">
+                <Link to={linkTo}>
+                  <div className="flex flex-col">
+                    <span className="text-md xl:text-xl mb-1 truncate font-bold overflow-ellipsis">
+                      {title}
+                    </span>
+                    <span className="text-sm xl:text-md m-0 w-[10rem] font-medium truncate overflow-ellipsis">
+                      {description}
+                    </span>
+                    <div className="mt-4 items-start flex">
+                      <StarRating rating={4.5} totalRatings={rating} />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
               <div className="ml-auto flex flex-col flex-shrink-0">
-                <span className="text-xl font-bold">
+                <span className="text-md font-bold">
                   {formatPrice(discountPrice)}
                 </span>
                 <span className="text-sm font-semibold line-through">

@@ -21,6 +21,10 @@ import AdminLayout from "./admin/pages/admin-laout";
 import AdminProducts from "./admin/pages/admin-products";
 import AddProduct from "./admin/pages/new-product";
 import EdidProduct from "./admin/pages/edit-product";
+import { fetchAdminProductsAsync } from "./feautures/admin/adminSlice";
+import CategoriesPage from "./pages/categories-page";
+import CategoryPage, { loader as categoryLoader } from "./pages/category-page";
+import BrandPage, { loader as brandLoader } from "./pages/brand-page";
 
 const routes = createBrowserRouter([
   {
@@ -53,6 +57,25 @@ const routes = createBrowserRouter([
         ],
       },
       {
+        path: "/brands/:brand",
+        element: <BrandPage />,
+        loader: brandLoader,
+      },
+      {
+        path: "/categories",
+        children: [
+          {
+            index: true,
+            element: <CategoriesPage />,
+          },
+          {
+            path: ":category",
+            element: <CategoryPage />,
+            loader: categoryLoader,
+          },
+        ],
+      },
+      {
         path: "/signUp",
         element: <RegisterPage />,
       },
@@ -72,14 +95,6 @@ const routes = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
-          {
-            index: true,
-            element: (
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            ),
-          },
           {
             path: "products",
             element: (
@@ -117,6 +132,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkAuthAsync());
+    dispatch(fetchAdminProductsAsync(loggedInUser?.email));
   }, [dispatch]);
 
   useEffect(() => {

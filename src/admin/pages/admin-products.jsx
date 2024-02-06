@@ -1,29 +1,29 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ProductCard from "../components/product-card";
 import Heading from "../../components/ui/heading";
-import Button from "../../components/ui/button";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchAdminProducts } from "../../feautures/admin/adminApi";
+import { fetchAdminProductsAsync } from "../../feautures/admin/adminSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import ProductLoading from "../../components/product-loading";
+import { selectAdminProducts } from "../../feautures/admin/adminSlice";
 const AdminProducts = () => {
   const user = useSelector(selectLoggedInUser);
-  const [products, setProducts] = useState();
+  const products = useSelector(selectAdminProducts);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   async function fetchProducts() {
-    setLoading(true);
     if (!user.email) return;
-    await fetchAdminProducts(user.email)
-      .then((data) => setProducts(data))
-      .finally(() => setLoading(false));
+    setLoading(true);
+    await dispatch(fetchAdminProductsAsync(user.email));
+    setLoading(false);
   }
 
   useEffect(() => {
     fetchProducts();
-  }, [user]);
+  }, []);
 
   return (
     <section className="flex flex-col gap-6 w-full">
@@ -44,7 +44,7 @@ const AdminProducts = () => {
           <p>Products not found, pls create products</p>
         )}
       </div>
-      {loading && <ProductLoading />}
+      {loading === 0 && <ProductLoading />}
     </section>
   );
 };

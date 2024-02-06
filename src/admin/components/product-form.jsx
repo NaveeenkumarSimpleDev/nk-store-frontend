@@ -17,7 +17,7 @@ import { selectBrands } from "../../feautures/product/productSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import Heading from "../../components/ui/heading";
 import VariationModal from "./variation-modal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "./input";
 import { useForm } from "react-hook-form";
 import VariationList from "./variation-list";
@@ -31,7 +31,7 @@ const ProductForm = ({ product }) => {
   const [error, setError] = useState(false);
   const [brand, setBrand] = useState(product?.brand?.id);
   const [category, setCategory] = useState(product?.category);
-
+  const navigate = useNavigate();
   const [variationOpen, setVariationOpen] = useState(false);
   const [variationAttributes, setVariationAttributes] = useState(() => {
     if (!product) return [];
@@ -84,11 +84,15 @@ const ProductForm = ({ product }) => {
     };
 
     if (product) {
-      updateProduct({ id: product.id, ...productData }).finally(() =>
-        setLoading(false)
-      );
+      updateProduct({ id: product.id, ...productData }).finally(() => {
+        setLoading(false);
+        navigate("/admin/products");
+      });
     } else {
-      crateNewProduct(productData).finally(() => setLoading(false));
+      crateNewProduct(productData).finally(() => {
+        setLoading(false);
+        navigate("/admin/products");
+      });
     }
   }
 
@@ -163,18 +167,18 @@ const ProductForm = ({ product }) => {
                 <SelectValue
                   className="font-semibold"
                   placeholder={"Select a category"}
-                  defaultValue={product?.category.toLowerCase()}
+                  defaultValue={product?.category}
                 />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {CATEGORIES.map((category) => (
                     <SelectItem
-                      key={category.id}
+                      key={category.title}
                       className="font-semibold"
-                      value={category.value}
+                      value={category.title}
                     >
-                      {category.label}
+                      {category.title}
                     </SelectItem>
                   ))}
                 </SelectGroup>

@@ -5,10 +5,42 @@ const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 const clodinarayPresetKey = import.meta.env.VITE_APP_CLOUDINARY_PRESET_KEY;
 
 export async function fetchAdminProducts(email) {
+  if (!email) return;
   return new Promise(async (resolve) => {
     try {
       const url = baseUrl + "/admin/products";
       const response = await axios.post(url, { email });
+
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      toast.error("Something wrong!");
+    }
+  });
+}
+
+export async function fetchPraductsByBrand(brand) {
+  if (!brand) return;
+  return new Promise(async (resolve) => {
+    try {
+      const url = baseUrl + "/admin/brand";
+      const response = await axios.post(url, { brand });
+
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      toast.error("Something wrong!");
+    }
+  });
+}
+export async function fetchPraductsByCategory(category) {
+  if (!category) return;
+  return new Promise(async (resolve) => {
+    try {
+      const url = baseUrl + "/admin/category";
+      const response = await axios.post(url, { category });
 
       if (response.status === 200) {
         resolve(response.data);
