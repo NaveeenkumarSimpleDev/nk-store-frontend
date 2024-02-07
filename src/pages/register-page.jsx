@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createuserAsync,
   selectLoggedInUser,
+  setUser,
 } from "../feautures/auth/authSlice";
 import { Loader2 } from "lucide-react";
 import Model from "../components/model";
 import Input from "../admin/components/input";
+import { createUser } from "../feautures/auth/authAPI";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ const RegisterPage = () => {
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -39,14 +40,21 @@ const RegisterPage = () => {
       return;
     }
     setLoading(true);
+    try {
+      const user = await createUser(data);
+      dispatch(setUser(user));
+    } catch (error) {
+      setErrorsState((prev) => ({
+        ...prev,
+        email: error,
+      }));
 
-    await dispatch(createuserAsync(data));
-
-    setLoading(false);
-    setErrorsState({});
-    reset();
+      console.log("SIGNUP", error);
+    } finally {
+      setLoading(false);
+      // reset();
+    }
   };
-
   return (
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
@@ -75,16 +83,22 @@ const RegisterPage = () => {
                 required="Name is required."
               />
 
-              <Input
-                label="Email"
-                errors={errors}
-                register={register}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
-                name="email"
-                required="Email is required."
-                type="email"
-              />
-
+              <div>
+                <Input
+                  label="Email"
+                  errors={errors}
+                  register={register}
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  name="email"
+                  required="Email is required."
+                  type="email"
+                />
+                {errorsState.email && !errors["email"] && (
+                  <p className="text-red-500 font-semibold">
+                    {errorsState.email?.message}
+                  </p>
+                )}
+              </div>
               <Input
                 label="Password"
                 errors={errors}
@@ -105,7 +119,7 @@ const RegisterPage = () => {
                   required="Confirm password is required."
                   type="password"
                 />
-                {errorsState.confirmPass && (
+                {errorsState.confirmPass && !errors["confirmPass"] && (
                   <span className="text-xs text-red-600 font-semibold">
                     {errorsState.confirmPass}
                   </span>
@@ -116,12 +130,12 @@ const RegisterPage = () => {
                 type="submit"
                 disabled={loading}
                 isLoading={loading}
-                className="w-full uppercase text-sm font-semibold disabled:bg-black/60"
+                className="w-full uppercase text-sm font-semibold disabled:bg-black/70"
               >
                 {loading ? (
                   <div className="flex items-center gap-x-2 justify-center">
                     <Loader2 className="h-6 animate-spin" />
-                    <span className="text-sm font-semibold">
+                    <span className="text-sm font-semibold capitalize">
                       Please wait....
                     </span>
                   </div>

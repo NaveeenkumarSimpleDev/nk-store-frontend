@@ -1,7 +1,7 @@
 const Heading = ({ title, desc }) => {
   return (
     <div className="flex flex-col gap-2">
-      <h1 className="capitalize lg:text-3xl  2xl:text-4xl font-bold">
+      <h1 className="capitalize text-2xl lg:text-3xl  2xl:text-4xl font-bold">
         {title}
       </h1>
       {desc && (

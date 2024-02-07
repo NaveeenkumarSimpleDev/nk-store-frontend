@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Menu, ShoppingCart } from "lucide-react";
+import { HomeIcon, Menu, ShoppingCart } from "lucide-react";
 import Search from "../search";
 import UserDropdownMenu from "../user-drop-down";
 import logo from "/logo.tr.png";
@@ -43,6 +43,12 @@ const Navbar = () => {
 
         {/* common nav components */}
         <div className="ml-auto flex gap-3 lg:gap-4 items-center">
+          <Link
+            to="/"
+            className="border cursor-pointer relative py-2 transition delay-100 ease-in-out px-3 hover:bg-accent rounded-md flex  items-center"
+          >
+            <HomeIcon size={20} />
+          </Link>
           <Search />
 
           <div

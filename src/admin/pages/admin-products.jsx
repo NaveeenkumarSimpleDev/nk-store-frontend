@@ -31,7 +31,7 @@ const AdminProducts = () => {
         <Heading title="My Products" desc="Manage your products here" />
         <Link
           to="/admin/products/new-product"
-          className="font-semibold text-white rounded-md my-auto bg-blue-500 px-4 py-2 h-fit"
+          className="font-semibold text-white rounded-md my-auto bg-blue-500 max-lg:text-sm px-2 lg:px-4 py-2 h-fit"
         >
           Add Product
         </Link>
@@ -44,7 +44,7 @@ const AdminProducts = () => {
           <p>Products not found, pls create products</p>
         )}
       </div>
-      {loading === 0 && <ProductLoading />}
+      {loading && <ProductLoading />}
     </section>
   );
 };

@@ -8,7 +8,8 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { cn } from "../../lib/utils";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { CATEGORIES } from "../../config";
 
 const MobileNavbar = ({ isOpen, setOpen }) => {
   return (
@@ -44,17 +45,57 @@ const MobileNavbar = ({ isOpen, setOpen }) => {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="text-lg font-semibold">
-                Navigation Links
+                Categories
               </AccordionTrigger>
               <AccordionContent>
-                <div className=" ml-2 flex flex-col gap-2 text-sm font-medium">
-                  <a>Link1</a>
-                  <a>Link1</a>
-                  <a>Link1</a>
+                <div className="ml-2 flex flex-col gap-2 text-sm font-medium">
+                  {CATEGORIES.map((cat) => (
+                    <NavLink
+                      onClick={() => setOpen(false)}
+                      end
+                      key={cat.description}
+                      className={({ isActive }) =>
+                        cn(
+                          "p-2 hover:bg-gray-300 rounded font-semibold",
+                          isActive && "bg-gray-300"
+                        )
+                      }
+                      to={cat.href}
+                    >
+                      {cat.title}
+                    </NavLink>
+                  ))}
                 </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+
+          <div className="grid my-4 gap-3">
+            <NavLink
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "p-2 hover:bg-gray-300 rounded font-semibold",
+                  isActive && "bg-gray-300"
+                )
+              }
+              to={"/admin/products"}
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "p-2 hover:bg-gray-300 rounded font-semibold",
+                  isActive && "bg-gray-300"
+                )
+              }
+              to={"/products"}
+            >
+              Products
+            </NavLink>
+          </div>
         </div>
       </section>
     </>

@@ -8,14 +8,17 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectLoggedInUser,
   loginUserAsync,
+  setUser,
 } from "../feautures/auth/authSlice";
 import Model from "../components/model";
 import { Loader2 } from "lucide-react";
 import Input from "../admin/components/input";
+import { loginUser } from "../feautures/auth/authAPI";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState({});
   const user = useSelector(selectLoggedInUser);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
@@ -32,9 +35,16 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    await dispatch(loginUserAsync(data));
-    setLoading(false);
-    reset();
+    try {
+      const user = await loginUser(data);
+      dispatch(setUser(user));
+    } catch (error) {
+      console.log("LOGIN", error);
+      setError(error);
+    } finally {
+      setLoading(false);
+      reset();
+    }
   };
 
   return (
@@ -59,6 +69,9 @@ const LoginPage = () => {
                   required="Email is required"
                   errors={errors}
                 />
+                {error.email && !errors["email"] && (
+                  <p className="text-red-500 font-semibold">{error.email}</p>
+                )}
               </div>
 
               <div>
@@ -71,17 +84,21 @@ const LoginPage = () => {
                   type="password"
                   className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
                 />
+
+                {error.password && (
+                  <p className="text-red-500 font-semibold">{error.password}</p>
+                )}
               </div>
 
               <Button
                 isLoading={loading}
                 disabled={loading}
-                className="w-full mt-4 uppercase text-sm font-semibold disabled:bg-black/60"
+                className="w-full mt-4 uppercase text-sm font-semibold disabled:bg-black/70"
               >
                 {loading ? (
                   <div className="flex items-center gap-x-2 justify-center">
                     <Loader2 className="h-6 animate-spin" />
-                    <span className="text-sm font-semibold">
+                    <span className="text-sm font-semibold capitalize">
                       Please wait....
                     </span>
                   </div>

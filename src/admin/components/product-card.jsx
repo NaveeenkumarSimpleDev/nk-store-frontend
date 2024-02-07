@@ -11,9 +11,6 @@ import React, { useState } from "react";
 import { deleteProductById } from "../../feautures/admin/adminApi";
 
 const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const loggedInUser = useSelector(selectLoggedInUser);
   const {
     id: productId,
     title,
@@ -119,10 +116,7 @@ const ProductCard = ({ product }) => {
                 </Button>
               </Link>
               <Link to={"edit/" + product?.id}>
-                <Button
-                  disabled={loading}
-                  className="m-0 px-6 font-semibold disabled:opacity-75 bg-blue-500"
-                >
+                <Button className="m-0 px-6 font-semibold disabled:opacity-75 bg-blue-500">
                   Edit
                 </Button>
               </Link>

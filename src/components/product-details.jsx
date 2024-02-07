@@ -231,19 +231,20 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            {/* colors */}
+            {/* First attribute */}
             {getAvailableAttributes(attributes[0]) && (
               <div className="space-y-3">
-                <span className="text-xl font-semibold">Colors</span>
+                <span className="text-xl font-semibold">{attributes[0]}</span>
                 <div className="flex gap-3">
-                  {getAvailableAttributes(attributes[0]).map((color, idx) => (
+                  {getAvailableAttributes(attributes[0]).map((item, idx) => (
                     <RadioButton
-                      key={`${color}${idx}`}
+                      key={`${item}${idx}`}
                       type={attributes[0] == "color" ? "colors" : "size"}
-                      id={color}
-                      checked={selectedAttributes[attributes[0]] === color}
-                      color={color}
-                      onChange={() => handleFirstAttributeChange(color)}
+                      id={item}
+                      checked={selectedAttributes[attributes[0]] === item}
+                      color={item}
+                      onChange={() => handleFirstAttributeChange(item)}
+                      label={item}
                     />
                   ))}
                 </div>

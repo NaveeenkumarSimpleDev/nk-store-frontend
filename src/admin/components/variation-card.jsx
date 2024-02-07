@@ -10,10 +10,10 @@ const VariationCard = ({
   setVariationAttributes,
 }) => {
   return (
-    <div className="grid w-[15rem] border rounded-md shrink-0">
+    <div className="grid w-[10rem] md:w-[15rem]  border rounded-md shrink-0">
       <div className="relative">
         <img
-          className="rounded-lg h-[15rem] w-full object-cover object-center relative"
+          className="rounded-lg h-[10rem] md:h-[15rem] w-full object-cover object-center relative"
           src={variation.images[0]}
           alt="variation img"
         />
@@ -63,7 +63,7 @@ const VariationCard = ({
           <p>{variation.stock}</p>
         </div>
 
-        <div className="flex justify-between ">
+        <div className="flex justify-between max-lg:text-sm">
           <p className="font-semibold">Specifications</p>
           <p className="font-bold">....</p>
         </div>

@@ -21,6 +21,7 @@ export const createUser = (userData) => {
       if (err.response?.status === 400) {
         const error = err.response?.data;
         toast.error(error?.message);
+        reject(error);
       }
 
       reject("Somthing wrong in auth");
@@ -45,6 +46,7 @@ export const loginUser = (loginData) => {
     } catch (err) {
       const error = err.response?.data;
       if (error) {
+        reject(error?.message);
         toast.error(error?.message?.email || error?.message?.password);
       } else {
         toast.error("somthing went wrong!");

@@ -112,7 +112,7 @@ const ProductForm = ({ product }) => {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="description" className=" font-semibold text-xl">
+          <label htmlFor="description" className=" font-bold text-xl">
             Description
           </label>
           <textarea
@@ -126,7 +126,7 @@ const ProductForm = ({ product }) => {
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="lg:flex gap-4">
           <div className="flex flex-col ">
             <Input
               register={register}
@@ -154,7 +154,7 @@ const ProductForm = ({ product }) => {
 
         <div className="lg:flex gap-8">
           <div className="w-[10rem] font-semibold space-y-2">
-            <label htmlFor="category" className=" font-semibold text-xl">
+            <label htmlFor="category" className=" font-bold text-xl">
               Category
             </label>
             <Select
@@ -188,7 +188,7 @@ const ProductForm = ({ product }) => {
 
           {/* brand */}
           <div className="space-y-2">
-            <label htmlFor="category" className=" font-semibold text-xl">
+            <label htmlFor="category" className=" font-bold text-xl">
               Brand
             </label>
             <div className="font-semibold flex gap-4">
@@ -284,7 +284,7 @@ const ProductForm = ({ product }) => {
         <p className="font-bold">
           Note: The changes only reflected after save or create.
         </p>
-        <div className="flex gap-4 w-full justify-end ml-auto">
+        <div className="flex gap-4 w-full justify-between lg:justify-end ml-auto">
           <Link to="/admin/products">
             <Button className="bg-red-500 font-bold px-6" disabled={isLoading}>
               Cancel

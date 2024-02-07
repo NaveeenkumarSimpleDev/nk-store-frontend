@@ -162,9 +162,9 @@ const VartationForm = ({
   }, []);
 
   return (
-    <form className="px-4 py-2">
+    <form className="max-lg:fixed max-lg:h-screen max-lg:inset-0 overflow-auto max-lg:z-[152] max-lg:bg-white px-4 py-2">
       <p className="font-bold text-2xl my-2">Variation</p>
-      <div className="space-y-4">
+      <div className=" space-x-2lg:space-y-4">
         <p className="font-semibold">Custom Attributes</p>
         {!variations[0] && (
           <p className="font-semibold">
@@ -179,13 +179,13 @@ const VartationForm = ({
         {attributes.map((_, index) => (
           <div
             key={index + "" + index + 1}
-            className="grid grid-cols-2 gap-4 w-full"
+            className="grid lg:grid-cols-2 lg:gap-4 gap-2 w-full"
           >
             <div className="flex">
               {variationAttributes.length == 0 ? (
                 // customAttributes change option not available now.
 
-                <div className="border rounded-lg px-2 flex items-center justify-center">
+                <div className="border rounded-lg px-2  flex items-center justify-center">
                   <select
                     key={index + "" + index}
                     name={"attributes" + index}
@@ -235,7 +235,7 @@ const VartationForm = ({
                 attributes[index].att == ("Color" || "color") ? "color" : "text"
               }
               className={cn(
-                "px-2 py-1 border rounded-sm focus:outline-none border-[#eee]",
+                "px-2 py-1 border rounded-sm focus:outline-none border-[#eee] max-lg:mb-2",
                 attributes[index].att == ("Color" || "color") && "h-[2.5rem]"
               )}
               placeholder="Value"
@@ -260,7 +260,7 @@ const VartationForm = ({
         )}
       </div>
 
-      <div className="flex gap-4 my-4">
+      <div className="sm:flex gap-4 my-4">
         <div className="flex flex-col ">
           <Input
             register={register}
@@ -320,7 +320,7 @@ const VartationForm = ({
 
         <p>Note: Only 3 images are allowed.</p>
       </div>
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-between lg:justify-end gap-2">
         <Button
           type="button"
           className=" bg-red-400 text-white font-semibold"

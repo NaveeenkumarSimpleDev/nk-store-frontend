@@ -38,7 +38,7 @@ const RadioButton = ({
           className
         )}
       >
-        {label}
+        {type === "size" && label}
       </label>
     </div>
   );

@@ -12,7 +12,7 @@ const HomePage = () => {
             </span>
           </h1>
 
-          <h2 className="text-lg mt-4 sm:text-xl xl:text-2xl text-center mt-2 font-bold flex gap-1">
+          <h2 className="text-lg sm:text-xl xl:text-2xl text-center mt-2 font-bold flex gap-1">
             <span className="max-w-[600px]">
               <p className="text-md font-medium max-w-3xl">
                 Quality guaranteed, fast shipping, and exclusive deals.

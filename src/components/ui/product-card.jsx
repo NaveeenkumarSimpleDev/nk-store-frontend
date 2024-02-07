@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import {
   addToFavouritesAsync,
@@ -57,27 +57,14 @@ const ProductCard = ({ product }) => {
     });
   };
 
-  let linkTo = "/products/" + product?.id;
+  let linkTo = "/products/" + product?.id + "?";
   const customAttributes = product?.variations[0]?.customAttributes;
 
   if (customAttributes) {
     const customValues = Object.keys(customAttributes);
-
-    if (customValues[0]) {
-      linkTo += `?${customValues[0]}=${encodeURIComponent(
-        customAttributes[customValues[0]]
-      )}`;
-    }
-    if (customValues[1]) {
-      linkTo += `&${customValues[1]}=${encodeURIComponent(
-        customAttributes[customValues[1]]
-      )}`;
-    }
-    if (customValues[2]) {
-      linkTo += `&${customValues[2]}=${encodeURIComponent(
-        customAttributes[customValues[2]]
-      )}`;
-    }
+    customValues.forEach((key) => {
+      linkTo += `${key}=${customAttributes[key]}&`;
+    });
   }
   return (
     <>
