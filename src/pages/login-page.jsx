@@ -50,7 +50,7 @@ const LoginPage = () => {
   return (
     <>
       <Model backButtonHref={from.toString().startsWith("/login") ? "/" : from}>
-        <div className="flex items-center justify-center  min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center mx-4  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Welcome back!" />
 

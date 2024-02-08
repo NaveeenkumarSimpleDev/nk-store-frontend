@@ -3,7 +3,7 @@ import StarRating from "../star-rating";
 import { AspectRatio } from "./aspect-ratio";
 import Button from "./button";
 import { cn, formatPrice } from "../../lib/utils";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
               <img
                 loading="lazy"
                 src={product?.variations[0]?.images[0]}
-                sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
+                // sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
                 className="object-cover object-center rounded-t-lg relative h-full w-full"
                 alt={product?.title}
               />

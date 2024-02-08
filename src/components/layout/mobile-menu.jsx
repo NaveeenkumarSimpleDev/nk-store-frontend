@@ -10,8 +10,12 @@ import {
 import { cn } from "../../lib/utils";
 import { Link, NavLink } from "react-router-dom";
 import { CATEGORIES } from "../../config";
+import { useSelector } from "react-redux";
+import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
 const MobileNavbar = ({ isOpen, setOpen }) => {
+  const user = useSelector(selectLoggedInUser);
+
   return (
     <>
       {isOpen && (
@@ -71,18 +75,20 @@ const MobileNavbar = ({ isOpen, setOpen }) => {
           </Accordion>
 
           <div className="grid my-4 gap-3">
-            <NavLink
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                cn(
-                  "p-2 hover:bg-gray-300 rounded font-semibold",
-                  isActive && "bg-gray-300"
-                )
-              }
-              to={"/admin/products"}
-            >
-              Dashboard
-            </NavLink>
+            {user?.role === "admin" && (
+              <NavLink
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  cn(
+                    "p-2 hover:bg-gray-300 rounded font-semibold",
+                    isActive && "bg-gray-300"
+                  )
+                }
+                to={"/admin/products"}
+              >
+                Dashboard
+              </NavLink>
+            )}
             <NavLink
               onClick={() => setOpen(false)}
               className={({ isActive }) =>

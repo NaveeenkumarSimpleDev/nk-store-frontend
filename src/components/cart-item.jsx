@@ -69,7 +69,7 @@ const CartItem = ({ item }) => {
   return (
     <>
       {cart?.cartItems && (
-        <div className="flex items-center gap-2 justify-between overflow-hidden">
+        <div className="flex items-center gap-2 overflow-hidden">
           <div className="flex flex-row gap-2">
             <Link
               onClick={handleCartOpen}
@@ -84,10 +84,10 @@ const CartItem = ({ item }) => {
             </Link>
 
             <div className="flex flex-col sm:-mt-1 overflow-hidden">
-              <span className="overflow-ellipsis w-[15rem] text-xs font-bold truncate sm:text-lg sm:font-semibold">
+              <span className="overflow-ellipsis w-[5rem] md:w-[10rem] lg:w-[15rem] text-xs font-bold truncate  sm:text-lg sm:font-semibold">
                 {item?.title}
               </span>
-              <span className=" text-xs sm:text-base font-semibold">
+              <span className="sm:text-base text-xs font-semibold">
                 {formatPrice(item?.discountPrice)} X{" "}
                 {formatPrice(currentItem?.quantity)} = {formatPrice(total)}
               </span>
@@ -95,7 +95,7 @@ const CartItem = ({ item }) => {
             </div>
           </div>
 
-          <div className="flex gap-1">
+          <div className="shrink-0 ml-auto flex  gap-1">
             <div className="flex items-center gap-2 sm:gap-4 ">
               <Button
                 disabled={currentItem?.quantity == "1"}

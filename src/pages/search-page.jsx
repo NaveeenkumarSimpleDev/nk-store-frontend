@@ -108,7 +108,7 @@ const SearchPage = ({ setOpen }) => {
       />
       <Button
         onClick={onClose}
-        className="absolute p-2 rounded-full bg-white top-8 right-10 z-30 group"
+        className="absolute p-2 rounded-full bg-white top-2 right-2 md:top-8 md:right-10 z-30 group"
       >
         <X
           strokeWidth={3}
