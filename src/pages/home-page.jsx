@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import Heading from "../components/ui/heading";
+import CartegoryCard from "../components/category-card";
+import { CATEGORIES } from "../config";
 
 const HomePage = () => {
   return (
-    <div className="w-full flex mt-10">
-      <div className="flex flex-col mt-4 md:mt-8 items-center justify-center w-full gap-3">
+    <div className="w-full flex flex-col gap-4">
+      <div className="flex flex-col max-md:bg-right md:pt-8 p-6 lg:py-20  items-center justify-center w-full gap-3 bg-[url(/public/bg.jpg)] bg-opacity-50 bg-cover bg-center rounded-md">
         <div>
           <h1 className="sm:text-3xl text-center text-2xl lg:text-4xl xl:text-5xl font-bold">
             Welcome to
@@ -14,7 +17,7 @@ const HomePage = () => {
 
           <h2 className="text-lg sm:text-xl xl:text-2xl text-center mt-2 font-bold flex gap-1">
             <span className="max-w-[600px]">
-              <p className="text-md font-medium max-w-3xl">
+              <p className="text-md font-bold max-w-3xl">
                 Quality guaranteed, fast shipping, and exclusive deals.
                 Discover, shop, and elevate your lifestyle with us! 🛍️🌟🚀
                 #NKStore #ShopNow
@@ -30,6 +33,23 @@ const HomePage = () => {
           >
             Shop now
           </Link>
+        </div>
+      </div>
+
+      {/* categories */}
+
+      <div className="space-y-4">
+        <Heading title={"Categories"} />
+
+        <div className="grid gap-2 lg:grid-cols-3 grid-cols-2 ">
+          {CATEGORIES.map((cat) => (
+            <CartegoryCard
+              title={cat.title}
+              img={cat.image}
+              key={cat.title}
+              href={cat.href}
+            />
+          ))}
         </div>
       </div>
     </div>

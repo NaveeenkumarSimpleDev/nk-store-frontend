@@ -10,7 +10,7 @@ const Model = ({ className, children, backButtonHref }) => {
         onClick={() => {
           return navigate(backButtonHref ? backButtonHref : -1);
         }}
-        className="cursor-default h-screen absolute z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.6)]"
+        className="cursor-default h-screen fixed z-[150] top-0 left-0 right-0 bg-[rgba(0,0,0,0.6)]"
       />
       <div className={cn("absolute inset-0", className)}>{children}</div>
     </div>

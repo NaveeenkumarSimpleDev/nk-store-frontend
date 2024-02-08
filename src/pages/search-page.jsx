@@ -132,7 +132,7 @@ const SearchPage = ({ setOpen }) => {
           />
         </div>
         {content && (
-          <div className="w-[30rem] mx-auto overflow-y-auto bg-white rounded-md">
+          <div className="lg:w-[30rem] w-[90vw] ml-4 mr-4 mx-auto overflow-y-auto bg-white rounded-md">
             {content}
           </div>
         )}

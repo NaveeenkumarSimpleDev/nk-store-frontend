@@ -10,7 +10,7 @@ const VariationCard = ({
   setVariationAttributes,
 }) => {
   return (
-    <div className="grid w-[10rem] md:w-[15rem]  border rounded-md shrink-0">
+    <div className="grid w-[12rem] md:w-[15rem] border rounded-md shrink-0">
       <div className="relative">
         <img
           className="rounded-lg h-[10rem] md:h-[15rem] w-full object-cover object-center relative"
@@ -44,7 +44,7 @@ const VariationCard = ({
               <p className="font-semibold">{k}</p>
               {k.toLocaleLowerCase() == "color" ? (
                 <div
-                  className={cn("h-6 w-6 rounded-md")}
+                  className={cn("h-6 w-6 rounded-md border border-black")}
                   style={{ background: variation.customAttributes[k] }}
                 />
               ) : (

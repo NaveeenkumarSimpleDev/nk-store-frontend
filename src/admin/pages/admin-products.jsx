@@ -37,9 +37,11 @@ const AdminProducts = () => {
         </Link>
       </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {products?.map((product, idx) => (
-          <ProductCard key={product?.id + "_" + idx} product={product} />
-        ))}
+        {products?.length > 0 &&
+          !loading &&
+          products?.map((product, idx) => (
+            <ProductCard key={product?.id + "_" + idx} product={product} />
+          ))}
         {products?.length === 0 && !loading && (
           <p>Products not found, pls create products</p>
         )}

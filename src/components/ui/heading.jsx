@@ -5,7 +5,7 @@ const Heading = ({ title, desc }) => {
         {title}
       </h1>
       {desc && (
-        <span className="font-medium w-[60vw] text-lg 2xl:xl text-muted-foreground">
+        <span className="font-medium w-[60vw] text-sm  md:text-lg 2xl:xl text-muted-foreground">
           {desc}
         </span>
       )}

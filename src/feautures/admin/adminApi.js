@@ -55,7 +55,7 @@ export async function crateNewProduct(product) {
   const url = baseUrl + "/admin/products/create";
   if (!product) return toast.error("Something worng!, pls try again");
 
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(url, product);
 
@@ -67,12 +67,13 @@ export async function crateNewProduct(product) {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+      reject(error);
     }
   });
 }
 export async function updateProduct(product) {
   const url = baseUrl + "/admin/products/update";
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(url, product);
 
@@ -84,6 +85,7 @@ export async function updateProduct(product) {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+      reject(error);
     }
   });
 }

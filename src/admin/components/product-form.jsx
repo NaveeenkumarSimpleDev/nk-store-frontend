@@ -28,7 +28,7 @@ const ProductForm = ({ product }) => {
   const [variations, setVariations] = useState(product?.variations || []);
   const user = useSelector(selectLoggedInUser);
   const [isNewBrand, setNewBrand] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({});
   const [brand, setBrand] = useState(product?.brand?.id);
   const [category, setCategory] = useState(product?.category);
   const navigate = useNavigate();
@@ -45,6 +45,7 @@ const ProductForm = ({ product }) => {
     formState: { errors },
     register,
     handleSubmit,
+    control,
   } = useForm({
     defaultValues: {
       title: product?.title,
@@ -55,12 +56,26 @@ const ProductForm = ({ product }) => {
 
   const descRef = useRef();
   const newBrandRef = useRef();
-
-  function onSubmit(e) {
+  console.log({ error });
+  async function onSubmit(e) {
+    let err = {};
     if (variations?.length < 1) {
-      setError(true);
+      err.variation = true;
+    }
+
+    if (!category) {
+      err.category = "PLease select category";
+    }
+
+    if (!brand) {
+      err.brand = "PLease select brand";
+    }
+
+    if (err.category || err.brand || err.variation) {
+      setError(err);
       return;
     }
+
     setLoading(true);
     const newBrand = newBrandRef.current?.value;
 
@@ -84,22 +99,35 @@ const ProductForm = ({ product }) => {
     };
 
     if (product) {
-      updateProduct({ id: product.id, ...productData }).finally(() => {
-        setLoading(false);
-        navigate("/admin/products");
-      });
+      await updateProduct({ id: product.id, ...productData })
+        .catch((err) => {
+          console.log("PRODUCT FORM", err);
+          setLoading(false);
+        })
+        .finally(() => {
+          setLoading(false);
+          setError({});
+        });
     } else {
-      crateNewProduct(productData).finally(() => {
-        setLoading(false);
-        navigate("/admin/products");
-      });
+      await crateNewProduct(productData)
+        .catch((err) => {
+          setLoading(false);
+
+          console.log("PRODUCT FORM", err);
+        })
+        .finally(() => {
+          setError({});
+          setLoading(false);
+        });
     }
+
+    navigate("/admin/products");
   }
 
   return (
     <div className="mx-auto my-6 border p-6 rounded-md">
       <Heading title="Create Product" />
-      <form className="mt-4 space-y-6">
+      <form className="mt-4 space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col ">
           <Input
             name="title"
@@ -153,7 +181,7 @@ const ProductForm = ({ product }) => {
         </div>
 
         <div className="lg:flex gap-8">
-          <div className="w-[10rem] font-semibold space-y-2">
+          <div className="w-[15rem] max-lg:mb-4 font-semibold space-y-2">
             <label htmlFor="category" className=" font-bold text-xl">
               Category
             </label>
@@ -213,7 +241,10 @@ const ProductForm = ({ product }) => {
                     />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
+                    <SelectGroup className=" max-h-[10rem] lg:max-h-[15rem] overflow-auto">
+                      <SelectItem className="font-semibold" value="new">
+                        Create new brand
+                      </SelectItem>
                       {brands.map((brand) => (
                         <SelectItem
                           key={brand.id}
@@ -223,9 +254,6 @@ const ProductForm = ({ product }) => {
                           {brand.value}
                         </SelectItem>
                       ))}
-                      <SelectItem className="font-semibold" value="new">
-                        Create new brand
-                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -275,7 +303,7 @@ const ProductForm = ({ product }) => {
             </VariationModal>
           )}
 
-          {error && variations.length == 0 && (
+          {error.variation && variations.length == 0 && (
             <p className="text-red-500 font-semibold mt-4">
               Please create atleast one variation.
             </p>
@@ -294,7 +322,7 @@ const ProductForm = ({ product }) => {
             type="submit"
             className="font-semibold hover:bg-black/80 px-6 disabled:bg-black/60"
             disabled={isLoading}
-            onClick={handleSubmit(onSubmit)}
+            // onClick={handleSubmit(onSubmit)}
           >
             {isLoading ? (
               <div className="flex items-center gap-x-1 justify-center">
