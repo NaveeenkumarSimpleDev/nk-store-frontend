@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="ml-auto flex gap-3 lg:gap-4 items-center">
           <Link
             to="/"
-            className="border cursor-pointer relative py-2 transition delay-100 ease-in-out px-3 hover:bg-accent rounded-md flex  items-center"
+            className="border cursor-pointer relative py-2 lg:hidden transition delay-100 ease-in-out px-3 hover:bg-accent rounded-md flex  items-center"
           >
             <HomeIcon size={20} />
           </Link>

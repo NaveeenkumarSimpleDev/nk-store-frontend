@@ -174,11 +174,11 @@ const Filters = ({ isOpen, setIsOpen }) => {
                           value
                             ? setSelectedCategories((prev) => [
                                 ...prev,
-                                cat.value,
+                                cat.title,
                               ])
                             : setSelectedCategories(
                                 selectCategories.filter(
-                                  (item) => item !== cat.value
+                                  (item) => item !== cat.title
                                 )
                               )
                         }
