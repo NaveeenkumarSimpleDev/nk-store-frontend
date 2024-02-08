@@ -4,7 +4,7 @@ import { Checkbox } from "./ui/checkbox";
 import Button from "./ui/button";
 import { cn } from "../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { CATEGORIES as categories } from "../config/index";
+import { CATEGORIES } from "../config/index";
 import {
   fetchProductsAsync,
   selectBrands,
@@ -162,11 +162,14 @@ const Filters = ({ isOpen, setIsOpen }) => {
               <div>
                 <span className="text-lg font-bold">Categories</span>
                 <div className="mt-3 overflow-y-scroll space-y-3">
-                  {categories.map((cat) => (
-                    <div key={cat.id} className="flex gap-1 items-center">
+                  {CATEGORIES.map((cat) => (
+                    <div
+                      key={cat.description}
+                      className="flex gap-1 items-center"
+                    >
                       <Checkbox
-                        id={cat.id}
-                        checked={selectCategories.includes(cat.value)}
+                        id={cat.title}
+                        checked={selectCategories.includes(cat.title)}
                         onCheckedChange={(value) =>
                           value
                             ? setSelectedCategories((prev) => [
@@ -181,10 +184,10 @@ const Filters = ({ isOpen, setIsOpen }) => {
                         }
                       />
                       <label
-                        className="text-sm font-semibold cursor-pointer"
-                        htmlFor={cat.id}
+                        className="text-sm font-semibold cursor-pointer capitalize"
+                        htmlFor={cat.title}
                       >
-                        {cat.label}
+                        {cat.title}
                       </label>
                     </div>
                   ))}
