@@ -20,6 +20,7 @@ const Input = ({
       </label>
       <input
         type={type}
+        multiple={type === "file"}
         {...register(name, {
           required,
           pattern: {

@@ -6,7 +6,7 @@ import { CATEGORIES } from "../config";
 const HomePage = () => {
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="flex flex-col max-md:bg-right md:pt-8 p-6 lg:py-20  items-center justify-center w-full gap-3 bg-[url(/public/bg.jpg)] bg-opacity-50 bg-cover bg-center rounded-md">
+      <div className=" lg:mt3 flex flex-col max-md:bg-right md:pt-8 p-6 lg:py-20  items-center justify-center w-full gap-3 bg-[url('https://res.cloudinary.com/dzpspuks7/image/upload/v1707458771/c8pnyvt0bzv3c7ybfayw.png')] bg-opacity-50 bg-cover bg-center rounded-md">
         <div>
           <h1 className="sm:text-3xl text-center text-2xl lg:text-4xl xl:text-5xl font-bold">
             Welcome to

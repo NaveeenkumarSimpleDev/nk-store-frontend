@@ -162,7 +162,7 @@ const VartationForm = ({
   }, []);
 
   return (
-    <form className="max-lg:fixed max-lg:h-screen max-lg:inset-0 overflow-auto max-lg:z-[152] max-lg:bg-white px-4 py-2">
+    <form className="max-lg:fixed my-2 max-lg:h-screen max-lg:inset-0 overflow-auto max-lg:z-[152] max-lg:bg-white px-4 py-2">
       <p className="font-bold text-2xl my-2">Variation</p>
       <div className=" space-x-2lg:space-y-4">
         <p className="font-semibold">Custom Attributes</p>
