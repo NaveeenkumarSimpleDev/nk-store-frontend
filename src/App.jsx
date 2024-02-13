@@ -81,7 +81,7 @@ const routes = createBrowserRouter([
         element: <CheckOutPage />,
       },
       {
-        path: "/checkout/success*",
+        path: "/checkout/success",
         element: <SuccessPage />,
       },
       {

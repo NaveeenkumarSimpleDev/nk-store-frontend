@@ -1,9 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import CartegoryCard from "../components/category-card";
 import { CATEGORIES } from "../config";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // for vercel deployment after payment success
+  useEffect(() => {
+    if (location.search === "?checkout_success=true") {
+      navigate("/checkout/success");
+    }
+  }, []);
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className=" lg:mt3 flex flex-col max-md:bg-right md:pt-8 p-6 lg:py-20  items-center justify-center w-full gap-3 bg-[url('https://res.cloudinary.com/dzpspuks7/image/upload/v1707458771/c8pnyvt0bzv3c7ybfayw.png')] bg-opacity-50 bg-cover bg-center rounded-md">

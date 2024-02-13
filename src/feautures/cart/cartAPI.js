@@ -70,3 +70,24 @@ export const updateCart = (data) => {
     }
   });
 };
+
+export const resetCart = (data) => {
+  const url = baseUrl + "/cart/reset";
+
+  return new Promise(async (resolve, reject) => {
+    if (!data) return;
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        resolve(response.data);
+      }
+    } catch (error) {
+      toast.error("Something wrong!");
+      reject("Something wrong");
+    }
+  });
+};
