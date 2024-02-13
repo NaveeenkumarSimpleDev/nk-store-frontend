@@ -93,6 +93,7 @@ const LoginPage = () => {
               <Button
                 isLoading={loading}
                 disabled={loading}
+                type="submit"
                 className="w-full mt-4 uppercase text-sm font-semibold disabled:bg-black/70"
               >
                 {loading ? (

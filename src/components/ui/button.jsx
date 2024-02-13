@@ -2,10 +2,22 @@ import React from "react";
 import { cn } from "../../lib/utils";
 
 const Button = React.forwardRef(
-  ({ children, isLoading, disabled, onClick, className, ...props }, ref) => {
+  (
+    {
+      children,
+      isLoading,
+      disabled,
+      onClick,
+      type = "button",
+      className,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
         onClick={onClick}
+        type={type}
         disabled={disabled || isLoading}
         ref={ref} // This attaches the ref to the button element
         className={cn(
@@ -51,7 +63,7 @@ const Button = React.forwardRef(
             isLoading ? "opacity-0" : "opacity-100"
           )}
         > */}
-          {children}
+        {children}
         {/* </span> */}
       </button>
     );

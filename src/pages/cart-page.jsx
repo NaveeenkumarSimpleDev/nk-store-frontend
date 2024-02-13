@@ -13,12 +13,12 @@ const Cart = () => {
   const cart = useSelector(selectCart);
   const loggedInUser = useSelector(selectLoggedInUser);
   const { handleCartOpen, isCartOpen: isOpen } = useCart();
-
+  console.log({ cart });
   const cartItemsWithQuantity = cart?.cartItems?.map((item) => ({
     id: item?.id,
-    price: item?.discountPrice,
+    price: item?.price,
     quantity: item?.quantity,
-    total: Number(item?.discountPrice) * Number(item?.quantity),
+    total: Number(item?.price) * Number(item?.quantity),
   }));
 
   const subTotal = cartItemsWithQuantity?.reduce(
@@ -90,9 +90,11 @@ const Cart = () => {
                 <span className="font-bold">{formatPrice(total)}</span>
               </div>
             </div>
-            <Button className="w-full mt-2 text-sm sm:py-2 py-1 sm:text-base sm:mt-4 font-semibold">
-              Check out
-            </Button>
+            <Link to="/checkout" onClick={() => handleCartOpen(false)}>
+              <Button className="w-full mt-2 text-sm py-2 sm:text-base sm:mt-4 font-semibold">
+                Check out
+              </Button>
+            </Link>
           </div>
         </div>
       ) : (

@@ -239,7 +239,7 @@ const ProductDetails = () => {
                   {getAvailableAttributes(attributes[0]).map((item, idx) => (
                     <RadioButton
                       key={`${item}${idx}`}
-                      type={attributes[0] == "color" ? "colors" : "size"}
+                      type={attributes[0] == "Color" ? "colors" : "size"}
                       id={item}
                       checked={selectedAttributes[attributes[0]] === item}
                       color={item}

@@ -12,7 +12,7 @@ import Button from "../../components/ui/button";
 import { Loader2, PlusIcon } from "lucide-react";
 import VartationForm from "./variations-form";
 import { crateNewProduct, updateProduct } from "../../feautures/admin/adminApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectBrands } from "../../feautures/product/productSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import Heading from "../../components/ui/heading";
@@ -21,8 +21,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "./input";
 import { useForm } from "react-hook-form";
 import VariationList from "./variation-list";
+import { fetchCartByUserId } from "../../feautures/cart/cartAPI";
 
 const ProductForm = ({ product }) => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const brands = useSelector(selectBrands);
   const [variations, setVariations] = useState(product?.variations || []);
@@ -56,7 +58,7 @@ const ProductForm = ({ product }) => {
 
   const descRef = useRef();
   const newBrandRef = useRef();
-  console.log({ error });
+
   async function onSubmit(e) {
     let err = {};
     if (variations?.length < 1) {
@@ -120,7 +122,6 @@ const ProductForm = ({ product }) => {
           setLoading(false);
         });
     }
-
     navigate("/admin/products");
   }
 

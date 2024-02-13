@@ -15,7 +15,6 @@ import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 import Favorites from "./pages/favorites";
 import CartProvider from "./context/cart-context";
-import AdminDashboard from "./admin/pages/dashboard";
 import ProtectedRoute from "./admin/components/protected";
 import AdminLayout from "./admin/pages/admin-laout";
 import AdminProducts from "./admin/pages/admin-products";
@@ -25,6 +24,8 @@ import { fetchAdminProductsAsync } from "./feautures/admin/adminSlice";
 import CategoriesPage from "./pages/categories-page";
 import CategoryPage, { loader as categoryLoader } from "./pages/category-page";
 import BrandPage, { loader as brandLoader } from "./pages/brand-page";
+import CheckOutPage from "./pages/checkout";
+import SuccessPage from "./components/success";
 
 const routes = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const routes = createBrowserRouter([
             loader: categoryLoader,
           },
         ],
+      },
+      {
+        path: "/checkout",
+        element: <CheckOutPage />,
+      },
+      {
+        path: "/checkout/success*",
+        element: <SuccessPage />,
       },
       {
         path: "/signUp",

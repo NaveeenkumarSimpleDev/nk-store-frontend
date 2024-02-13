@@ -8,6 +8,7 @@ import { fetchAdminProductsAsync } from "../../feautures/admin/adminSlice";
 import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 import ProductLoading from "../../components/product-loading";
 import { selectAdminProducts } from "../../feautures/admin/adminSlice";
+import { fetchCartByUserIdAsync } from "../../feautures/cart/cartSlice";
 const AdminProducts = () => {
   const user = useSelector(selectLoggedInUser);
   const products = useSelector(selectAdminProducts);
@@ -23,6 +24,7 @@ const AdminProducts = () => {
 
   useEffect(() => {
     fetchProducts();
+    dispatch(fetchCartByUserIdAsync(user?.id));
   }, []);
 
   return (
