@@ -127,7 +127,7 @@ const ProductForm = ({ product }) => {
 
   return (
     <div className="mx-auto my-6 border p-6 rounded-md">
-      <Heading title="Create Product" />
+      <Heading title={product ? "Update Product" : "Create Product"} />
       <form className="mt-4 space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col ">
           <Input
@@ -323,7 +323,6 @@ const ProductForm = ({ product }) => {
             type="submit"
             className="font-semibold hover:bg-black/80 px-6 disabled:bg-black/60"
             disabled={isLoading}
-            // onClick={handleSubmit(onSubmit)}
           >
             {isLoading ? (
               <div className="flex items-center gap-x-1 justify-center">

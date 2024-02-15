@@ -12,9 +12,9 @@ const SuccessPage = () => {
   }, [cart?.id]);
 
   return (
-    <div className="flex items-center flex-col justify-center w-full ">
+    <div className="flex items-center flex-col justify-center p-4 bg-green-400 rounded-md w-fit">
       <div className="bg-green-400 rounded-md px-6 py-4 mt-4">
-        <h1 className="font-bold text-xl text-black/80">Payment Success ✔</h1>
+        <h1 className="font-bold text-xl text-black">Payment Success ✔</h1>
 
         <p className="font-semibold">
           Congratulations you are purchased new products, the Orders will
@@ -22,11 +22,11 @@ const SuccessPage = () => {
         </p>
       </div>
       <div className="my-4">
-        <Link to="/" className="font-semibold px-4">
-          <Button>Home</Button>
+        <Link to="/" className="font-semibold px-4 ">
+          <Button className="bg-white text-black">Home</Button>
         </Link>
         <Link to="/orders" className="font-semibold px-4">
-          <Button>My Orders</Button>
+          <Button className="bg-white text-black">My Orders</Button>
         </Link>
       </div>
     </div>

@@ -15,6 +15,12 @@ export async function fetchAdminProducts(email) {
         resolve(response.data);
       }
     } catch (error) {
+      if (error?.response?.status === 401) {
+        toast.error("Unauthorized !");
+
+        return;
+      }
+
       toast.error("Something wrong!");
     }
   });

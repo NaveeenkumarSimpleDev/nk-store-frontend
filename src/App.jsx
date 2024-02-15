@@ -14,7 +14,6 @@ import { fetchCartByUserIdAsync } from "./feautures/cart/cartSlice";
 import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 import Favorites from "./pages/favorites";
-import CartProvider from "./context/cart-context";
 import ProtectedRoute from "./admin/components/protected";
 import AdminLayout from "./admin/pages/admin-laout";
 import AdminProducts from "./admin/pages/admin-products";
@@ -25,7 +24,10 @@ import CategoriesPage from "./pages/categories-page";
 import CategoryPage, { loader as categoryLoader } from "./pages/category-page";
 import BrandPage, { loader as brandLoader } from "./pages/brand-page";
 import CheckOutPage from "./pages/checkout";
-import SuccessPage from "./components/success";
+import OrderPage from "./pages/order-page";
+import ProtectedAdmin from "./admin/components/protected-admin";
+import { fetchOrderByUserIdAsync } from "./feautures/orders/orderSlice";
+import { fetchFavouritesAsync } from "./feautures/product/productSlice";
 
 const routes = createBrowserRouter([
   {
@@ -78,11 +80,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <CheckOutPage />,
-      },
-      {
-        path: "/checkout/success",
-        element: <SuccessPage />,
+        element: (
+          <ProtectedRoute>
+            <CheckOutPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/signUp",
@@ -97,36 +99,45 @@ const routes = createBrowserRouter([
         element: <Favorites />,
       },
       {
-        path: "/admin",
+        path: "/orders",
         element: (
           <ProtectedRoute>
-            <AdminLayout />
+            <OrderPage />
           </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "/admin",
+        element: (
+          <ProtectedAdmin>
+            <AdminLayout />
+          </ProtectedAdmin>
         ),
         children: [
           {
             path: "products",
             element: (
-              <ProtectedRoute>
+              <ProtectedAdmin>
                 <AdminProducts />
-              </ProtectedRoute>
+              </ProtectedAdmin>
             ),
           },
           { path: "orders", element: <p>Orders</p> },
           {
             path: "products/new-product",
             element: (
-              <ProtectedRoute>
+              <ProtectedAdmin>
                 <AddProduct />
-              </ProtectedRoute>
+              </ProtectedAdmin>
             ),
           },
           {
             path: "products/edit/:editId",
             element: (
-              <ProtectedRoute>
+              <ProtectedAdmin>
                 <EdidProduct />
-              </ProtectedRoute>
+              </ProtectedAdmin>
             ),
           },
         ],
@@ -141,22 +152,22 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkAuthAsync());
-    dispatch(fetchAdminProductsAsync(loggedInUser?.email));
   }, [dispatch]);
 
   useEffect(() => {
     if (loggedInUser) {
       dispatch(fetchCartByUserIdAsync(loggedInUser?.id));
       dispatch(fetchUserByIdAsync(loggedInUser?.id));
+      dispatch(fetchAdminProductsAsync(loggedInUser?.email));
+      dispatch(fetchOrderByUserIdAsync(loggedInUser?.id));
+      dispatch(fetchFavouritesAsync(loggedInUser?.id));
     }
   }, [loggedInUser, dispatch]);
 
   return (
     <>
-      <CartProvider>
-        <RouterProvider router={routes} />;
-        <ToasterProvider />
-      </CartProvider>
+      <RouterProvider router={routes} />;
+      <ToasterProvider />
     </>
   );
 };

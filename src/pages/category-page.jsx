@@ -13,9 +13,11 @@ const CategoryPage = () => {
   const [filter, setFiler] = useState(false);
   const params = useParams();
   const { category } = useLoaderData();
-  const desc = CATEGORIES.find(
-    (i) => i.title.toLowerCase() === params.category
-  );
+  const desc = CATEGORIES.find((i) => {
+    if (i.title.trim().toLowerCase() === params.category.trim().toLowerCase())
+      console.log("");
+    return i;
+  });
 
   return (
     <>

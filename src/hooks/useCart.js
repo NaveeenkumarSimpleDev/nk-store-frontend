@@ -1,16 +1,19 @@
-import { addToCartAsync, selectCartItems } from "../feautures/cart/cartSlice";
+import {
+  addToCartAsync,
+  selectCartItems,
+  selectCartOpenStatus,
+  toggleCart,
+} from "../feautures/cart/cartSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../context/cart-context";
 
 export const useCart = () => {
   const navigate = useNavigate();
   const loggedInUser = useSelector(selectLoggedInUser);
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
-  const cartContext = useContext(CartContext);
+  const isCartOpen = useSelector(selectCartOpenStatus);
   const location = useLocation();
 
   const addToCartHandler = async (product) => {
@@ -34,10 +37,14 @@ export const useCart = () => {
     );
   };
 
+  const handleCartOpen = () => {
+    dispatch(toggleCart());
+  };
+
   return {
     addToCart: addToCartHandler,
     cartItems,
-    isCartOpen: cartContext?.state?.cartOpen,
-    handleCartOpen: cartContext?.toggleCart,
+    isCartOpen,
+    handleCartOpen,
   };
 };

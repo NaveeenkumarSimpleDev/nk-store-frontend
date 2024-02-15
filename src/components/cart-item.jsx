@@ -3,15 +3,14 @@ import { Minus, Plus, Trash } from "lucide-react";
 
 import Button from "./ui/button";
 import { formatPrice } from "../lib/utils";
-import { selectCart, updateCartAsync } from "../feautures/cart/cartSlice";
+import { selectCart } from "../feautures/cart/cartSlice";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
+import { updateCart } from "../feautures/cart/cartAPI";
 
 const CartItem = ({ item }) => {
-  // const { quantity } = props.item;
-  // const item = props.item[0];
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
   const cart = useSelector(selectCart);
@@ -21,11 +20,14 @@ const CartItem = ({ item }) => {
     const res = confirm("Are you sure to remove item from cart?");
     if (res) {
       dispatch(
-        updateCartAsync({
-          userId: loggedInUser?.id,
-          variationId: item?.id,
-          type: "delete",
-        })
+        updateCart(
+          {
+            userId: loggedInUser?.id,
+            variationId: item?.id,
+            type: "delete",
+          },
+          dispatch
+        )
       );
     }
   };
@@ -38,11 +40,14 @@ const CartItem = ({ item }) => {
     }
 
     dispatch(
-      updateCartAsync({
-        userId: loggedInUser?.id,
-        variationId: item?.id,
-        type,
-      })
+      updateCart(
+        {
+          userId: loggedInUser?.id,
+          variationId: item?.id,
+          type,
+        },
+        dispatch
+      )
     );
   };
   const total = Number(item?.price) * Number(item.quantity);
@@ -70,13 +75,13 @@ const CartItem = ({ item }) => {
             >
               <img
                 src={item?.images[0]}
-                className="object-contain h-full w-full object-center rounded-md"
+                className="object-cover h-full w-full object-center rounded-md"
                 alt={item?.product?.title}
               />
             </Link>
 
-            <div className="flex flex-col sm:-mt-1 overflow-hidden">
-              <span className="overflow-ellipsis w-[5rem] md:w-[10rem] lg:w-[15rem] text-xs font-bold truncate  sm:text-lg sm:font-semibold">
+            <div className="flex flex-col sm:-mt-1 overflow-hidden mr-2">
+              <span className=" md:w-[10rem] w-[6rem] lg:w-[15rem] text-xs font-bold truncate  sm:text-sm lg:text-lg sm:font-semibold">
                 {item?.product?.title}
               </span>
               <span className="sm:text-base text-xs font-semibold">

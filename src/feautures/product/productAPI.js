@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { addToFavLocally, removeFavLocally } from "./productSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -81,11 +82,13 @@ export async function fetchProductByFilter(data) {
   });
 }
 
-export async function addToFavourites(data) {
+export async function addToFavourites(data, dispatch) {
   const url = baseUrl + "/favourites/addToFavourites";
 
   if (!data?.userId) return toast.error("Please login!.");
 
+  dispatch(addToFavLocally(data.productId));
+  console.log("inside");
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, data, {
@@ -99,12 +102,14 @@ export async function addToFavourites(data) {
     } catch (error) {
       console.log(error);
       toast.error("Error in favourites!");
+      dispatch(removeFavLocally(data.productId));
     }
   });
 }
 
-export async function removeFavourites(data) {
+export async function removeFavourites(data, dispatch) {
   const url = baseUrl + "/favourites/removeFavourites";
+  dispatch(removeFavLocally(data.productId));
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, data, {
@@ -118,6 +123,7 @@ export async function removeFavourites(data) {
     } catch (error) {
       console.log(error);
       toast.error("Error in favourites!");
+      dispatch(addToFavLocally(data.productId));
     }
   });
 }
@@ -172,6 +178,24 @@ export async function fetchBrands() {
   return new Promise(async (resolve) => {
     try {
       const res = await axios.get(url);
+
+      if (res.status === 200) {
+        resolve(res.data);
+      } else {
+        toast.error("Something worng!, pls try again");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  });
+}
+export async function fetchOrdersByUserId(userId) {
+  const url = baseUrl + "/orders";
+
+  if (!userId) return;
+  return new Promise(async (resolve) => {
+    try {
+      const res = await axios.post(url);
 
       if (res.status === 200) {
         resolve(res.data);

@@ -34,21 +34,6 @@ export const fetchProductByIdAsync = createAsyncThunk(
   }
 );
 
-export const addToFavouritesAsync = createAsyncThunk(
-  "favourites/addToFavourites",
-  async (data) => {
-    const response = await addToFavourites(data);
-    return response;
-  }
-);
-export const removeFavouritesAsync = createAsyncThunk(
-  "favourites/remove",
-  async (data) => {
-    const response = await removeFavourites(data);
-    return response;
-  }
-);
-
 export const fetchFavouritesAsync = createAsyncThunk(
   "favourites",
   async (userId) => {
@@ -60,7 +45,20 @@ export const fetchFavouritesAsync = createAsyncThunk(
 const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    addToFavLocally: (state, action) => {
+      if (!state.favourites) {
+        state.favourites = [action.payload];
+      } else {
+        state.favourites.push(action.payload);
+      }
+    },
+    removeFavLocally: (state, action) => {
+      if (!state.favourites) return;
+      const updateFav = state.favourites.filter((i) => i !== action.payload);
+      state.favourites = updateFav;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProductsAsync.pending, (state) => {
       state.status = "loading";
@@ -89,17 +87,13 @@ const productSlice = createSlice({
           state.favourites = action.payload;
         }
       })
-      .addCase(addToFavouritesAsync.fulfilled, (state, action) => {
-        state.favourites = action.payload;
-      })
-      .addCase(removeFavouritesAsync.fulfilled, (state, action) => {
-        state.favourites = action.payload;
-      })
       .addCase(fetchBrandsAsync.fulfilled, (state, action) => {
         state.brands = action.payload;
       });
   },
 });
+
+export const { addToFavLocally, removeFavLocally } = productSlice.actions;
 
 export default productSlice.reducer;
 

@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 import LoadingIndigator from "../components/loading-indicator";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
+import { selectAddress } from "../feautures/orders/orderSlice";
 
 const CheckOutPage = () => {
   const { cartItems } = useCart();
+  const selectedAddress = useSelector(selectAddress);
+
   const { currentPage, handleNext, handlePrev } = useCheckout();
   const navigate = useNavigate();
   const user = useSelector(selectLoggedInUser);
@@ -63,9 +66,10 @@ const CheckOutPage = () => {
             {currentPage === 1 ? "Cancel" : "Back"}
           </Button>
           <Button
+            disabled={!selectedAddress}
             onClick={async () =>
               currentPage === 2
-                ? checkOutHandler(cartItems, user?.id)
+                ? checkOutHandler(cartItems, user?.id, selectedAddress)
                 : handleNext()
             }
             className="p-2 font-bold"

@@ -197,7 +197,9 @@ const ProductDetails = () => {
     });
   };
 
-  const exsistingCartItem = cartItems?.find((item) => item?.id === product?.id);
+  const exsistingCartItem = cartItems?.find(
+    (item) => item?.product?.id === product?.id
+  );
 
   return (
     <>

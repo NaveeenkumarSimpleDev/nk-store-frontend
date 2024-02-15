@@ -9,18 +9,21 @@ import { selectLoggedInUser } from "../../feautures/auth/authSlice";
 
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import {
-  addToFavouritesAsync,
-  removeFavouritesAsync,
-  selectFavourites,
-} from "../../feautures/product/productSlice";
+import { selectFavourites } from "../../feautures/product/productSlice";
 import { useCart } from "../../hooks/useCart";
+import {
+  addToFavourites,
+  removeFavourites,
+} from "../../feautures/product/productAPI";
+import { selectCart } from "../../feautures/cart/cartSlice";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const favourites = useSelector(selectFavourites)?.favourites;
+  const favourites = useSelector(selectFavourites);
   const [loading, setLoading] = useState(false);
+  const cart = useSelector(selectCart);
   const { addToCart, cartItems, handleCartOpen } = useCart();
+
   const loggedInUser = useSelector(selectLoggedInUser);
   const {
     id: productId,
@@ -30,8 +33,12 @@ const ProductCard = ({ product }) => {
     discountPrice,
     mrp,
   } = product;
-  const exsistingCartItem = cartItems?.find((item) => item.id === product.id);
+  const exsistingCartItem = cartItems?.find(
+    (item) => item.product.id === product.id
+  );
+
   const isFavourite = favourites?.includes(productId);
+
   const favouriteHandler = () => {
     if (!loggedInUser) {
       toast.error("Please login to add favourites");
@@ -39,9 +46,9 @@ const ProductCard = ({ product }) => {
     }
 
     if (isFavourite) {
-      dispatch(removeFavouritesAsync({ userId: loggedInUser?.id, productId }));
+      removeFavourites({ userId: loggedInUser?.id, productId }, dispatch);
     } else {
-      dispatch(addToFavouritesAsync({ userId: loggedInUser?.id, productId }));
+      addToFavourites({ userId: loggedInUser?.id, productId }, dispatch);
     }
   };
 

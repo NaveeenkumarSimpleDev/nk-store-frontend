@@ -51,11 +51,13 @@ const UserDropdownMenu = () => {
                 <span>Profile</span>
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
-                <CreditCard className="mr-4 h-4 w-4" />
-                <span>Billing</span>
-                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link to="/orders">
+                <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
+                  <CreditCard className="mr-4 h-4 w-4" />
+                  <span>My Orders</span>
+                  <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
               <Link to="/favourites">
                 <DropdownMenuItem className="text-sm cursor-pointer hover:bg-gray-200">
                   <Heart className="mr-4 h-4 w-4" />

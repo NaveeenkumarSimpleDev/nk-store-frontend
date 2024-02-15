@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { updateCartLocally } from "./cartSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -46,29 +47,30 @@ export const addToCart = (data) => {
   });
 };
 
-export const updateCart = (data) => {
+export const updateCart = async (data, dispatch) => {
   const url = baseUrl + "/cart/update";
   if (!data?.userId) {
     return toast.error("Login is expired.");
   }
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        resolve(response.data);
-        if (data?.type === "delete") {
-          toast.success("Item removed.");
-        }
+
+  dispatch(updateCartLocally({ id: data.variationId, type: data.type }));
+
+  try {
+    const response = await axios.post(url, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      if (data?.type === "delete") {
+        toast.success("Item removed.");
       }
-    } catch (error) {
-      toast.error("Something wrong!");
-      reject("Something wrong");
     }
-  });
+  } catch (error) {
+    window.location.reload();
+    toast.error("Unexpected error occur in cart!, pls refresh.");
+    // reject("Something wrong");
+  }
 };
 
 export const resetCart = (data) => {

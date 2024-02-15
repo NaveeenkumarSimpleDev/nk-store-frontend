@@ -32,8 +32,8 @@ export function NavigationLinks() {
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {CATEGORIES.map((category) => (
-                <Link to={category.href}>
-                  <ListItem key={category.title} title={category.title}>
+                <Link key={category.title} to={category.href}>
+                  <ListItem title={category.title}>
                     {category.description}
                   </ListItem>
                 </Link>
