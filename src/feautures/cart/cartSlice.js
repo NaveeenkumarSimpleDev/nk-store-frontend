@@ -42,7 +42,9 @@ const cartSlice = createSlice({
         (i) => i.id === action.payload.id
       );
       if (action.payload.type === "delete") {
-        state.cart.cartItems = state.cart.cartItems.splice(findIndex, 1);
+        state.cart.cartItems = state.cart.cartItems.filter(
+          (i) => i.id !== action.payload.id
+        );
       } else if (action.payload.type === "inc") {
         state.cart.cartItems[findIndex].quantity += 1;
       } else {

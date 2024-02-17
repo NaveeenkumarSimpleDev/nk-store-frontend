@@ -26,9 +26,9 @@ const OrderPage = () => {
         desc="All of your orders are here, you can track the status of your order here."
       />
 
-      <div>
-        {orders[0]?.map((item) => (
-          <OrderItem item={item} key={item.id} />
+      <div className="py-4">
+        {orders?.map((item) => (
+          <OrderItem order={item} key={item.id} />
         ))}
       </div>
     </div>

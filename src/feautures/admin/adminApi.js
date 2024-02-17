@@ -66,8 +66,7 @@ export async function crateNewProduct(product) {
       const res = await axios.post(url, product);
 
       if (res.status === 200) {
-        resolve(res.data);
-        toast.success("Created successfully");
+        toast.success(res.data);
       } else {
         toast.error("Something worng!, pls try again");
       }
@@ -84,8 +83,7 @@ export async function updateProduct(product) {
       const res = await axios.post(url, product);
 
       if (res.status === 200) {
-        resolve(res.data);
-        toast.success("Updated successfully");
+        toast.success(res.data);
       } else {
         toast.error("Something worng!, pls try again");
       }
@@ -105,7 +103,7 @@ export async function deleteProductById(id) {
       });
 
       if (res.status === 200) {
-        toast.success("Product deleted successfully.");
+        toast.success(res.data);
       } else {
         toast.error("Something worng!, pls try again");
       }

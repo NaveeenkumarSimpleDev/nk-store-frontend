@@ -62,9 +62,9 @@ export const updateCart = async (data, dispatch) => {
       },
     });
     if (response.status === 200) {
-      if (data?.type === "delete") {
-        toast.success("Item removed.");
-      }
+      // if (data?.type === "delete") {
+      //   // toast.success("Item removed.");
+      // }
     }
   } catch (error) {
     window.location.reload();

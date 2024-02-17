@@ -48,6 +48,17 @@ const orderSlice = createSlice({
     setSelectedAddress: (state, action) => {
       state.selectedAddress = action.payload;
     },
+    addAddressLocally: (state, action) => {
+      state.addresses.push(action.payload);
+    },
+    deleteAddressLocally: (state, action) => {
+      state.addresses = state.addresses.filter(
+        (i) => i.id !== action.payload.id
+      );
+      if (state.selectedAddress === action.payload.id) {
+        state.selectedAddress = null;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -78,7 +89,8 @@ const orderSlice = createSlice({
       });
   },
 });
-export const { setSelectedAddress } = orderSlice.actions;
+export const { setSelectedAddress, deleteAddressLocally, addAddressLocally } =
+  orderSlice.actions;
 export default orderSlice.reducer;
 
 export const selectOrders = (state) => state.orders.items;

@@ -51,6 +51,7 @@ export const checkOutHandler = async (items, userId, selectedAddress) => {
     position: "top-center",
     id: "loading",
   });
+
   try {
     const response = await axios.post(baseUrl + "/checkout", {
       items: formatedItems,
@@ -64,4 +65,5 @@ export const checkOutHandler = async (items, userId, selectedAddress) => {
     console.log("CHECKOUT", error);
     toast.dismiss("loading");
   }
+  toast.dismiss("loading");
 };

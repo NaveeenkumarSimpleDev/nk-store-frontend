@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { addAddressLocally, deleteAddressLocally } from "./orderSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -55,6 +56,26 @@ export async function updateAddress(data) {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+    }
+  });
+}
+export async function deleteAddress(data, dispatch) {
+  const url = baseUrl + "/address/delete";
+
+  if (!data) return;
+  dispatch(deleteAddressLocally({ id: data.id }));
+  return new Promise(async (resolve) => {
+    try {
+      const res = await axios.post(url, { id: data.id, userId: data.userId });
+
+      if (res.status === 200) {
+        // resolve(res.data);
+      } else {
+        toast.error("Something worng!, pls try again");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      dispatch(addAddressLocally(data));
     }
   });
 }

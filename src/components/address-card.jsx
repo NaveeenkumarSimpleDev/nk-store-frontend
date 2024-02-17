@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import useCheckout from "../hooks/useCheckout";
-import { Edit } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import AddressForm from "./address-form";
 import Model from "./model";
+import { deleteAddress } from "../feautures/orders/orderAPI";
+import { useDispatch } from "react-redux";
 
 const AddressCard = ({ address }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { setAddress, selectedAddress } = useCheckout();
 
@@ -36,7 +39,18 @@ const AddressCard = ({ address }) => {
           <p className="max-md:text-sm">{formatedAddress}</p>
         </label>
 
-        <div className="ml-auto">
+        <div className="ml-auto space-y-3">
+          <Trash
+            className="h-4 cursor-pointer hover:scale-125 transition-all"
+            onClick={async () => {
+              const confirm = window.confirm(
+                "Are you sure delete the Address?"
+              );
+              if (confirm) {
+                await deleteAddress(address, dispatch);
+              }
+            }}
+          />
           <Edit
             className="h-4 cursor-pointer hover:scale-125 transition-all"
             onClick={() => {

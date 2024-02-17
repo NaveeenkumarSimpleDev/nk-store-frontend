@@ -22,20 +22,20 @@ const OrderSummary = () => {
               />
             </div>
             <div className="md:col-span-6 col-span-5 overflow-hidden">
-              <h2 className="font-semibold md:text-xl truncate">
+              <h2 className="font-semibold md:text-xl sm:lg truncate">
                 {p.product.title}
               </h2>
               <p className="break-words overflow-ellipsis max-sm:text-xs  max-h-[1lh] text-sm truncate text-gray-400">
                 {p.product.description}
               </p>
-              <div className="font-bold max-sm:text-xs">
+              <div className="font-bold max-sm:text-xs h-full">
                 {customAttributes.map((att) => (
                   <p className="">
                     <span className="capitalize mr-2"> {att}:</span>
                     {p.customAttributes[att]}
                   </p>
                 ))}
-                <p className="max-sm:text-xs text-xl text-gray-400">
+                <p className="max-sm:text-xs  lg:text-lg text-gray-400 mt-auto">
                   Quantity: {p.quantity}
                 </p>
               </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageCarousel from "./Image-carousel";
 import RadioButton from "./ui/radio-button";
 import Button from "./ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Minus, Plus } from "lucide-react";
 import { formatPrice } from "../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -241,7 +241,11 @@ const ProductDetails = () => {
                   {getAvailableAttributes(attributes[0]).map((item, idx) => (
                     <RadioButton
                       key={`${item}${idx}`}
-                      type={attributes[0] == "Color" ? "colors" : "size"}
+                      type={
+                        attributes[0]?.toLowerCase() == "color"
+                          ? "colors"
+                          : "size"
+                      }
                       id={item}
                       checked={selectedAttributes[attributes[0]] === item}
                       color={item}
@@ -317,7 +321,7 @@ const ProductDetails = () => {
                   onClick={handleDec}
                   className="p-2 bg-gray-600"
                 >
-                  <Plus size={20} />
+                  <Minus size={20} />
                 </Button>
                 <span className="font-semibold text-xl">{quantity}</span>
                 <Button onClick={handleInc} className="p-2 bg-gray-600">

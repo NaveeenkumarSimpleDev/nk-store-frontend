@@ -23,12 +23,6 @@ const AddressPage = () => {
     dispatch(fetchAddressByUserIdAsync(user?.id));
   }, [user?.id]);
 
-  if (!addresses) {
-    return (
-      <LoadingIndigator className="w-full flex items-center justify-center mx-auto p-4" />
-    );
-  }
-
   return (
     <div className="">
       <div className="space-y-3 mb-3">
@@ -40,6 +34,9 @@ const AddressPage = () => {
           {addresses?.length == 0 && (
             <p className="text-lg font-semibold">Create Address</p>
           )}
+          {!addresses && (
+            <LoadingIndigator className="w-full flex items-center justify-center mx-auto p-4" />
+          )}
         </form>
         {!isOpen && (
           <Button
@@ -49,6 +46,7 @@ const AddressPage = () => {
             New Address
           </Button>
         )}
+        <p className="text-xs">Select address to continue.</p>
       </div>
 
       {isOpen && (
