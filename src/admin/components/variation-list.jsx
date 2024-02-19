@@ -10,7 +10,7 @@ const VariationList = ({
   setVariationAttributes,
 }) => {
   const [editing, setEditing] = useState(false);
-  console.log({ variations });
+
   return (
     <>
       <div className="flex gap-4  overflow-x-auto overflow-auto">

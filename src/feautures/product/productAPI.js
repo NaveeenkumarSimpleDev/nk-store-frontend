@@ -3,9 +3,12 @@ import { toast } from "react-hot-toast";
 import { addToFavLocally, removeFavLocally } from "./productSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
-
+let productFeching = false;
 export async function fetchProducts() {
   const urlSearchParams = new URLSearchParams(window.location.search);
+  if (productFeching) return;
+
+  productFeching = true;
   return new Promise(async (resolve) => {
     try {
       const url = baseUrl + "/products";
@@ -20,6 +23,8 @@ export async function fetchProducts() {
       }
     } catch (error) {
       toast.error("Something wrong!");
+    } finally {
+      productFeching = false;
     }
   });
 }

@@ -28,6 +28,9 @@ import OrderPage from "./pages/order-page";
 import ProtectedAdmin from "./admin/components/protected-admin";
 import { fetchOrderByUserIdAsync } from "./feautures/orders/orderSlice";
 import { fetchFavouritesAsync } from "./feautures/product/productSlice";
+import AdminOrderDetails from "./admin/components/order-details";
+import AdminOrders from "./admin/pages/admin-orders";
+import OrderDetails from "./pages/order-details";
 
 const routes = createBrowserRouter([
   {
@@ -106,6 +109,14 @@ const routes = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/orders/:orderId",
+        element: (
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        ),
+      },
 
       {
         path: "/admin",
@@ -123,7 +134,22 @@ const routes = createBrowserRouter([
               </ProtectedAdmin>
             ),
           },
-          { path: "orders", element: <p>Orders</p> },
+          {
+            path: "orders",
+            element: (
+              <ProtectedAdmin>
+                <AdminOrders />
+              </ProtectedAdmin>
+            ),
+          },
+          {
+            path: "orders/:orderId",
+            element: (
+              <ProtectedAdmin>
+                <AdminOrderDetails />
+              </ProtectedAdmin>
+            ),
+          },
           {
             path: "products/new-product",
             element: (
@@ -150,8 +176,11 @@ const App = () => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
 
+  async function fetchLoggedInUser() {
+    await dispatch(checkAuthAsync());
+  }
   useEffect(() => {
-    dispatch(checkAuthAsync());
+    fetchLoggedInUser();
   }, [dispatch]);
 
   useEffect(() => {

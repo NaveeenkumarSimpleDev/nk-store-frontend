@@ -7,36 +7,34 @@ const OrderItem = ({ order }) => {
   if (!order) return null;
   const item = order?.orderItem;
   return (
-    <section className="grid grid-cols-2">
-      <div className="flex gap-3 rounded-md overflow-hidden border">
-        <div className="h-[8rem] w-[8rem]">
-          <img
-            className="object-cover h-full w-full"
-            src={item.images[0]}
-            alt={item.product.title}
-            loading="lazy"
-          />
+    <div className="flex gap-3 h-full rounded-md overflow-hidden border max-md:h-[6rem]">
+      <img
+        className="object-cover object-center  max-md:w-[7rem] w-[8rem]"
+        src={item.images[0]}
+        alt={item.product.title}
+        loading="lazy"
+      />
+      <div className="flex-1 overflow-hidden py-2">
+        <div>
+          <p className="font-semibold text-xl truncate max-md:text-sm">
+            {item.product.title}
+          </p>
+          <p className="truncate max-md:text-xs text-gray-400">
+            {item.product.description}
+          </p>
         </div>
-        <div className="flex-1 overflow-hidden  py-2">
-          <div>
-            <p className="font-semibold text-xl truncate">
-              {item.product.title}
-            </p>
-            <p className="truncate text-gray-400">{item.product.description}</p>
-          </div>
 
-          <Button className=" mt-5 w-fit bg-transparent  text-black p-0">
-            <Link
-              to={item.id}
-              className=" flex text-sm items-center justify-center"
-            >
-              View Order Details
-              <ArrowRight className="h-4" />
-            </Link>
-          </Button>
-        </div>
+        <Button className="mt:2 md:mt-2 md:pb-2 max-md:mt-4 w-fit bg-transparent  text-black p-0">
+          <Link
+            to={item.id}
+            className=" flex text-sm items-center  max-md:text-xs justify-center"
+          >
+            View Order Details
+            <ArrowRight className="h-4" />
+          </Link>
+        </Button>
       </div>
-    </section>
+    </div>
   );
 };
 

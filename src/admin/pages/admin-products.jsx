@@ -17,7 +17,9 @@ const AdminProducts = () => {
 
   async function fetchProducts() {
     if (!user.email) return;
-    setLoading(true);
+    if (!products) {
+      setLoading(true);
+    }
     await dispatch(fetchAdminProductsAsync(user.email));
     setLoading(false);
   }

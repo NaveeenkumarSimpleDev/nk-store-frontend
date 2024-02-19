@@ -7,7 +7,7 @@ import {
 } from "./orderAPI";
 
 const initialState = {
-  items: [],
+  items: null,
   addresses: null,
   selectedAddress: null,
 };

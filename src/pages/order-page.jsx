@@ -7,13 +7,13 @@ import {
 } from "../feautures/orders/orderSlice";
 import Heading from "../components/ui/heading";
 import OrderItem from "../components/order-item";
+import LoadingIndigator from "../components/loading-indicator";
 
 const OrderPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectOrders);
 
-  console.log({ orders });
   useEffect(() => {
     if (!user) return;
     dispatch(fetchOrderByUserIdAsync(user?.id));
@@ -26,10 +26,18 @@ const OrderPage = () => {
         desc="All of your orders are here, you can track the status of your order here."
       />
 
-      <div className="py-4">
+      <div className="py-4 gap-2 grid md:grid-cols-2 overflow-hidden">
         {orders?.map((item) => (
           <OrderItem order={item} key={item.id} />
         ))}
+        {orders?.length === 0 && (
+          <p className="text-lg font-semibold text-gray-400">
+            No Orders found!
+          </p>
+        )}
+        {!orders && (
+          <LoadingIndigator className="w-full h-full flex items-center justify-center" />
+        )}
       </div>
     </div>
   );

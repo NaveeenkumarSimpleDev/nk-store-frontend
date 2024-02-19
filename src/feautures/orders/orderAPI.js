@@ -3,11 +3,15 @@ import { toast } from "react-hot-toast";
 import { addAddressLocally, deleteAddressLocally } from "./orderSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
-
+let orderFetching = false;
 export async function fetchOrdersByUserId(userId) {
   const url = baseUrl + "/orders";
 
+  if (orderFetching) return;
+
   if (!userId) return;
+
+  orderFetching = true;
   return new Promise(async (resolve) => {
     try {
       const res = await axios.post(url, { userId });
@@ -19,6 +23,8 @@ export async function fetchOrdersByUserId(userId) {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+    } finally {
+      orderFetching = false;
     }
   });
 }

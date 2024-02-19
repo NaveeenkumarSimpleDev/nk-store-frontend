@@ -16,7 +16,7 @@ export async function fetchAdminProducts(email) {
       }
     } catch (error) {
       if (error?.response?.status === 401) {
-        toast.error("Unauthorized !");
+        // toast.error("Unauthorized !");
 
         return;
       }
@@ -111,6 +111,45 @@ export async function deleteProductById(id) {
       toast.error("Something went wrong!");
     }
   });
+}
+
+// Fetch Orders
+export async function fetchOrdersByUserId(userId) {
+  const url = baseUrl + "/admin/orders";
+  if (!userId) return;
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(url, { userId });
+
+      if (res.status === 200) {
+        resolve(res.data.orders);
+      } else {
+        toast.error("Something worng!, pls try again");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      reject(error);
+    }
+  });
+}
+
+export async function updateOrder(status, orderId) {
+  const url = baseUrl + "/admin/orders/update";
+  if (!orderId || !status) return;
+
+  try {
+    const res = await axios.post(url, { status, orderId });
+
+    if (res.status === 200) {
+      toast.success(res.data);
+    } else {
+      toast.error("Something worng!, pls try again");
+    }
+  } catch (error) {
+    toast.error("Something went wrong!");
+    console.log(error);
+  }
 }
 
 export async function upLoadImage(images, variationImages) {

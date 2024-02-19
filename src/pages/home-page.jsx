@@ -23,7 +23,10 @@ const HomePage = () => {
   return (
     <>
       {success && (
-        <Model className="z-[151] h-fit w-fit m-auto fixed flex items-center justify-center">
+        <Model
+          backButtonHref="/"
+          className="z-[151] h-fit w-fit m-auto fixed flex items-center justify-center"
+        >
           <SuccessPage />
         </Model>
       )}

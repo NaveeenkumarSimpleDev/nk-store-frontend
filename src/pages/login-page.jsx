@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,14 +17,12 @@ import { loginUser } from "../feautures/auth/authAPI";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [error, setError] = useState({});
   const user = useSelector(selectLoggedInUser);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const from = location.state?.from || "/";
-
-  if (user) return navigate(from);
+  const navigate = useNavigate();
+  const from = location.state?.from;
 
   const {
     handleSubmit,
@@ -46,10 +44,14 @@ const LoginPage = () => {
       // reset();
     }
   };
+  console.log(from);
 
   return (
     <>
-      <Model backButtonHref={from.toString().startsWith("/login") ? "/" : from}>
+      {user && <Navigate to={from != "/login" ? from : "/"} replace={true} />}
+      <Model
+        backButtonHref={from?.toString().startsWith("/login") ? "/" : from}
+      >
         <div className="flex items-center justify-center mx-4  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Welcome back!" />
