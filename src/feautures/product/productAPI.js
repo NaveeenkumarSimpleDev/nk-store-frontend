@@ -93,7 +93,7 @@ export async function addToFavourites(data, dispatch) {
   if (!data?.userId) return toast.error("Please login!.");
 
   dispatch(addToFavLocally(data.productId));
-  console.log("inside");
+
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, data, {

@@ -181,15 +181,17 @@ const App = () => {
   }
   useEffect(() => {
     fetchLoggedInUser();
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (loggedInUser) {
       dispatch(fetchCartByUserIdAsync(loggedInUser?.id));
       dispatch(fetchUserByIdAsync(loggedInUser?.id));
-      dispatch(fetchAdminProductsAsync(loggedInUser?.email));
       dispatch(fetchOrderByUserIdAsync(loggedInUser?.id));
       dispatch(fetchFavouritesAsync(loggedInUser?.id));
+      if (loggedInUser?.role === "admin") {
+        dispatch(fetchAdminProductsAsync(loggedInUser?.email));
+      }
     }
   }, [loggedInUser, dispatch]);
 

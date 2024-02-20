@@ -10,6 +10,7 @@ import LoadingIndigator from "../components/loading-indicator";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { selectAddress } from "../feautures/orders/orderSlice";
+import { formatPrice } from "../lib/utils";
 
 const CheckOutPage = () => {
   const { cartItems } = useCart();
@@ -22,8 +23,9 @@ const CheckOutPage = () => {
     return (
       <LoadingIndigator className=" h-screen w-full flex items-center justify-center" />
     );
+  const totalPrice = cartItems?.map((p) => p.price).reduce((a, b) => a + b);
   return (
-    <div className="grid lg:grid-cols-3">
+    <div className="grid lg:grid-cols-3 xl:mt-4">
       <div className="col-span-2 space-y-2  rounded-md border p-2">
         {/* <div className="flex gap-2">
           <span
@@ -85,7 +87,7 @@ const CheckOutPage = () => {
         <div>
           <div className="flex justify-between px-2 text-lg font-semibold  my-3">
             <p>Price ({cartItems?.length} items)</p>
-            <p>{cartItems?.map((p) => p.price).reduce((a, b) => a + b)}</p>
+            <p>{formatPrice(totalPrice)}</p>
           </div>
           <div className="flex justify-between px-2 text-lg font-semibold my-3 ">
             <p>Delivary chargers</p>
@@ -98,7 +100,7 @@ const CheckOutPage = () => {
         </div>
         <div className="flex justify-between px-2 font-bold text-xl mt-auto border-y py-4 border-dotted">
           <p>Total Amount</p>
-          <p>{cartItems?.map((p) => p.price).reduce((a, b) => a + b)}</p>
+          <p>{formatPrice(totalPrice)}</p>
         </div>
       </div>
     </div>

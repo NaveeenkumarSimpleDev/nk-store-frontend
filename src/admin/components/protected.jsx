@@ -3,23 +3,29 @@ import {
   selectLoggedInUser,
   checkAuthAsync,
 } from "../../feautures/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import LoadingIndigator from "../../components/loading-indicator";
 
 const ProtectedRoute = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const loggedInUser = useSelector(selectLoggedInUser);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!mounted) {
-      setMounted(true);
+    if (!loggedInUser) {
+      dispatch(checkAuthAsync());
     }
-    dispatch(checkAuthAsync());
   }, []);
 
-  if (!loggedInUser && mounted) {
+  // if (!loggedInUser) {
+  //   return (
+  //     <LoadingIndigator className="w-full fixed h-screen inset-0 flex items-center justify-center" />
+  //   );
+  // }
+
+  if (!loggedInUser) {
     return navigate("/login", {
       state: { from: location.pathname + location.search },
     });

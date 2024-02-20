@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "./ui/button";
 import { ArrowRight } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { setSelectedOrder } from "../feautures/orders/orderSlice";
 
 const OrderItem = ({ order }) => {
+  const dispatch = useDispatch();
   if (!order) return null;
   const item = order?.orderItem;
   return (
@@ -22,11 +25,17 @@ const OrderItem = ({ order }) => {
           <p className="truncate max-md:text-xs text-gray-400">
             {item.product.description}
           </p>
+          <p className="font-semibold text-sm text-gray-600 capitalize mt-2">
+            {order.status}
+          </p>
         </div>
 
         <Button className="mt:2 md:mt-2 md:pb-2 max-md:mt-4 w-fit bg-transparent  text-black p-0">
           <Link
             to={item.id}
+            onClick={() => {
+              dispatch(setSelectedOrder(order));
+            }}
             className=" flex text-sm items-center  max-md:text-xs justify-center"
           >
             View Order Details

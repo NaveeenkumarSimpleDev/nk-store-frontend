@@ -27,6 +27,9 @@ const OrderPage = () => {
       />
 
       <div className="py-4 gap-2 grid md:grid-cols-2 overflow-hidden">
+        {!orders && (
+          <LoadingIndigator className="w-full my-10 flex items-center justify-center" />
+        )}
         {orders?.map((item) => (
           <OrderItem order={item} key={item.id} />
         ))}
@@ -35,12 +38,9 @@ const OrderPage = () => {
             No Orders found!
           </p>
         )}
-        {!orders && (
-          <LoadingIndigator className="w-full h-full flex items-center justify-center" />
-        )}
       </div>
     </div>
   );
 };
 
-export default OrderPage;
+export default React.memo(OrderPage);

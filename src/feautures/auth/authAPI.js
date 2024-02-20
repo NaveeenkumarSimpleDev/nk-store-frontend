@@ -55,9 +55,13 @@ export const loginUser = (loginData) => {
   });
 };
 
+let fetching = false;
+
 export const checkAuth = () => {
   const url = baseUrl + "/auth/check";
+  if (fetching) return;
 
+  fetching = true;
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.get(url, {
@@ -78,6 +82,8 @@ export const checkAuth = () => {
       if (error?.response?.status === 401) {
         reject({ message: "Unauthorized" });
       }
+    } finally {
+      fetching = false;
     }
   });
 };

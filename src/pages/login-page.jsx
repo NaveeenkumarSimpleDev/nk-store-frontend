@@ -9,6 +9,7 @@ import {
   selectLoggedInUser,
   loginUserAsync,
   setUser,
+  checkAuthAsync,
 } from "../feautures/auth/authSlice";
 import Model from "../components/model";
 import { Loader2 } from "lucide-react";
@@ -46,11 +47,28 @@ const LoginPage = () => {
   };
   console.log(from);
 
+  useEffect(() => {
+    dispatch(checkAuthAsync()); // Check authentication status on component mount
+  }, []);
+
+  useEffect(() => {
+    // Redirect user if already logged in
+    if (user?.id) {
+      navigate(from && from !== "/login" ? from : "/");
+    }
+  }, [user]);
+
   return (
     <>
       {user && <Navigate to={from != "/login" ? from : "/"} replace={true} />}
       <Model
-        backButtonHref={from?.toString().startsWith("/login") ? "/" : from}
+        backButtonHref={
+          from?.toString() == "/login"
+            ? "/"
+            : from?.toString()?.startsWith("/admin")
+            ? "/"
+            : from
+        }
       >
         <div className="flex items-center justify-center mx-4  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">

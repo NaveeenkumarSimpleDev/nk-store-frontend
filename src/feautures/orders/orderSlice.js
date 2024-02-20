@@ -10,6 +10,7 @@ const initialState = {
   items: null,
   addresses: null,
   selectedAddress: null,
+  selectedOrder: null,
 };
 
 export const fetchOrderByUserIdAsync = createAsyncThunk(
@@ -59,6 +60,9 @@ const orderSlice = createSlice({
         state.selectedAddress = null;
       }
     },
+    setSelectedOrder: (state, action) => {
+      state.selectedOrder = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,10 +93,15 @@ const orderSlice = createSlice({
       });
   },
 });
-export const { setSelectedAddress, deleteAddressLocally, addAddressLocally } =
-  orderSlice.actions;
+export const {
+  setSelectedAddress,
+  deleteAddressLocally,
+  addAddressLocally,
+  setSelectedOrder,
+} = orderSlice.actions;
 export default orderSlice.reducer;
 
 export const selectOrders = (state) => state.orders.items;
 export const selectAddress = (state) => state.orders.selectedAddress;
 export const selectAddresses = (state) => state.orders.addresses;
+export const getSelectedOrder = (state) => state.orders.selectedOrder;

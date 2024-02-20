@@ -3,23 +3,22 @@ import {
   selectLoggedInUser,
   checkAuthAsync,
 } from "../../feautures/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProtectedAdmin = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const loggedInUser = useSelector(selectLoggedInUser);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!mounted) {
-      setMounted(true);
+    if (!loggedInUser) {
+      dispatch(checkAuthAsync());
     }
-    dispatch(checkAuthAsync());
   }, []);
 
-  if (!loggedInUser && mounted) {
+  if (!loggedInUser) {
     return navigate("/login", {
       state: { from: location.pathname + location.search },
     });
