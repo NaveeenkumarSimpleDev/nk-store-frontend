@@ -3,14 +3,13 @@ import StarRating from "../../components/star-rating";
 import { AspectRatio } from "../../components/ui/aspect-ratio";
 import Button from "../../components/ui/button";
 import { formatPrice } from "../../lib/utils";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser } from "../../feautures/auth/authSlice";
+import { Link, useNavigate } from "react-router-dom";
 
-import React, { useState } from "react";
+import React from "react";
 import { deleteProductById } from "../../feautures/admin/adminApi";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const {
     id: productId,
     title,
@@ -73,7 +72,7 @@ const ProductCard = ({ product }) => {
                   "Are you sure delete this product!!, product cannot be recovered."
                 );
 
-                if (isDelete) deleteProductById(product?.id);
+                if (isDelete) deleteProductById(product?.id, navigate);
               }}
             >
               <Trash className="w-5 h-5 text-destructive text-center" />

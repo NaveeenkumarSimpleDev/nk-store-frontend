@@ -10,7 +10,7 @@ import { cn } from "../../lib/utils";
 const Orders = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectAdminOrders);
-
+  console.log(orders);
   return (
     <div class="relative overflow-x-auto">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -38,8 +38,10 @@ const Orders = () => {
             const colorOfStatus =
               order.status == "pending"
                 ? "bg-yellow-200"
-                : orders.status == "dispatched"
+                : order.status == "dispatched"
                 ? "bg-pink-200"
+                : order.status == "canceled"
+                ? "bg-red-400 text-black"
                 : "bg-green-200";
             return (
               <tr

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import CartegoryCard from "../components/category-card";
 import { CATEGORIES } from "../config";
@@ -6,8 +6,20 @@ import { useEffect, useState } from "react";
 import Model from "../components/model";
 import SuccessPage from "../components/success";
 
+import { useDispatch } from "react-redux";
+import { setUser } from "../feautures/auth/authSlice";
+
 const HomePage = () => {
   const location = useLocation();
+  const user = useLoaderData();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user) {
+      dispatch(setUser(user));
+    }
+  }, []);
 
   const [success, setSuccess] = useState(false);
 

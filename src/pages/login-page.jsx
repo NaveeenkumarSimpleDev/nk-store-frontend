@@ -1,20 +1,26 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  Navigate,
+  useNavigate,
+  useLoaderData,
+  useRouteLoaderData,
+} from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectLoggedInUser,
-  loginUserAsync,
   setUser,
   checkAuthAsync,
 } from "../feautures/auth/authSlice";
 import Model from "../components/model";
 import { Loader2 } from "lucide-react";
 import Input from "../admin/components/input";
-import { loginUser } from "../feautures/auth/authAPI";
+import { checkAuth, loginUser } from "../feautures/auth/authAPI";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -23,12 +29,11 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from;
+  const from = location.state?.from || "/";
 
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -42,34 +47,18 @@ const LoginPage = () => {
       setError(error);
     } finally {
       setLoading(false);
-      // reset();
     }
   };
-  console.log(from);
 
   useEffect(() => {
-    dispatch(checkAuthAsync()); // Check authentication status on component mount
-  }, []);
-
-  useEffect(() => {
-    // Redirect user if already logged in
-    if (user?.id) {
+    if (user) {
       navigate(from && from !== "/login" ? from : "/");
     }
   }, [user]);
 
   return (
     <>
-      {user && <Navigate to={from != "/login" ? from : "/"} replace={true} />}
-      <Model
-        backButtonHref={
-          from?.toString() == "/login"
-            ? "/"
-            : from?.toString()?.startsWith("/admin")
-            ? "/"
-            : from
-        }
-      >
+      <Model backButtonHref="/">
         <div className="flex items-center justify-center mx-4  min-h-screen bg-gray-100">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
             <Heading title="Welcome back!" />
@@ -149,3 +138,15 @@ const LoginPage = () => {
 };
 
 export default React.memo(LoginPage);
+
+export async function loginLoader() {
+  return new Promise(async (resolve) => {
+    try {
+      const user = await checkAuth();
+      resolve(user);
+    } catch (error) {
+      console.log("Error", error);
+      resolve(null);
+    }
+  });
+}

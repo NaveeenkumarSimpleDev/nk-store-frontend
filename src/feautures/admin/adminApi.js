@@ -17,7 +17,6 @@ export async function fetchAdminProducts(email) {
     } catch (error) {
       if (error?.response?.status === 401) {
         // toast.error("Unauthorized !");
-
         return;
       }
 
@@ -67,6 +66,7 @@ export async function crateNewProduct(product) {
 
       if (res.status === 200) {
         toast.success(res.data);
+        resolve(res.data);
       } else {
         toast.error("Something worng!, pls try again");
       }
@@ -94,7 +94,7 @@ export async function updateProduct(product) {
   });
 }
 
-export async function deleteProductById(id) {
+export async function deleteProductById(id, navigate) {
   const url = baseUrl + "/admin/products";
   return new Promise(async () => {
     try {
@@ -109,6 +109,8 @@ export async function deleteProductById(id) {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+    } finally {
+      navigate("/admin");
     }
   });
 }

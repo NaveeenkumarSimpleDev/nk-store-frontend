@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchAdminProducts, fetchOrdersByUserId } from "./adminApi";
 
 const initialState = {
-  products: [],
+  products: null,
   orders: null,
   selectedOrder: null,
 };

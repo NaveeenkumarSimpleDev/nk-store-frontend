@@ -35,7 +35,7 @@ export const CATEGORIES = [
   },
   {
     title: "Home & Living",
-    href: "/categories/home & living essentials",
+    href: "/categories/home & living",
     image:
       "https://res.cloudinary.com/dzpspuks7/image/upload/v1707458359/kssitexfxupyddbv0tdu.jpg",
     description:

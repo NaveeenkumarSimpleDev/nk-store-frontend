@@ -101,7 +101,7 @@ const ProductForm = ({ product }) => {
     };
 
     if (product) {
-      await updateProduct({ id: product.id, ...productData })
+      updateProduct({ id: product.id, ...productData })
         .catch((err) => {
           console.log("PRODUCT FORM", err);
           setLoading(false);
@@ -111,18 +111,18 @@ const ProductForm = ({ product }) => {
           setError({});
         });
     } else {
-      await crateNewProduct(productData)
-        .catch((err) => {
+      crateNewProduct(productData)
+        .then(() => {
           setLoading(false);
-
-          console.log("PRODUCT FORM", err);
+          setError({});
+        })
+        .catch((error) => {
+          console.log("PRODUCT FORM", error);
         })
         .finally(() => {
-          setError({});
-          setLoading(false);
+          navigate("/admin/products");
         });
     }
-    navigate("/admin/products");
   }
 
   return (

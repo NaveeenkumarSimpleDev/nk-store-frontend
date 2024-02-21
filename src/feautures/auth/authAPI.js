@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { logOutUser } from "./authSlice";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -88,24 +89,30 @@ export const checkAuth = () => {
   });
 };
 
-export const logout = () => {
-  const url = baseUrl + "/auth/logout";
-  return new Promise(async () => {
-    try {
-      const response = await axios.get(url, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+export const logout = (dispatch, navigate) => {
+  console.log("inside");
+  document.cookie = "jwt=";
+  dispatch(logOutUser());
+  navigate("/");
+  toast.success("Logout success.");
 
-      if (response.status === 200) {
-        toast.success("Logout success.");
-        window.location = "/";
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  });
+  // const url = baseUrl + "/auth/logout";
+  // return new Promise(async () => {
+  //   try {
+  //     const response = await axios.get(url, {
+  //       withCredentials: true,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (response.status === 200) {
+
+  //       window.location = "/";
+  //       window.location.reload();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // });
 };

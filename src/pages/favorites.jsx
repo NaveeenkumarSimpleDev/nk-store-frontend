@@ -34,17 +34,13 @@ const Favorites = () => {
 
   const fav = favProducts?.filter((item) => item !== undefined);
 
-  if (!fav) {
-    return <ProductLoading />;
-  }
-
   return (
     <div className="mt-4 flex flex-col gap-6">
       <Heading
         title="Favourites"
         desc="Your personalized collection of favourite items."
       />
-
+      {!fav && <ProductLoading />}
       {fav?.length > 0 && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
           {fav?.map((product) => (

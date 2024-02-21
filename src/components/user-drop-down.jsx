@@ -2,9 +2,7 @@ import React from "react";
 import {
   CreditCard,
   Heart,
-  Keyboard,
   LogOut,
-  Settings,
   User,
   ShoppingCartIcon,
 } from "lucide-react";
@@ -19,17 +17,17 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { logout } from "../feautures/auth/authAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUserAsync } from "../feautures/auth/authSlice";
 import { selectUser } from "../feautures/user/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LoadingIndigator from "./loading-indicator";
 
 const UserDropdownMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const logout = () => {
-    dispatch(logoutUserAsync());
-  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -75,7 +73,7 @@ const UserDropdownMenu = () => {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={logout}
+              onClick={() => logout(dispatch, navigate)}
               className="text-sm cursor-pointer hover:bg-gray-200"
             >
               <LogOut className="mr-4 h-4 w-4" />
@@ -86,7 +84,7 @@ const UserDropdownMenu = () => {
         ) : (
           <div className="h-4 w-full flex items-center justify-center">
             {/* Style this loading UI */}
-            Loading...
+            <LoadingIndigator />
           </div>
         )}
       </DropdownMenuContent>

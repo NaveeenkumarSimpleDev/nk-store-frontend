@@ -92,7 +92,7 @@ const OrderDetails = () => {
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="dispatched">Dispatched</SelectItem>
                   <SelectItem value="delivered">Delivered</SelectItem>
-                  <SelectItem value="cancel">Cancel</SelectItem>
+                  <SelectItem value="canceled">Cancel</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createuserAsync,
-  selectLoggedInUser,
-  setUser,
-} from "../feautures/auth/authSlice";
+import { selectLoggedInUser, setUser } from "../feautures/auth/authSlice";
 import { Loader2 } from "lucide-react";
 import Model from "../components/model";
 import Input from "../admin/components/input";
@@ -22,6 +18,8 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const from = location.state?.from;
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
@@ -30,7 +28,6 @@ const RegisterPage = () => {
 
   const onSubmit = async (data) => {
     const { password, confirmPass } = data;
-
     // password check
     if (password !== confirmPass) {
       setErrorsState((prev) => ({
@@ -55,9 +52,15 @@ const RegisterPage = () => {
       // reset();
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate(from && from !== "/login" ? from : "/");
+    }
+  }, [user]);
+
   return (
     <>
-      {user && <Navigate to="/" replace={true}></Navigate>}
       <Model backButtonHref={from}>
         <div className="flex items-center justify-center min-h-screen max-h-screen">
           <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">

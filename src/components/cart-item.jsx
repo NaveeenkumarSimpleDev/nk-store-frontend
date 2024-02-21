@@ -9,12 +9,14 @@ import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import { updateCart } from "../feautures/cart/cartAPI";
+import { useEffect, useState } from "react";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
   const cart = useSelector(selectCart);
   const { handleCartOpen } = useCart();
+  const [quantity, setQuantity] = useState(item.quantity);
 
   const handleDelete = () => {
     const res = confirm("Are you sure to remove item from cart?");
@@ -32,19 +34,31 @@ const CartItem = ({ item }) => {
     }
   };
 
+  const handleInc = () => {
+    setQuantity((prev) => prev + 1);
+  };
+  const handleDec = () => {
+    setQuantity((prev) => prev - 1);
+  };
+
   const handleQuantity = (opr) => {
     const type = opr === "inc" ? "inc" : "dec";
 
-    if (type === "inc" && item.quantity === 10) {
+    if (type === "inc" && quantity === 10) {
       return toast.error("Max-quantity reached");
     }
-
+    if (type == "inc") {
+      handleInc();
+    } else if (type == "dec") {
+      handleDec();
+    }
     dispatch(
       updateCart(
         {
           userId: loggedInUser?.id,
           variationId: item?.id,
           type,
+          quantity,
         },
         dispatch
       )

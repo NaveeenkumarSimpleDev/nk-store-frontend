@@ -47,19 +47,30 @@ export const addToCart = (data) => {
   });
 };
 
+let cancelTokenSource;
+
 export const updateCart = async (data, dispatch) => {
   const url = baseUrl + "/cart/update";
   if (!data?.userId) {
     return toast.error("Login is expired.");
   }
+  if (cancelTokenSource) {
+    cancelTokenSource.cancel("Operation canceled by the user.");
+  }
 
-  dispatch(updateCartLocally({ id: data.variationId, type: data.type }));
-
+  dispatch(
+    updateCartLocally({
+      id: data.variationId,
+      type: data.type,
+    })
+  );
+  cancelTokenSource = axios.CancelToken.source();
   try {
     const response = await axios.post(url, data, {
       headers: {
         "Content-Type": "application/json",
       },
+      cancelToken: cancelTokenSource.token,
     });
     if (response.status === 200) {
       // if (data?.type === "delete") {
@@ -67,8 +78,8 @@ export const updateCart = async (data, dispatch) => {
       // }
     }
   } catch (error) {
-    window.location.reload();
-    toast.error("Unexpected error occur in cart!, pls refresh.");
+    // window.location.reload();
+    // toast.error("Unexpected error occur in cart!, pls refresh.");
     // reject("Something wrong");
   }
 };
@@ -90,6 +101,8 @@ export const resetCart = (data) => {
     } catch (error) {
       toast.error("Something wrong!");
       reject("Something wrong");
+    } finally {
+      cancelTokenSource = null;
     }
   });
 };

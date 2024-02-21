@@ -3,7 +3,7 @@ import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import RegisterPage from "./pages/register-page";
-import LoginPage from "./pages/login-page";
+import LoginPage, { loginLoader } from "./pages/login-page";
 import RootLayout from "./root-layout";
 import ProductPage from "./pages/product-page";
 import ToasterProvider from "./provider/toaster-provider";
@@ -47,6 +47,8 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
+        loader: loginLoader,
+        id: "root",
         element: <HomePage />,
       },
       {
@@ -99,7 +101,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/favourites",
-        element: <Favorites />,
+        element: (
+          <ProtectedRoute>
+            <Favorites />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/orders",

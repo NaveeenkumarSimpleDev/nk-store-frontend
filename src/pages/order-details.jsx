@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link, redirect, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { Loader2 } from "lucide-react";
-import Button from "../components/ui/button";
 import { getSelectedOrder } from "../feautures/orders/orderSlice";
 import OrderStatus from "../components/order-status";
 import { formatPrice } from "../lib/utils";
 
 const OrderDetails = () => {
   const order = useSelector(getSelectedOrder);
-
-  if (!order) return null;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   // const params = useParams();
   // const dispatch = useDispatch();
-  const attrbutes = Object.keys(order.orderItem.customAttributes);
+  useEffect(() => {
+    if (!order) return navigate("/orders");
+  }, [order]);
 
+  if (!order) return null;
+  const attrbutes = Object.keys(order?.orderItem.customAttributes);
   let linkTo = "/products/" + order.orderItem.product.id + "?";
   attrbutes.forEach((a) => {
     linkTo += `${a}=${order.orderItem.customAttributes[a]}&`;
@@ -27,10 +27,10 @@ const OrderDetails = () => {
   const totalPrice =
     Number(order.orderItem.quantity) * Number(order.orderItem.buyPrice);
   return (
-    <div className="grid lg:grid-cols-2 border rounded-md overflow-hidden">
+    <div className="grid md:grid-cols-2 border rounded-md overflow-hidden ">
       <img
         src={order.orderItem.images[0]}
-        className="object-cover object-center h-full w-full"
+        className="object-cover object-center w-full border-r"
         alt={order.orderItem.title}
       />
       <div className="lg:mx-4 mx-2 max-lg:my-2">
@@ -39,7 +39,7 @@ const OrderDetails = () => {
             <h1 className="text-xl font-bold truncate ">
               <Link to={linkTo}>{order.orderItem.product.title}</Link>
             </h1>
-            <h3 className="max-h-[2lh] xl:max-h-[3lh] text-ellipsis">
+            <h3 className="line-clamp-2 lg:line-clamp-3">
               {order.orderItem.product.description}
             </h3>
           </div>
