@@ -10,24 +10,28 @@ import {
   fetchBrandsAsync,
   fetchProductsAsync,
   selectAllProducts,
-  selectBrands,
 } from "../feautures/product/productSlice";
 import SortSelectionButton from "../components/sortSelectionButton";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectAllProducts) || null;
+  const products = useSelector(selectAllProducts);
   const [filter, setFiler] = useState(false);
   const [sortBy, setSortBy] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
-    setLoading(true);
-    await dispatch(fetchProductsAsync());
-    setLoading(false);
+    if (!products) {
+      setLoading(true);
+      await dispatch(fetchProductsAsync());
+      setLoading(false);
+    } else {
+      await dispatch(fetchProductsAsync());
+    }
 
     dispatch(fetchBrandsAsync());
   };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -52,7 +56,7 @@ const ProductPage = () => {
 
   let content;
 
-  if (products?.length > 0) {
+  if (products && products?.length > 0) {
     content = (
       <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
         {products?.map((product) => (
@@ -66,6 +70,7 @@ const ProductPage = () => {
     content = <ProductLoading />;
   }
 
+  console.log({ products });
   return (
     <>
       <div className="py-8">

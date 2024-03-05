@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   status: "idle",
-  products: [],
+  products: null,
   selectedProduct: null,
   brands: [],
   favourites: null,

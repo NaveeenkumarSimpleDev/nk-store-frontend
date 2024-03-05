@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -36,9 +36,11 @@ const routes = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: loginLoader,
+    id: "root",
     errorElement: (
       <p className="text-2xl font-bold">
-        Not Found ,Go to{" "}
+        Something wrong!
         <Link className="underlinde" to="/">
           Home
         </Link>
@@ -47,9 +49,11 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: loginLoader,
-        id: "root",
-        element: <HomePage />,
+        element: (
+          <Suspense fallback={<p>Loading</p>}>
+            <HomePage />
+          </Suspense>
+        ),
       },
       {
         path: "/products",

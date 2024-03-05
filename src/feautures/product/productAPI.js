@@ -19,7 +19,9 @@ export async function fetchProducts() {
         },
       });
       if (response.status === 200) {
-        resolve(response.data);
+        if (response.data) {
+          resolve(response.data);
+        }
       }
     } catch (error) {
       toast.error("Something wrong!");

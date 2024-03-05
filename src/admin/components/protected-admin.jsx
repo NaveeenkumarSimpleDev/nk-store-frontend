@@ -3,7 +3,7 @@ import {
   selectLoggedInUser,
   checkAuthAsync,
 } from "../../feautures/auth/authSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, redirect, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const ProtectedAdmin = ({ children }) => {
@@ -13,20 +13,12 @@ const ProtectedAdmin = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loggedInUser) {
-      dispatch(checkAuthAsync());
+    if (loggedInUser?.role == "user" || !loggedInUser) {
+      return navigate("/", {
+        replace: true,
+      });
     }
   }, []);
-
-  if (!loggedInUser) {
-    return navigate("/login", {
-      state: { from: location.pathname + location.search },
-    });
-  }
-
-  if (loggedInUser?.role === "user") {
-    return navigate("/");
-  }
 
   return <div>{children}</div>;
 };

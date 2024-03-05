@@ -2,6 +2,20 @@ import React from "react";
 import { cn } from "../lib/utils";
 
 const OrderStatus = ({ status }) => {
+  if (status == "canceled") {
+    return (
+      <div className="relative space-y-6 overflow-hidden p-4 pb-0 mx-2">
+        <div className="flex items-center gap-4 ">
+          <p
+            className={cn(
+              "h-5 w-5 rounded-full  border ring-2  z-10 bg-red-700 ring-red-900  ring-offset-red-950"
+            )}
+          />
+          <p>Canceled</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="relative space-y-6 overflow-hidden p-4 pb-0 mx-2">

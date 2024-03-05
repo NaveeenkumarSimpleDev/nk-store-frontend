@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import { Link, useLocation, useRouteLoaderData } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import CartegoryCard from "../components/category-card";
 import { CATEGORIES } from "../config";
@@ -11,7 +11,7 @@ import { setUser } from "../feautures/auth/authSlice";
 
 const HomePage = () => {
   const location = useLocation();
-  const user = useLoaderData();
+  const user = useRouteLoaderData("root");
 
   const dispatch = useDispatch();
 

@@ -90,7 +90,6 @@ export const checkAuth = () => {
 };
 
 export const logout = (dispatch, navigate) => {
-  console.log("inside");
   document.cookie = "jwt=";
   dispatch(logOutUser());
   navigate("/");
