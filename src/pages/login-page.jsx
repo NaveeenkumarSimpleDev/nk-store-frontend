@@ -1,20 +1,14 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/ui/button";
-import {
-  Link,
-  useLocation,
-  Navigate,
-  useNavigate,
-  useLoaderData,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Heading from "../components/ui/heading";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoggedInUser, setUser } from "../feautures/auth/authSlice";
 import Model from "../components/model";
 import { Loader2 } from "lucide-react";
+import Input from "../admin/components/input";
 import { checkAuth, loginUser } from "../feautures/auth/authAPI";
 
 const LoginPage = () => {
