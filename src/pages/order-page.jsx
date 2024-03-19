@@ -19,6 +19,7 @@ const OrderPage = () => {
     dispatch(fetchOrderByUserIdAsync(user?.id));
   }, []);
 
+  console.log({ orders });
   return (
     <div>
       <Heading
@@ -27,20 +28,18 @@ const OrderPage = () => {
       />
 
       <div className="py-4 gap-2 grid md:grid-cols-2 overflow-hidden">
-        {!orders && (
-          <LoadingIndigator className="w-full my-10 flex items-center justify-center" />
-        )}
-        {orders?.map((item) => (
-          <OrderItem order={item} key={item.id} />
-        ))}
-        {orders?.length === 0 && (
+        {orders?.length === 0 ? (
           <p className="text-lg font-semibold text-gray-400">
             No Orders found!
           </p>
+        ) : orders ? (
+          orders?.map((item) => <OrderItem order={item} key={item.id} />)
+        ) : (
+          <LoadingIndigator className="w-full my-10 flex items-center justify-center" />
         )}
       </div>
     </div>
   );
 };
 
-export default React.memo(OrderPage);
+export default OrderPage;

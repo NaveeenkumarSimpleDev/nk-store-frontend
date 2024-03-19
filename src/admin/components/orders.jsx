@@ -5,14 +5,21 @@ import {
   selectAdminOrders,
   setSelectedOrder,
 } from "../../feautures/admin/adminSlice";
-import { cn } from "../../lib/utils";
+import { cn, formatPrice } from "../../lib/utils";
+import Heading from "../../components/ui/heading";
 
 const Orders = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectAdminOrders);
   return (
     <div class="relative overflow-x-auto">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <h1 className="mb-4">
+        <Heading
+          title="Orders"
+          desc=" Manage and view orders placed by customers. Monitor order status, track deliveries, and process orders efficiently."
+        />
+      </h1>
+      <table class="w-full text-sm text-left outline shadow-md outline-gray-500 rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">
@@ -56,15 +63,17 @@ const Orders = () => {
                 <td class="px-6 py-4">
                   {order.orderItem.quantity} x {order.orderItem.buyPrice} ={" "}
                   <span className="font-bold text-black">
-                    {Number(order.orderItem.quantity) *
-                      Number(order.orderItem.buyPrice)}
+                    {formatPrice(
+                      Number(order.orderItem.quantity) *
+                        Number(order.orderItem.buyPrice)
+                    )}
                   </span>
                 </td>
                 <td class="px-6 py-4">{order.selectedAddress}</td>
                 <td class="px-6 py-4 capitalize">
                   <span
                     className={cn(
-                      "rounded-lg font-semibold py-2 px-4",
+                      "rounded-sm font-semibold text-black/80 py-2 px-4",
                       colorOfStatus
                     )}
                   >

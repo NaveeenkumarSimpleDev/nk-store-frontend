@@ -1,11 +1,19 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { addToFavLocally, removeFavLocally } from "./productSlice";
+import { ITEMS_PER_PAGE } from "../../components/pagination";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
+
 let productFeching = false;
+
 export async function fetchProducts() {
   const urlSearchParams = new URLSearchParams(window.location.search);
+  urlSearchParams.set("limit", ITEMS_PER_PAGE);
+  const page = urlSearchParams.get("page");
+  if (!page) {
+    urlSearchParams.set("page", 1);
+  }
   if (productFeching) return;
 
   productFeching = true;
@@ -135,9 +143,12 @@ export async function removeFavourites(data, dispatch) {
   });
 }
 
+let fetchingFav = false;
 export async function fetchFavourites(userId) {
   const url = baseUrl + "/favourites";
-
+  if (fetchingFav) return;
+  if (!userId) return;
+  fetchingFav = true;
   return new Promise(async (resolve) => {
     try {
       const response = await axios.post(url, userId, {
@@ -150,6 +161,8 @@ export async function fetchFavourites(userId) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      fetchingFav = false;
     }
   });
 }

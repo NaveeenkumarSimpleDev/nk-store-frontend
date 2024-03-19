@@ -12,12 +12,13 @@ export const fetchUserById = (userId) => {
           "Content-Type": "application/json",
         },
       });
-      
+
       if (response.status === 200) {
         resolve(response.data);
       }
     } catch (err) {
-      toast.error("user error!");
+      // toast.error("user error!");
+      console.log("USER_ERR", err);
     }
   });
 };

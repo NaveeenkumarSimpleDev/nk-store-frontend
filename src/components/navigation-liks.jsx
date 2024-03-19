@@ -38,6 +38,11 @@ export function NavigationLinks() {
                   </ListItem>
                 </Link>
               ))}
+              <Link to="/categories">
+                <ListItem title="All Categories">
+                  All categoris, fashion, electronics and etc..
+                </ListItem>
+              </Link>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -45,14 +50,14 @@ export function NavigationLinks() {
           <NavigationMenuItem>
             {/* <Link href="/docs" legacyBehavior passHref> */}
             <NavigationMenuLink className="font-semibold text-sm mr-4 hover:underline transition-all">
-              <Link to={"/admin"}>Dashboard</Link>
+              <Link to={"/admin/products"}>Dashboard</Link>
             </NavigationMenuLink>
             {/* </Link> */}
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>
           {/* <Link href="/docs" legacyBehavior passHref> */}
-          <NavigationMenuLink className="font-semibold text-sm mr-2">
+          <NavigationMenuLink className="font-semibold mx-2 text-sm mr-2">
             <Link to={"/products"}>Products</Link>
           </NavigationMenuLink>
           {/* </Link> */}

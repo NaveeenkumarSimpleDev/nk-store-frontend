@@ -84,6 +84,7 @@ export async function updateProduct(product) {
 
       if (res.status === 200) {
         toast.success(res.data);
+        resolve(res.data);
       } else {
         toast.error("Something worng!, pls try again");
       }
@@ -110,7 +111,7 @@ export async function deleteProductById(id, navigate) {
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
-      navigate("/admin");
+      navigate("/admin/products");
     }
   });
 }

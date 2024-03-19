@@ -11,6 +11,7 @@ import {
 const initialState = {
   status: "idle",
   products: null,
+  totalProducts: null,
   selectedProduct: null,
   brands: [],
   favourites: null,
@@ -66,7 +67,9 @@ const productSlice = createSlice({
     builder
       .addCase(fetchProductsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.products = action.payload;
+
+        state.products = action.payload?.data;
+        state.totalProducts = action.payload?.total;
       })
       .addCase(fetchProductByIdAsync.pending, (state) => {
         state.selectedProduct = null;
@@ -81,9 +84,10 @@ const productSlice = createSlice({
         state.error = "product fetch failed";
       })
       .addCase(fetchFavouritesAsync.fulfilled, (state, action) => {
+        if (!action.payload) return;
         if (action.payload === "No Favourites") {
-          state.favourites = null;
-        } else {
+          state.favourites = [];
+        } else if (action.payload?.length > 0) {
           state.favourites = action.payload;
         }
       })
@@ -101,3 +105,4 @@ export const selectAllProducts = (state) => state.product.products;
 export const selectProductById = (state) => state.product.selectedProduct;
 export const selectFavourites = (state) => state.product.favourites;
 export const selectBrands = (state) => state.product.brands;
+export const selectTotalProducts = (state) => state.product.totalProducts;

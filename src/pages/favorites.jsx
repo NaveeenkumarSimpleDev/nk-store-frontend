@@ -33,6 +33,7 @@ const Favorites = () => {
   });
 
   const fav = favProducts?.filter((item) => item !== undefined);
+  console.log({ favProducts });
 
   return (
     <div className="mt-4 flex flex-col gap-6">
@@ -41,17 +42,18 @@ const Favorites = () => {
         desc="Your personalized collection of favourite items."
       />
       {!fav && <ProductLoading />}
-      {fav?.length > 0 && (
+      {fav?.length > 0 ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
           {fav?.map((product) => (
             <ProductCard product={product} favourite={true} key={product?.id} />
           ))}
-          {fav?.length === 0 && (
-            <p className="font-semibold text-lg text-gray-400">
-              No Favourites found!
-            </p>
-          )}
         </div>
+      ) : fav?.length === 0 ? (
+        <p className="font-semibold text-lg text-gray-400">
+          No Favourites found!
+        </p>
+      ) : (
+        <ProductLoading />
       )}
     </div>
   );

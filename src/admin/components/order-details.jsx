@@ -80,7 +80,7 @@ const OrderDetails = () => {
           <p>{order.selectedAddress}</p>
 
           <div className="my-4 w-max">
-            <h2 className="font-bold">Status</h2>
+            <h2 className="font-bold mb-3">Status</h2>
 
             <Select defaultValue={status} onValueChange={(v) => setStatus(v)}>
               <SelectTrigger className="w-[180px]">

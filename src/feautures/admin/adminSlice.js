@@ -4,6 +4,7 @@ import { fetchAdminProducts, fetchOrdersByUserId } from "./adminApi";
 const initialState = {
   products: null,
   orders: null,
+  editProduct: null,
   selectedOrder: null,
 };
 
@@ -31,6 +32,9 @@ const adminSlice = createSlice({
     setSelectedOrder: (state, action) => {
       state.selectedOrder = action.payload;
     },
+    setEditProduct: (state, action) => {
+      state.editProduct = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -43,10 +47,11 @@ const adminSlice = createSlice({
   },
 });
 
-export const { setSelectedOrder } = adminSlice.actions;
+export const { setSelectedOrder, setEditProduct } = adminSlice.actions;
 
 export default adminSlice.reducer;
 
 export const selectAdminProducts = (state) => state.admin.products;
 export const selectAdminOrders = (state) => state.admin.orders;
 export const selectSelectedOrder = (state) => state.admin.selectedOrder;
+export const selectEditProduct = (state) => state.admin.editProduct;

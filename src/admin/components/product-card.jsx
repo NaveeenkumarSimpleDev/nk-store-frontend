@@ -7,8 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import React from "react";
 import { deleteProductById } from "../../feautures/admin/adminApi";
+import { useDispatch } from "react-redux";
+import { setEditProduct } from "../../feautures/admin/adminSlice";
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     id: productId,
@@ -114,7 +117,12 @@ const ProductCard = ({ product }) => {
                   View Product
                 </Button>
               </Link>
-              <Link to={"edit/" + product?.id}>
+              <Link
+                to={"edit/" + product?.id}
+                onClick={() => {
+                  dispatch(setEditProduct(product));
+                }}
+              >
                 <Button className="m-0 px-6 font-semibold disabled:opacity-75 bg-blue-500">
                   Edit
                 </Button>

@@ -82,7 +82,7 @@ const UserDropdownMenu = () => {
             </DropdownMenuItem>
           </>
         ) : (
-          <div className="h-4 w-full flex items-center justify-center">
+          <div className="h-16 w-full flex items-center justify-center">
             {/* Style this loading UI */}
             <LoadingIndigator />
           </div>
@@ -92,4 +92,4 @@ const UserDropdownMenu = () => {
   );
 };
 
-export default React.memo(UserDropdownMenu);
+export default UserDropdownMenu;

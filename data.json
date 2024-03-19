@@ -1,0 +1,1546 @@
+[
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  },
+  {
+    "id": "6560ce0a618ff292fc26df01",
+    "title": "Puma Sneeker",
+    "description": "The Nice comfort with your ancles.",
+    "mrp": 499,
+    "discountPrice": 299,
+    "rating": 199,
+    "category": "Fashion",
+    "brandId": "6560c592618ff292fc26dee1",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2023-11-24T16:23:37.097Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "6560ce60618ff292fc26df07",
+        "customAttributes": {
+          "color": "red",
+          "size": 11
+        },
+        "specifications": null,
+        "mrp": null,
+        "price": 200,
+        "stock": 0,
+        "images": [
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+          "https://images.unsplash.com/photo-1548801133-da353ebb1d97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        ],
+        "productId": "6560ce0a618ff292fc26df01"
+      }
+    ],
+    "brand": {
+      "id": "6560c592618ff292fc26dee1",
+      "value": "Puma"
+    }
+  },
+  {
+    "id": "65b2b64743710acb8cca67b1",
+    "title": "Apple mack book pro",
+    "description": "Behold an entirely new class of GPU architecture. And the biggest breakthrough in graphics yet for Apple silicon. Dynamic Caching optimises fast on-chip memory to dramatically increase average GPU utilisation — driving a huge performance boost for the most demanding pro apps and games.",
+    "mrp": 1299,
+    "discountPrice": 899,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "6560c578618ff292fc26dedc",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-25T19:28:06.529Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b36adb43710acb8cca67b6",
+        "customAttributes": {
+          "color": "black",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 799,
+        "stock": 21,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257107/z5b7mjtiabezfom53wp5.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/gx7g2z8og5lw7y1c5pg9.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706257108/k77mcpsdflv3d4vpjfbc.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b371b643710acb8cca67cb",
+        "customAttributes": {
+          "color": "blue",
+          "ram": "12gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1599,
+        "stock": 100,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258858/zqg80r2lbcgda30nwsgs.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706258859/lvko2rtaryacyrcfvbzb.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b3726c43710acb8cca67cc",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "1tb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1299,
+        "stock": 51,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259023/srmdd8kraivxipj28xum.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      },
+      {
+        "id": "65b372ec43710acb8cca67cf",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "516gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 1199,
+        "stock": 1211,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259167/uxdcmpjiypwexaiodljf.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706259168/gt0s5xb2nyq6s2i52ezf.jpg"
+        ],
+        "productId": "65b2b64743710acb8cca67b1"
+      }
+    ],
+    "brand": {
+      "id": "6560c578618ff292fc26dedc",
+      "value": "Apple"
+    }
+  },
+  {
+    "id": "65b39fe043710acb8cca67f3",
+    "title": "Redmi Note 13 Pro 5G",
+    "description": "Key Features 6.67 inches (16.94 cm), AMOLED Display, 120Hz Refresh Rate Memory: 8GB RAM, 256GB ROM Processor: Qualcomm Snapdragon SM7435-AB, 7S Gen 2, Octa Core, 2.4 GHz Camera: 200 MP + 8 MP + 2 MP Triple Rear & 16 MP Front Camera Battery: 5000 mAh with 67W Fast Charging USP: Android 13 OS, Fingerprint Sensor",
+    "mrp": 799,
+    "discountPrice": 599,
+    "rating": null,
+    "category": "Electronics",
+    "brandId": "65b6350e47f6a882f565f4cb",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-01-26T12:04:48.413Z",
+    "updatedAt": "2024-02-17T16:19:16.736Z",
+    "variations": [
+      {
+        "id": "65b3a02843710acb8cca67f7",
+        "customAttributes": {
+          "color": "white",
+          "ram": "8gb",
+          "storage": "128gb"
+        },
+        "specifications": "",
+        "mrp": null,
+        "price": 699,
+        "stock": 1212,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/j6k3wnzpkip0clhtzuis.png",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270744/vppizmj9x7jrwptddyqb.jpg",
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1706270745/bq0tfejvzimjnoaqhced.png"
+        ],
+        "productId": "65b39fe043710acb8cca67f3"
+      }
+    ],
+    "brand": {
+      "id": "65b6350e47f6a882f565f4cb",
+      "value": "Redmi"
+    }
+  },
+  {
+    "id": "65c5c4946b620c68f1682608",
+    "title": "Example Updated",
+    "description": "Ghhha",
+    "mrp": 6662,
+    "discountPrice": 32622,
+    "rating": null,
+    "category": "Home & Living",
+    "brandId": "65e93c84141dec895393b0b9",
+    "createdBy": "65b64c76b89dec189b8e73f4",
+    "createdAt": "2024-02-09T06:22:12.748Z",
+    "updatedAt": "2024-03-07T04:03:16.932Z",
+    "variations": [
+      {
+        "id": "65c9a2c96cffab4b3a18d4c2",
+        "customAttributes": {
+          "Color": "#000000"
+        },
+        "specifications": "121",
+        "mrp": null,
+        "price": 2112,
+        "stock": 12112,
+        "images": [
+          "https://res.cloudinary.com/dzpspuks7/image/upload/v1707713216/ultmwgqgtinovduta7bo.jpg"
+        ],
+        "productId": "65c5c4946b620c68f1682608"
+      }
+    ],
+    "brand": {
+      "id": "65e93c84141dec895393b0b9",
+      "value": "Nk Furnitures"
+    }
+  }
+]

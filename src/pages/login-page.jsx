@@ -9,7 +9,11 @@ import { selectLoggedInUser, setUser } from "../feautures/auth/authSlice";
 import Model from "../components/model";
 import { Loader2 } from "lucide-react";
 import Input from "../admin/components/input";
-import { checkAuth, loginUser } from "../feautures/auth/authAPI";
+import {
+  checkAuth,
+  isAuthenticated,
+  loginUser,
+} from "../feautures/auth/authAPI";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -40,16 +44,18 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      navigate(from && from !== "/login" ? from : "/");
+    if (user || isAuthenticated()) {
+      return navigate(from && from !== "/login" ? from : "/");
     }
   }, [user]);
 
   return (
     <>
       <Model backButtonHref="/">
-        <div className="flex items-center justify-center mx-4  min-h-screen bg-gray-100">
-          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
+        <div
+          className={`flex items-center justify-center mx-4  min-h-screen bg-gray-100  `}
+        >
+          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md bg-gradient-to-b from-fuchsia-300 via-black/25 to-white">
             <Heading title="Welcome back!" />
 
             <form
@@ -66,6 +72,14 @@ const LoginPage = () => {
                   label="Email"
                   required="Email is required"
                   errors={errors}
+                  onFocus={() => {
+                    if (error.email) {
+                      setError((prev) => ({
+                        ...prev,
+                        email: false,
+                      }));
+                    }
+                  }}
                 />
                 {error.email && !errors["email"] && (
                   <p className="text-red-500 font-semibold">{error.email}</p>
@@ -81,6 +95,14 @@ const LoginPage = () => {
                   required="Password is required"
                   type="password"
                   className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  onFocus={() => {
+                    if (error.password) {
+                      setError((prev) => ({
+                        ...prev,
+                        password: false,
+                      }));
+                    }
+                  }}
                 />
 
                 {error.password && (
@@ -126,7 +148,7 @@ const LoginPage = () => {
   );
 };
 
-export default React.memo(LoginPage);
+export default LoginPage;
 
 export async function loginLoader() {
   return new Promise(async (resolve) => {
@@ -135,6 +157,11 @@ export async function loginLoader() {
       resolve(user);
     } catch (error) {
       console.log("Error", error);
+
+      if (error?.message == "Network Error") {
+        resolve({ error });
+      }
+
       resolve(null);
     }
   });

@@ -1,5 +1,4 @@
 import React from "react";
-import { Controller } from "react-hook-form";
 import { cn } from "../../lib/utils";
 
 const Input = ({
@@ -31,7 +30,7 @@ const Input = ({
           },
         })}
         className={cn(
-          "px-2 py-1 border rounded-sm focus:outline-none border-[#eee]",
+          "px-2 py-1 border rounded-sm focus:outline-none border-fuchsia-200 bg-white/70",
           className
         )}
       />

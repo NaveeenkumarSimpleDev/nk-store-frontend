@@ -8,11 +8,12 @@ import SuccessPage from "../components/success";
 
 import { useDispatch } from "react-redux";
 import { setUser } from "../feautures/auth/authSlice";
+import NetworkError from "../components/network-error";
 
 const HomePage = () => {
+  const [success, setSuccess] = useState(false);
   const location = useLocation();
   const user = useRouteLoaderData("root");
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +22,9 @@ const HomePage = () => {
     }
   }, []);
 
-  const [success, setSuccess] = useState(false);
+  if (user?.error) {
+    return <NetworkError />;
+  }
 
   // for vercel deployment after payment success
   useEffect(() => {
@@ -31,7 +34,6 @@ const HomePage = () => {
       setSuccess(false);
     }
   }, [location.search]);
-
   return (
     <>
       {success && (
@@ -87,6 +89,7 @@ const HomePage = () => {
                 href={cat.href}
               />
             ))}
+            <CartegoryCard title="All Categories" href="/categories" />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { selectLoggedInUser, setUser } from "../feautures/auth/authSlice";
 import { Loader2 } from "lucide-react";
 import Model from "../components/model";
 import Input from "../admin/components/input";
-import { createUser } from "../feautures/auth/authAPI";
+import { createUser, isAuthenticated } from "../feautures/auth/authAPI";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user || isAuthenticated()) {
       navigate(from && from !== "/login" ? from : "/");
     }
   }, [user]);
@@ -62,8 +62,8 @@ const RegisterPage = () => {
   return (
     <>
       <Model backButtonHref={from}>
-        <div className="flex items-center justify-center min-h-screen max-h-screen">
-          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md">
+        <div className="flex items-center mx-4 justify-center min-h-screen max-h-screen">
+          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md  bg-gradient-to-b from-fuchsia-300 via-black/25 to-white">
             <Heading title="Create an account." />
 
             <form
@@ -95,6 +95,14 @@ const RegisterPage = () => {
                   name="email"
                   required="Email is required."
                   type="email"
+                  onFocus={() => {
+                    if (errorsState.email) {
+                      setErrorsState((prev) => ({
+                        ...prev,
+                        email: false,
+                      }));
+                    }
+                  }}
                 />
                 {errorsState.email && !errors["email"] && (
                   <p className="text-red-500 font-semibold">
@@ -121,6 +129,14 @@ const RegisterPage = () => {
                   name="confirmPass"
                   required="Confirm password is required."
                   type="password"
+                  onFocus={() => {
+                    if (errorsState.confirmPass) {
+                      setErrorsState((prev) => ({
+                        ...prev,
+                        confirmPass: false,
+                      }));
+                    }
+                  }}
                 />
                 {errorsState.confirmPass && !errors["confirmPass"] && (
                   <span className="text-xs text-red-600 font-semibold">

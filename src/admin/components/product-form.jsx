@@ -102,13 +102,15 @@ const ProductForm = ({ product }) => {
 
     if (product) {
       updateProduct({ id: product.id, ...productData })
-        .catch((err) => {
-          console.log("PRODUCT FORM", err);
-          setLoading(false);
-        })
-        .finally(() => {
+        .then(() => {
           setLoading(false);
           setError({});
+        })
+        .catch((err) => {
+          console.log("PRODUCT FORM", err);
+        })
+        .finally(() => {
+          navigate("/admin/products");
         });
     } else {
       crateNewProduct(productData)

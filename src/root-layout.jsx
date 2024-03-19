@@ -16,4 +16,4 @@ const RootLayout = () => {
   );
 };
 
-export default React.memo(RootLayout);
+export default RootLayout;

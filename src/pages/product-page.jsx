@@ -10,24 +10,21 @@ import {
   fetchBrandsAsync,
   fetchProductsAsync,
   selectAllProducts,
+  selectTotalProducts,
 } from "../feautures/product/productSlice";
 import SortSelectionButton from "../components/sortSelectionButton";
+import Pagination from "../components/pagination";
 
 const ProductPage = () => {
+  const [page, setPage] = useState(1);
+  const totalProducts = useSelector(selectTotalProducts);
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const [filter, setFiler] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
-    if (!products) {
-      setLoading(true);
-      await dispatch(fetchProductsAsync());
-      setLoading(false);
-    } else {
-      await dispatch(fetchProductsAsync());
-    }
+    await dispatch(fetchProductsAsync());
 
     dispatch(fetchBrandsAsync());
   };
@@ -41,36 +38,53 @@ const ProductPage = () => {
     if (sortBy.trim().length === 0) {
       urlSearchParams.delete("sort");
     } else {
+      urlSearchParams.delete("page");
       urlSearchParams.set("sort", sortBy);
+    }
+
+    if (page) {
+      urlSearchParams.set("page", page);
     }
 
     const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
 
     dispatch(fetchProductsAsync());
-  }, [sortBy]);
+  }, [sortBy, page]);
 
   const handleSortChange = useCallback((value) => {
     setSortBy(value);
   }, []);
 
+  const handlePage = (p) => {
+    if (page === p) return;
+    setPage(p);
+  };
+
   let content;
 
   if (products && products?.length > 0) {
     content = (
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {products?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {products?.map((product, idx) => (
+            <ProductCard key={product.id + idx} product={product} />
+          ))}
+        </div>
+
+        <Pagination
+          page={page}
+          handlePage={handlePage}
+          totalItems={totalProducts}
+        />
+      </>
     );
-  } else if (!loading && products?.length === 0) {
+  } else if (products?.length === 0) {
     content = <p>No products found</p>;
   } else {
     content = <ProductLoading />;
   }
 
-  console.log({ products });
   return (
     <>
       <div className="py-8">
@@ -89,7 +103,12 @@ const ProductPage = () => {
           <SortSelectionButton onChange={handleSortChange} />
         </div>
         {/* content */}
-        <section className="mt-6">{content}</section>
+        <section className="mt-6">
+          {content}
+          {/* {totalProducts > ITEMS_PER_PAGE && ( */}
+
+          {/* )} */}
+        </section>
       </div>
 
       <div>
@@ -98,4 +117,4 @@ const ProductPage = () => {
     </>
   );
 };
-export default React.memo(ProductPage);
+export default ProductPage;

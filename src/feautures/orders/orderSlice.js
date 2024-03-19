@@ -67,7 +67,9 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderByUserIdAsync.fulfilled, (state, action) => {
-        state.items = action.payload;
+        if (action.payload) {
+          state.items = action.payload;
+        }
       })
       .addCase(fetchAddressByUserIdAsync.fulfilled, (state, action) => {
         state.addresses = action.payload;

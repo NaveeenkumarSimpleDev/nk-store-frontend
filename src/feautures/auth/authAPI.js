@@ -82,6 +82,8 @@ export const checkAuth = () => {
     } catch (error) {
       if (error?.response?.status === 401) {
         reject({ message: "Unauthorized" });
+      } else {
+        reject(error);
       }
     } finally {
       fetching = false;
@@ -94,6 +96,7 @@ export const logout = (dispatch, navigate) => {
   dispatch(logOutUser());
   navigate("/");
   toast.success("Logout success.");
+  window.location.href = "/";
 
   // const url = baseUrl + "/auth/logout";
   // return new Promise(async () => {
@@ -114,4 +117,21 @@ export const logout = (dispatch, navigate) => {
   //     console.log(error);
   //   }
   // });
+};
+
+export const isAuthenticated = () => {
+  const token = getCookie("jwt");
+  return !!token; // Returns true if token exists, false otherwise
+};
+
+// Function to get the value of a cookie by name
+export const getCookie = (name) => {
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.trim().split("=");
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+  return null;
 };

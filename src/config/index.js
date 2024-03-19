@@ -49,12 +49,6 @@ export const CATEGORIES = [
     description:
       "Immerse yourself in a world of knowledge and creativity with our extensive collection of books and quality stationery, catering to avid readers and creative minds.",
   },
-  {
-    title: "All Categories",
-    image: "",
-    href: "/categories",
-    description: "All categoris, fashion, electronics and etc..",
-  },
 ];
 
 export const STATES = [

@@ -18,7 +18,9 @@ export const fetchCartByUserId = (userId) => {
         resolve(response.data);
       }
     } catch (error) {
-      toast.error("Something wrong!");
+      // toast.error("Something wrong!");
+      console.log("CART_ERROR", error);
+
       reject("Something wrong");
     }
   });
@@ -42,6 +44,8 @@ export const addToCart = (data) => {
       }
     } catch (error) {
       toast.error("Something wrong!");
+      console.log("CART_ERROR", error);
+
       reject("Something wrong");
     }
   });
@@ -72,15 +76,8 @@ export const updateCart = async (data, dispatch) => {
       },
       cancelToken: cancelTokenSource.token,
     });
-    if (response.status === 200) {
-      // if (data?.type === "delete") {
-      //   // toast.success("Item removed.");
-      // }
-    }
   } catch (error) {
-    // window.location.reload();
-    // toast.error("Unexpected error occur in cart!, pls refresh.");
-    // reject("Something wrong");
+    console.log("CART_ERROR", error);
   }
 };
 

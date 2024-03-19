@@ -138,43 +138,23 @@ const routes = createBrowserRouter([
         children: [
           {
             path: "products",
-            element: (
-              <ProtectedAdmin>
-                <AdminProducts />
-              </ProtectedAdmin>
-            ),
+            element: <AdminProducts />,
           },
           {
             path: "orders",
-            element: (
-              <ProtectedAdmin>
-                <AdminOrders />
-              </ProtectedAdmin>
-            ),
+            element: <AdminOrders />,
           },
           {
             path: "orders/:orderId",
-            element: (
-              <ProtectedAdmin>
-                <AdminOrderDetails />
-              </ProtectedAdmin>
-            ),
+            element: <AdminOrderDetails />,
           },
           {
             path: "products/new-product",
-            element: (
-              <ProtectedAdmin>
-                <AddProduct />
-              </ProtectedAdmin>
-            ),
+            element: <AddProduct />,
           },
           {
             path: "products/edit/:editId",
-            element: (
-              <ProtectedAdmin>
-                <EdidProduct />
-              </ProtectedAdmin>
-            ),
+            element: <EdidProduct />,
           },
         ],
       },
@@ -207,10 +187,10 @@ const App = () => {
 
   return (
     <>
-      <RouterProvider router={routes} />;
+      <RouterProvider router={routes} />
       <ToasterProvider />
     </>
   );
 };
 
-export default React.memo(App);
+export default App;
