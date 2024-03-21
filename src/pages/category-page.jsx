@@ -15,8 +15,7 @@ const CategoryPage = () => {
   const { category } = useLoaderData();
   const desc = CATEGORIES.find((i) => {
     if (i.title.trim().toLowerCase() === params.category.trim().toLowerCase())
-      console.log("");
-    return i;
+      return i;
   });
 
   return (

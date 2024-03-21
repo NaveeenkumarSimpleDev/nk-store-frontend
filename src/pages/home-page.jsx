@@ -9,6 +9,7 @@ import SuccessPage from "../components/success";
 import { useDispatch } from "react-redux";
 import { setUser } from "../feautures/auth/authSlice";
 import NetworkError from "../components/network-error";
+import { ArrowRight } from "lucide-react";
 
 const HomePage = () => {
   const [success, setSuccess] = useState(false);
@@ -68,9 +69,10 @@ const HomePage = () => {
           <div className="mt-4">
             <Link
               to="/products"
-              className="w-fit bg-black py-2 px-4 rounded-md text-white font-semibold hover:opacity-70"
+              className="w-fit bg-black py-2 px-4 rounded-md flex items-center text-white font-semibold hover:opacity-70"
             >
-              Shop now
+              <span>Shop now</span>
+              <ArrowRight size={18} className="mt-1 ml-2" />
             </Link>
           </div>
         </div>

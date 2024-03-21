@@ -30,11 +30,11 @@ const RadioButton = ({
         className={cn(
           type === "colors"
             ? "h-6 cursor-pointer w-6 hover:ring-2 transition hover:ring-black ring-offset-1 rounded-full border-2"
-            : "text-sm font-semibold px-4 py-2 border  rounded-md cursor-pointer hover:bg-accent",
+            : "text-sm font-semibold px-3 py-1.5 border  rounded-sm cursor-pointer ",
           checked &&
             (type === "colors"
               ? "ring-2 ring-black"
-              : "border-black bg-accent"),
+              : "border-black bg-black/90 font-bold text-white"),
           className
         )}
       >

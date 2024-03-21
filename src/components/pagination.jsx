@@ -2,7 +2,6 @@ import { ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export const ITEMS_PER_PAGE = 10;
-
 export default function Pagination({ page, handlePage, totalItems }) {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
   if (totalPages === 1) return;

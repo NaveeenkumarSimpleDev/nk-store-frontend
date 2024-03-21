@@ -48,7 +48,7 @@ const ProductCard = ({ product }) => {
   }
   return (
     <>
-      <section className="rounded-lg border flex flex-col">
+      <section className="rounded-lg border flex flex-col overflow-hidden">
         <div className=" border-b p-0">
           <AspectRatio ratio={6 / 4}>
             {product?.variations ? (
@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
                 loading="lazy"
                 src={product?.variations[0]?.images[0]}
                 sizes="(max-width:768px)100vw, (max-width:1200px)50vw,33vw"
-                className="object-cover object-center rounded-t-lg relative h-full w-full"
+                className="object-contain object-center rounded-t-lg relative h-full w-full"
                 alt={product?.title}
               />
             ) : (

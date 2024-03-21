@@ -31,7 +31,7 @@ const ProductForm = ({ product }) => {
   const user = useSelector(selectLoggedInUser);
   const [isNewBrand, setNewBrand] = useState(false);
   const [error, setError] = useState({});
-  const [brand, setBrand] = useState(product?.brand?.id);
+  const [brand, setBrand] = useState(product?.brand?.id || false);
   const [category, setCategory] = useState(product?.category);
   const navigate = useNavigate();
   const [variationOpen, setVariationOpen] = useState(false);
@@ -60,6 +60,7 @@ const ProductForm = ({ product }) => {
   const newBrandRef = useRef();
 
   async function onSubmit(e) {
+    const newBrand = newBrandRef.current?.value;
     let err = {};
     if (variations?.length < 1) {
       err.variation = true;
@@ -69,7 +70,7 @@ const ProductForm = ({ product }) => {
       err.category = "PLease select category";
     }
 
-    if (!brand) {
+    if (!brand || newBrand?.length < 1) {
       err.brand = "PLease select brand";
     }
 
@@ -79,7 +80,6 @@ const ProductForm = ({ product }) => {
     }
 
     setLoading(true);
-    const newBrand = newBrandRef.current?.value;
 
     if (!user.email) return;
     const productData = {

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import ImageCarousel from "./Image-carousel";
 import RadioButton from "./ui/radio-button";
 import Button from "./ui/button";
-import { Loader2, Minus, Plus } from "lucide-react";
-import { formatPrice } from "../lib/utils";
+import { Heart, Loader2, Minus, Plus, ShoppingCart } from "lucide-react";
+import { cn, formatPrice } from "../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductByIdAsync,
+  selectFavourites,
   selectProductById,
 } from "../feautures/product/productSlice";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ import { toast } from "react-hot-toast";
 import LoadingIndigator from "./loading-indicator";
 import { useCart } from "../hooks/useCart";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
+import { addToFavourites } from "../feautures/product/productAPI";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -22,7 +24,8 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const product = useSelector(selectProductById);
   const loggedInUser = useSelector(selectLoggedInUser);
-
+  const favourites = useSelector(selectFavourites);
+  const isFavourite = favourites?.includes(product?.id);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState();
   const [quantity, setQuantity] = useState(1);
@@ -208,10 +211,10 @@ const ProductDetails = () => {
           <LoadingIndigator />
         </div>
       ) : (
-        <section className="mt-6 pb-[3rem] gap-6 grid lg:grid-cols-2 lg:gap-8">
+        <section className="mt-6 pb-[3rem] gap-4 grid lg:grid-cols-2 lg:gap-8">
           <div>
             <ImageCarousel images={images} />
-            <hr className=" mt-8 lg:hidden" />
+            <hr className=" mt-6 lg:hidden" />
           </div>
 
           <div className="flex flex-col gap-6">
@@ -223,11 +226,11 @@ const ProductDetails = () => {
                 {product?.description}
               </p>
               <p className="grid mt-4">
-                <span className="font-bold text-xl">
+                <span className="font-bold text-sm md:text-lg">
                   {formatPrice(product?.variations[0]?.price)} or ${" "}
                   {(Number(product?.variations[0]?.price) / 6).toFixed(2)}/month
                 </span>
-                <span className="font-semibold text-sm">
+                <span className="font-semibold text-xs md:text-sm">
                   Suggest payments with 6 months special financing
                 </span>
               </p>
@@ -236,7 +239,9 @@ const ProductDetails = () => {
             {/* First attribute */}
             {getAvailableAttributes(attributes[0]) && (
               <div className="space-y-3">
-                <span className="text-xl font-semibold">{attributes[0]}</span>
+                <span className="text-xl font-semibold capitalize">
+                  {attributes[0]}
+                </span>
                 <div className="flex gap-3">
                   {getAvailableAttributes(attributes[0]).map((item, idx) => (
                     <RadioButton
@@ -261,7 +266,9 @@ const ProductDetails = () => {
             {product?.variations &&
               Object.keys(product?.variations[0]?.customAttributes)[1] && (
                 <div>
-                  <span className="text-xl font-semibold">{attributes[1]}</span>
+                  <span className="text-xl font-semibold capitalize">
+                    {attributes[1]}
+                  </span>
                   <div className="mt-3 flex gap-4">
                     {getAvailableAttributes(attributes[1])?.map((item, idx) => {
                       const disabled = !firstAvailabeAttributes?.includes(item);
@@ -275,7 +282,9 @@ const ProductDetails = () => {
                           disabled={disabled}
                           onChange={() => handleChange(attributes[1], item)}
                           className={
-                            disabled ? "cursor-not-allowed bg-red-100" : ""
+                            disabled
+                              ? "cursor-not-allowed bg-gray-300 text-opacity-50"
+                              : ""
                           }
                         />
                       );
@@ -288,7 +297,9 @@ const ProductDetails = () => {
             {product?.variations &&
               Object.keys(product?.variations[0]?.customAttributes)[2] && (
                 <div>
-                  <span className="text-xl font-semibold">{attributes[2]}</span>
+                  <span className="text-xl font-semibold capitalize">
+                    {attributes[2]}
+                  </span>
                   <div className="mt-3 flex gap-4">
                     {getAvailableAttributes(attributes[2])?.map((item, idx) => {
                       const disabled =
@@ -303,7 +314,9 @@ const ProductDetails = () => {
                           disabled={disabled}
                           onChange={() => handleChange(attributes[2], item)}
                           className={
-                            disabled ? "cursor-not-allowed bg-red-100" : ""
+                            disabled
+                              ? "cursor-not-allowed bg-gray-300 text-opacity-50"
+                              : ""
                           }
                         />
                       );
@@ -319,18 +332,18 @@ const ProductDetails = () => {
                 <Button
                   disabled={quantity === 1}
                   onClick={handleDec}
-                  className="p-2 bg-gray-600"
+                  className="p-1 bg-white border"
                 >
-                  <Minus size={20} />
+                  <Minus size={20} className="fill-black text-black" />
                 </Button>
                 <span className="font-semibold text-xl">{quantity}</span>
-                <Button onClick={handleInc} className="p-2 bg-gray-600">
-                  <Plus size={20} />
+                <Button onClick={handleInc} className="p-1 bg-white border">
+                  <Plus size={20} className="fill-black text-black" />
                 </Button>
               </div>
             </div>
             {/* Actions */}
-            <div className="flex gap-6">
+            <div className="flex max-[410px]:flex-col sm:gap-6 gap-4 ">
               <Button
                 disabled={loading}
                 isLoading={loading}
@@ -339,21 +352,49 @@ const ProductDetails = () => {
                     ? handleCartOpen()
                     : addToCartHandler();
                 }}
-                className="font-semibold"
+                className="font-semibold shrink-0"
               >
-                {loading ? (
-                  <div className="flex items-center gap-x-1 justify-center">
-                    <Loader2 className="h-4 animate-spin" />
-                    <span>Adding..</span>
-                  </div>
-                ) : exsistingCartItem ? (
-                  "View in Cart"
-                ) : (
-                  "Add to cart"
-                )}
+                <span>
+                  {loading ? (
+                    <div className="flex items-center gap-x-1 justify-center">
+                      <Loader2 className="h-4 animate-spin" />
+                      <span>Adding...</span>
+                    </div>
+                  ) : exsistingCartItem ? (
+                    <div className="flex gap-3 items-center justify-center">
+                      <ShoppingCart size={20} />
+                      <span>View in Cart</span>
+                    </div>
+                  ) : (
+                    <div className="flex gap-3 items-center justify-center">
+                      <ShoppingCart size={20} />
+                      <span>Add to cart</span>
+                    </div>
+                  )}
+                </span>
               </Button>
-              <Button className="bg-blue-500 font-semibold transition duration-300 ease-linear border-none hover:outline outline-2 outline-blue-500 disabled:bg-blue-300 hover:bg-white hover:text-black">
-                Buy now
+
+              <Button
+                onClick={() => {
+                  if (!loggedInUser) return;
+                  if (isFavourite) {
+                    navigate("/favourites");
+                    return;
+                  }
+                  addToFavourites(
+                    { userId: loggedInUser?.id, productId: product?.id },
+                    dispatch
+                  );
+                }}
+                className="font-semibold transition duration-300 ease-linear  bg-white text-black border border-black "
+              >
+                <span className=" flex items-center justify-center gap-3 ">
+                  <Heart
+                    size={20}
+                    className={cn("", isFavourite && "fill-rose-700")}
+                  />
+                  <span>{isFavourite ? "Go" : "Add"} to Favourites</span>
+                </span>
               </Button>
             </div>
           </div>

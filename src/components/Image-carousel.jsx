@@ -41,7 +41,7 @@ const ImageCarousel = ({ images }) => {
           </div>
         ))}
       </Carousel>
-      <div className="flex justify-center mt-4">
+      <div className="flex max-lg:hidden justify-center mt-4">
         {smallImages?.map((smallImage, smallIndex) => (
           <div
             key={smallIndex}
