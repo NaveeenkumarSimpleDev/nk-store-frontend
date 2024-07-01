@@ -328,7 +328,7 @@ const ProductDetails = () => {
             {/* quantity */}
             <div>
               <h4 className="font-semibold text-xl">Quantity</h4>
-              <div className=" mt-2 flex items-center gap-3">
+              <div className=" mt-2 flex items-center gap-3 ">
                 <Button
                   disabled={quantity === 1}
                   onClick={handleDec}
@@ -336,7 +336,9 @@ const ProductDetails = () => {
                 >
                   <Minus size={20} className="fill-black text-black" />
                 </Button>
-                <span className="font-semibold text-xl">{quantity}</span>
+                <span className="font-semibold text-xl">
+                  {quantity < 10 ? "0" + quantity : quantity}
+                </span>
                 <Button onClick={handleInc} className="p-1 bg-white border">
                   <Plus size={20} className="fill-black text-black" />
                 </Button>

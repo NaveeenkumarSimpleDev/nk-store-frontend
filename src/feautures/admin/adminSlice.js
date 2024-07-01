@@ -4,6 +4,7 @@ import { fetchAdminProducts, fetchOrdersByUserId } from "./adminApi";
 const initialState = {
   products: null,
   orders: null,
+  totalProducts: null,
   editProduct: null,
   selectedOrder: null,
 };
@@ -39,7 +40,8 @@ const adminSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAdminProductsAsync.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.totalProducts = action.payload.count;
       })
       .addCase(fetchAdminOrdersAsync.fulfilled, (state, action) => {
         state.orders = action.payload;
@@ -55,3 +57,4 @@ export const selectAdminProducts = (state) => state.admin.products;
 export const selectAdminOrders = (state) => state.admin.orders;
 export const selectSelectedOrder = (state) => state.admin.selectedOrder;
 export const selectEditProduct = (state) => state.admin.editProduct;
+export const selectTotalAdminProducts = (state) => state.admin.totalProducts;

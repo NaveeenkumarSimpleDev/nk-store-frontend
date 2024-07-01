@@ -91,7 +91,7 @@ const Filters = ({ isOpen, setIsOpen }) => {
         <div
           onClick={onClose}
           className={cn(
-            " z-[100] fixed left-0 top-0 min-h-screen min-w-full bg-[rgba(0,0,0,0.1)]"
+            " z-[100] fixed left-0 top-0 h-full w-full bg-[rgba(0,0,0,0.1)]"
           )}
         />
       )}

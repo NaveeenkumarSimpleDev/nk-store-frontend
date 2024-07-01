@@ -50,17 +50,21 @@ const OrderDetails = () => {
     }
   };
   return (
-    <div className="grid lg:grid-cols-2">
+    <div className="grid lg:grid-cols-2 py-6">
       <img src={order.orderItem.images[0]} alt={order.orderItem.title} />
       <div className="lg:mx-4 mx-2 max-lg:my-2">
         <div>
           <div className="overflow-hidden">
-            <h1 className="text-xl font-bold truncate ">
+            <h1 className="text-xl font-bold">
               {order.orderItem.product.title}
             </h1>
-            <h3 className="max-h-[2lh] xl:max-h-[3lh] text-ellipsis">
+            <h3 className="text-ellipsis">
               {order.orderItem.product.description}
             </h3>
+
+            <p className="font-semibold mt-4  border rounded-md w-fit p-2">
+              ORDER ID : <span className="text-base font-bold">{order.id}</span>
+            </p>
           </div>
           <div className="my-2 lg:my-4">
             <h2 className="font-semibold underline text-lg">Variation</h2>

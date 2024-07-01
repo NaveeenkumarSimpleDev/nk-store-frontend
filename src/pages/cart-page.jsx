@@ -135,7 +135,7 @@ const Cart = () => {
 
       <div
         className={cn(
-          "transition-all duration-200 z-[110] h-screen  w-full flex flex-col gap-4 max-w-[35rem] fixed right-0 bg-white",
+          "transition-all duration-200 z-[110] h-screen  w-full flex flex-col gap-4 max-w-[35rem] fixed right-0 top-0 bg-white",
           isOpen ? "clip-inset-100" : "-clip-inset-0"
         )}
       >

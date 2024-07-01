@@ -37,7 +37,6 @@ const AddressForm = ({ onClose, address }) => {
     if (!stateRef.current?.value || stateRef.current?.value == "defalult")
       return toast.error("PLease select state");
 
-    console.log("inside");
     setLoading(true);
 
     if (address) {
@@ -62,7 +61,7 @@ const AddressForm = ({ onClose, address }) => {
     onClose(false);
   };
   return (
-    <form className="px-4 py-2 space-y-4  border rounded-md w-full h-full bg-white z-[250] overflow-auto">
+    <form className=" px-4 py-2 space-y-4  border rounded-md w-full h-full bg-white z-[250] overflow-auto">
       <p className="text-xl font-bold text-cyan-600">Address</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <Input

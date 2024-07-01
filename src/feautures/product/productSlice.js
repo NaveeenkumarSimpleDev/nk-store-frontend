@@ -18,10 +18,13 @@ const initialState = {
   error: null,
 };
 
-export const fetchProductsAsync = createAsyncThunk("products", async () => {
-  const response = await fetchProducts();
-  return response;
-});
+export const fetchProductsAsync = createAsyncThunk(
+  "products",
+  async (ITEMS_PER_PAGE) => {
+    const response = await fetchProducts(ITEMS_PER_PAGE);
+    return response;
+  }
+);
 export const fetchBrandsAsync = createAsyncThunk("brands", async () => {
   const response = await fetchBrands();
   return response;

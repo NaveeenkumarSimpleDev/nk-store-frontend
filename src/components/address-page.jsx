@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useCheckout from "../hooks/useCheckout";
 import AddressCard from "./address-card";
 import Button from "./ui/button";
 import AddressForm from "./address-form";
@@ -20,7 +19,9 @@ const AddressPage = () => {
   const user = useSelector(selectLoggedInUser);
 
   useEffect(() => {
-    dispatch(fetchAddressByUserIdAsync(user?.id));
+    if (!addresses) {
+      dispatch(fetchAddressByUserIdAsync(user?.id));
+    }
   }, [user?.id]);
 
   return (
@@ -51,7 +52,7 @@ const AddressPage = () => {
 
       {isOpen && (
         <Model
-          className="z-[151] md:h-fit w-fit m-auto fixed max-md:h-full max-md:w-full overflow-auto flex md:items-center md:justify-center "
+          className="md:h-fit w-fit m-auto "
           backType="function"
           backButtonHref={setIsOpen}
         >

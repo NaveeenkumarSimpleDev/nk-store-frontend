@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
 import { CATEGORIES } from "../config";
 
@@ -38,29 +38,36 @@ export function NavigationLinks() {
                   </ListItem>
                 </Link>
               ))}
-              <Link to="/categories">
-                <ListItem title="All Categories">
-                  All categoris, fashion, electronics and etc..
-                </ListItem>
-              </Link>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         {user?.role === "admin" && (
           <NavigationMenuItem>
-            {/* <Link href="/docs" legacyBehavior passHref> */}
-            <NavigationMenuLink className="font-semibold text-sm mr-4 hover:underline transition-all">
-              <Link to={"/admin/products"}>Dashboard</Link>
+            <NavigationMenuLink className="font-semibold text-sm mr-4  transition-all">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive &&
+                  "text-[110%] border-b border-black transition duration-300 ease-in-out"
+                }
+                to={"/admin/products"}
+              >
+                Dashboard
+              </NavLink>
             </NavigationMenuLink>
-            {/* </Link> */}
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>
-          {/* <Link href="/docs" legacyBehavior passHref> */}
           <NavigationMenuLink className="font-semibold mx-2 text-sm mr-2">
-            <Link to={"/products"}>Products</Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive &&
+                "text-[110%] border-b border-black transition duration-300 ease-in-out"
+              }
+              to={"/products"}
+            >
+              Products
+            </NavLink>
           </NavigationMenuLink>
-          {/* </Link> */}
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

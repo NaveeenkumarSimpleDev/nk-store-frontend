@@ -4,6 +4,7 @@ import Button from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { setSelectedOrder } from "../feautures/orders/orderSlice";
+import { cn } from "../lib/utils";
 
 const OrderItem = ({ order }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,15 @@ const OrderItem = ({ order }) => {
           <p className="truncate max-md:text-xs text-gray-400">
             {item.product.description}
           </p>
-          <p className="font-semibold text-sm text-gray-600 capitalize md:mt-2">
+          <p
+            className={cn(
+              "font-semibold text-sm text-gray-600 capitalize md:mt-2",
+              order.status === "delivered" && "text-green-400 font-bold",
+              order.status === "canceled" && "text-red-400 font-bold",
+              order.status === "pending" && "text-yellow-400 font-bold",
+              order.status === "dispatched" && "text-pink-400 font-bold"
+            )}
+          >
             {order.status}
           </p>
         </div>

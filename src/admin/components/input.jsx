@@ -14,8 +14,8 @@ const Input = ({
 }) => {
   const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
   return (
-    <div className="flex flex-col gap-2 ">
-      <label htmlFor={name} className=" font-bold text-xl">
+    <div className="flex flex-col max-sm:gap-1 ">
+      <label htmlFor={name} className=" font-bold max-sm:text-sm text-base">
         {label}
       </label>
       <input
@@ -30,7 +30,7 @@ const Input = ({
           },
         })}
         className={cn(
-          "px-2 py-1 border rounded-sm focus:outline-none border-fuchsia-200 bg-white/70",
+          "px-2 py-1 border rounded-sm focus:outline-none border-slate-200 bg-white/70",
           className
         )}
       />

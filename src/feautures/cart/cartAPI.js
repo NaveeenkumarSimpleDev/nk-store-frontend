@@ -103,3 +103,51 @@ export const resetCart = (data) => {
     }
   });
 };
+
+export const handleCheckout = (data) => {
+  const url = baseUrl + "/checkout";
+  if (!data) return;
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.post(url, JSON.stringify(data), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        resolve(response.data);
+      } else {
+        reject("Something wrong!");
+      }
+    } catch (error) {
+      console.log("CHECKOUT_ERROR", error);
+      reject("Something wrong");
+    }
+  });
+};
+export const handleCheckoutSuccess = (data) => {
+  const url = baseUrl + "/checkout/success";
+  if (!data.metadata || !data.paymentIntentId) return;
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log(response);
+        resolve(response);
+      } else {
+        reject("Something wrong!");
+      }
+    } catch (error) {
+      console.log("CHECKOUT_ERROR", error);
+      reject("Something wrong");
+    }
+  });
+};

@@ -18,6 +18,7 @@ const AdminOrders = () => {
     dispatch(fetchAdminOrdersAsync(user?.id));
   }, [user?.id]);
 
+  console.log({ orders });
   return (
     <div>
       {!orders && (

@@ -61,10 +61,20 @@ const RegisterPage = () => {
 
   return (
     <>
-      <Model backButtonHref={from}>
-        <div className="flex items-center mx-4 justify-center min-h-screen max-h-screen">
-          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md  bg-gradient-to-b from-fuchsia-300 via-black/25 to-white">
-            <Heading title="Create an account." />
+      <Model
+        backButtonHref={from}
+        className="max-h-[95vh] min-w-[15rem] lg:w-[30rem] animate-[animateToTop] transition duration-300"
+      >
+        <div
+        //  className="flex items-center mx-4 justify-center min-h-screen max-h-screen"
+        >
+          <div className="w-full   p-6 z-[151] bg-white rounded-md shadow-md  ">
+            <div className="text-center">
+              <Heading title="Create an account." />
+              <p className="my-2 text-gray-500">
+                Enter your details to create an account.
+              </p>
+            </div>
 
             <form
               noValidate
@@ -75,7 +85,7 @@ const RegisterPage = () => {
                 label="Name"
                 errors={errors}
                 register={register}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                 name="name"
                 rules={{
                   maxLength: {
@@ -91,7 +101,7 @@ const RegisterPage = () => {
                   label="Email"
                   errors={errors}
                   register={register}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                   name="email"
                   required="Email is required."
                   type="email"
@@ -114,7 +124,7 @@ const RegisterPage = () => {
                 label="Password"
                 errors={errors}
                 register={register}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                 name="password"
                 required="Password is required."
                 type="password"
@@ -125,7 +135,7 @@ const RegisterPage = () => {
                   label="Confirm Password"
                   errors={errors}
                   register={register}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                   name="confirmPass"
                   required="Confirm password is required."
                   type="password"
@@ -154,9 +164,6 @@ const RegisterPage = () => {
                 {loading ? (
                   <div className="flex items-center gap-x-2 justify-center">
                     <Loader2 className="h-6 animate-spin" />
-                    <span className="text-sm font-semibold capitalize">
-                      Please wait....
-                    </span>
                   </div>
                 ) : (
                   "Register"

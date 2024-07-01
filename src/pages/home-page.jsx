@@ -1,5 +1,4 @@
 import { Link, useLocation, useRouteLoaderData } from "react-router-dom";
-import Heading from "../components/ui/heading";
 import CartegoryCard from "../components/category-card";
 import { CATEGORIES } from "../config";
 import { useEffect, useState } from "react";
@@ -38,60 +37,55 @@ const HomePage = () => {
   return (
     <>
       {success && (
-        <Model
-          backButtonHref="/"
-          className="z-[151] h-fit w-fit m-auto fixed flex items-center justify-center"
-        >
+        <Model>
           <SuccessPage />
         </Model>
       )}
-      <div className="w-full flex flex-col gap-4">
-        <div className=" lg:mt3 flex flex-col max-md:bg-right md:pt-8 p-6 lg:py-20  items-center justify-center w-full gap-3 bg-[url('https://res.cloudinary.com/dzpspuks7/image/upload/v1707458771/c8pnyvt0bzv3c7ybfayw.png')] bg-opacity-50 bg-cover bg-center rounded-md">
-          <div>
-            <h1 className="sm:text-3xl text-center text-2xl lg:text-4xl xl:text-5xl font-bold">
-              Welcome to
-              <span className="ml-2 bg-gradient-to-r from-purple-950 to-red-600 text-transparent bg-clip-text">
-                Nk store.
-              </span>
-            </h1>
-
-            <h2 className="text-lg sm:text-xl xl:text-2xl text-center mt-2 font-bold flex gap-1">
-              <span className="max-w-[600px]">
-                <p className="text-md font-bold max-w-3xl">
-                  Quality guaranteed, fast shipping, and exclusive deals.
-                  Discover, shop, and elevate your lifestyle with us! 🛍️🌟🚀
-                  #NKStore #ShopNow
-                </p>
-              </span>
-            </h2>
+      <div className="w-full flex flex-col gap-4 mt-6">
+        <header className="bg-gradient-to-r  from-green-300 to-pink-300 py-4 md:py-6 lg:py-8 xl:py-28">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center ">
+            <div className="text-center md:text-left">
+              <h2 className="text-base font-semibold text-center text-indigo-600 tracking-wide uppercase">
+                Welcome to NK store.
+              </h2>
+              <p className="mt-1 text-4xl text-center font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                Quality guaranteed, fast shipping, and exclusive deals.
+              </p>
+              <p className=" mt-5 mx-auto text-center md:mx-0 text-xl text-gray-500">
+                Discover, shop, and elevate your lifestyle with us! 📦🎉🛍️
+                #NKStore #ShopNow
+              </p>
+            </div>
+            <div className=" mt-6">
+              <Link
+                to="/products"
+                className="w-fit bg-black py-2 px-4 rounded-md flex items-center text-white font-semibold hover:opacity-70"
+              >
+                <span>Shop now</span>
+                <ArrowRight size={18} className="mt-1 ml-2" />
+              </Link>
+            </div>
           </div>
-
-          <div className="mt-4">
-            <Link
-              to="/products"
-              className="w-fit bg-black py-2 px-4 rounded-md flex items-center text-white font-semibold hover:opacity-70"
-            >
-              <span>Shop now</span>
-              <ArrowRight size={18} className="mt-1 ml-2" />
-            </Link>
-          </div>
-        </div>
+        </header>
 
         {/* categories */}
 
-        <div className="space-y-4">
-          <Heading title={"Categories"} />
+        <div className="space-y-4 mt-4">
+          <h2 className="text-2xl font-bold">Categories</h2>
 
-          <div className="grid gap-2 lg:grid-cols-3 grid-cols-2 ">
-            {CATEGORIES.map((cat) => (
-              <CartegoryCard
-                title={cat.title}
-                img={cat.image}
-                key={cat.title}
-                href={cat.href}
-              />
+          {/* <div className="grid gap-2 lg:grid-cols-3 grid-cols-2 "> */}
+          <div className="grid grid-cols-6 gap-2 max-md:grid-cols-3 overflow-auto ">
+            {CATEGORIES.map((cat, idx) => (
+              <div key={idx} className="">
+                <CartegoryCard
+                  title={cat.title}
+                  img={cat.image}
+                  key={cat.title}
+                  href={cat.href}
+                />
+              </div>
             ))}
-            <CartegoryCard title="All Categories" href="/categories" />
+            {/* <CartegoryCard title="All Categories" href="/categories" /> */}
           </div>
         </div>
       </div>

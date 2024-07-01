@@ -40,8 +40,8 @@ const AdminProducts = () => {
           Add Product
         </Link>
       </div>
+      {(loading || !products) && <ProductLoading />}
       <div className="grid md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {(loading || !products) && <ProductLoading />}
         {products?.length > 0 &&
           !loading &&
           products?.map((product, idx) => (

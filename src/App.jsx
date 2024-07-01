@@ -15,7 +15,7 @@ import HomePage from "./pages/home-page";
 import { fetchUserByIdAsync } from "./feautures/user/userSlice";
 import Favorites from "./pages/favorites";
 import ProtectedRoute from "./admin/components/protected";
-import AdminLayout from "./admin/pages/admin-laout";
+import AdminLayout from "./admin/pages/admin-layout";
 import AdminProducts from "./admin/pages/admin-products";
 import AddProduct from "./admin/pages/new-product";
 import EdidProduct from "./admin/pages/edit-product";
@@ -27,10 +27,14 @@ import CheckOutPage from "./pages/checkout";
 import OrderPage from "./pages/order-page";
 import ProtectedAdmin from "./admin/components/protected-admin";
 import { fetchOrderByUserIdAsync } from "./feautures/orders/orderSlice";
-import { fetchFavouritesAsync } from "./feautures/product/productSlice";
+import {
+  fetchBrandsAsync,
+  fetchFavouritesAsync,
+} from "./feautures/product/productSlice";
 import AdminOrderDetails from "./admin/components/order-details";
 import AdminOrders from "./admin/pages/admin-orders";
 import OrderDetails from "./pages/order-details";
+import StripeWrapper from "./provider/stripe-wrapper";
 
 const routes = createBrowserRouter([
   {
@@ -91,7 +95,9 @@ const routes = createBrowserRouter([
         path: "/checkout",
         element: (
           <ProtectedRoute>
-            <CheckOutPage />
+            <StripeWrapper>
+              <CheckOutPage />
+            </StripeWrapper>
           </ProtectedRoute>
         ),
       },
@@ -179,6 +185,7 @@ const App = () => {
       dispatch(fetchUserByIdAsync(loggedInUser?.id));
       dispatch(fetchOrderByUserIdAsync(loggedInUser?.id));
       dispatch(fetchFavouritesAsync(loggedInUser?.id));
+      dispatch(fetchBrandsAsync());
       if (loggedInUser?.role === "admin") {
         dispatch(fetchAdminProductsAsync(loggedInUser?.email));
       }

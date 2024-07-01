@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoggedInUser, setUser } from "../feautures/auth/authSlice";
 import Model from "../components/model";
-import { Loader2 } from "lucide-react";
+import { Dot, DotIcon, Loader2 } from "lucide-react";
 import Input from "../admin/components/input";
 import {
   checkAuth,
@@ -51,12 +51,21 @@ const LoginPage = () => {
 
   return (
     <>
-      <Model backButtonHref="/">
+      <Model
+        backButtonHref={from}
+        className="lg:w-[30rem] min-w-[15rem] animate-[animateToTop] transition duration-300"
+      >
         <div
-          className={`flex items-center justify-center mx-4  min-h-screen bg-gray-100  `}
+        // className={`flex items-center justify-center mx-4  min-h-screen bg-gray-100  `}
         >
-          <div className="w-full max-w-md p-6 z-[151] bg-white rounded-md shadow-md bg-gradient-to-b from-fuchsia-300 via-black/25 to-white">
-            <Heading title="Welcome back!" />
+          {/* <div className="w-full p-6 z-[151]   bg-white rounded-md shadow-md bg-gradient-to-b from-fuchsia-300 via-black/25 to-white"> */}
+          <div className="w-full p-6 z-[151]   bg-white rounded-md shadow-md">
+            <div className="flex flex-col items-center justify-center">
+              <Heading title="Welcome back!" />
+              <p className="my-2 text-center text-gray-500">
+                Enter your username and password to access your account.
+              </p>
+            </div>
 
             <form
               noValidate
@@ -68,7 +77,7 @@ const LoginPage = () => {
                   name="email"
                   type="email"
                   register={register}
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                   label="Email"
                   required="Email is required"
                   errors={errors}
@@ -94,7 +103,7 @@ const LoginPage = () => {
                   errors={errors}
                   required="Password is required"
                   type="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-600"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none "
                   onFocus={() => {
                     if (error.password) {
                       setError((prev) => ({
@@ -114,14 +123,11 @@ const LoginPage = () => {
                 isLoading={loading}
                 disabled={loading}
                 type="submit"
-                className="w-full mt-4 uppercase text-sm font-semibold disabled:bg-black/70"
+                className="w-full mt-4 shrink-0 uppercase text-sm font-semibold disabled:bg-black/70"
               >
                 {loading ? (
                   <div className="flex items-center gap-x-2 justify-center">
                     <Loader2 className="h-6 animate-spin" />
-                    <span className="text-sm font-semibold capitalize">
-                      Please wait....
-                    </span>
                   </div>
                 ) : (
                   "Login"

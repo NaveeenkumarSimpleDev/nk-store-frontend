@@ -21,9 +21,9 @@ const OrderPage = () => {
 
   console.log({ orders });
   return (
-    <div>
+    <div className="2xl:mt-5">
       <Heading
-        title="My Oreders"
+        title="My Orders"
         desc="All of your orders are here, you can track the status of your order here."
       />
 

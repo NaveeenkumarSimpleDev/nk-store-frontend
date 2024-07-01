@@ -14,6 +14,8 @@ import {
 } from "../feautures/product/productSlice";
 import SortSelectionButton from "../components/sortSelectionButton";
 import Pagination from "../components/pagination";
+import { LucideRotateCw } from "lucide-react";
+import useWindowWidth from "../hooks/useWindowWidth";
 
 const ProductPage = () => {
   const [page, setPage] = useState(1);
@@ -21,10 +23,22 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const [filter, setFiler] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("");
+  const windowWidth = useWindowWidth();
+
+  const [ITEMS_PER_PAGE, setItemsPerPage] = useState(() => {
+    return windowWidth < 1024
+      ? 10
+      : windowWidth > 1024 && windowWidth < 1280
+      ? 9
+      : windowWidth > 1280 && windowWidth < 1540
+      ? 8
+      : 10;
+  });
 
   const fetchProducts = async () => {
-    await dispatch(fetchProductsAsync());
+    await dispatch(fetchProductsAsync(ITEMS_PER_PAGE));
 
     dispatch(fetchBrandsAsync());
   };
@@ -32,6 +46,24 @@ const ProductPage = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const fetchProductsWithLoading = async () => {
+    setLoading(true);
+    await dispatch(fetchProductsAsync(ITEMS_PER_PAGE));
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerPage(() => {});
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [windowWidth]);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -49,18 +81,22 @@ const ProductPage = () => {
     const newUrl = `${window?.location.pathname}?${urlSearchParams.toString()}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
 
-    dispatch(fetchProductsAsync());
+    fetchProductsWithLoading();
   }, [sortBy, page]);
 
+  // handle sort
   const handleSortChange = useCallback((value) => {
+    if (page != 1) setPage(1);
     setSortBy(value);
   }, []);
 
+  // handlepage
   const handlePage = (p) => {
     if (page === p) return;
     setPage(p);
   };
 
+  console.log({ products });
   let content;
 
   if (products && products?.length > 0) {
@@ -76,6 +112,7 @@ const ProductPage = () => {
           page={page}
           handlePage={handlePage}
           totalItems={totalProducts}
+          ITEMS_PER_PAGE={ITEMS_PER_PAGE}
         />
       </>
     );
@@ -87,6 +124,11 @@ const ProductPage = () => {
 
   return (
     <>
+      {loading && (
+        <div className="fixed z-[200] top-0 left-0 h-full flex justify-center items-center w-full bg-black/50">
+          <LucideRotateCw className="animate-spin text-white/90 z-[201] h-8 w-8" />
+        </div>
+      )}
       <div className="py-8">
         <Heading title="Products" desc="Buy all products from our store" />
 

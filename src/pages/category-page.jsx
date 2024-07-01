@@ -3,8 +3,6 @@ import Heading from "../components/ui/heading";
 import { CATEGORIES } from "../config";
 import { Await, defer, useLoaderData, useParams } from "react-router-dom";
 import Filters from "../components/filters";
-import Button from "../components/ui/button";
-import SortSelectionButton from "../components/sortSelectionButton";
 import { fetchPraductsByCategory } from "../feautures/admin/adminApi";
 import ProductCard from "../components/ui/product-card";
 import ProductLoading from "../components/product-loading";

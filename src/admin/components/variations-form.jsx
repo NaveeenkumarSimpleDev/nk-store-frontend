@@ -97,7 +97,7 @@ const VartationForm = ({
         ([key, value]) => key !== "" && value !== undefined
       )
     );
-
+    console.log(images);
     setVariations((prev) => {
       const dpArr =
         prev?.filter((x) => {
@@ -162,13 +162,13 @@ const VartationForm = ({
   }, []);
 
   return (
-    <form className="max-md:pb-10 max-md:px-6 max-lg:inset-0 overflow-auto max-lg:z-[152] max-lg:bg-white px-4 py-2">
+    <form className="max-md:pb-10 max-md:px-6 max-lg:inset-0 overflow-auto max-lg:z-[152] bg-white max-lg:bg-white px-4 py-2">
       <p className="font-bold text-2xl my-2">Variation</p>
       <div className=" space-x-2 lg:space-y-4">
         <p className="font-semibold">Custom Attributes</p>
         {!variations[0] && (
           <p className="font-semibold">
-            Note : please selecrt custom attributes
+            Note : please select custom attributes
             <p className="font-bold text-green-600">
               EX : Color : red, Size : 30
             </p>
@@ -221,22 +221,27 @@ const VartationForm = ({
                 </p>
               )}
 
-              {attributes[index].att === "Create new" && (
-                <input
-                  ref={newValuesRefs[index]}
-                  type="text"
-                  placeholder="Enter Attribute"
-                  className="px-2 py-1 ml-4 border rounded-sm focus:outline-none border-[#eee]"
-                />
-              )}
+              <input
+                ref={newValuesRefs[index]}
+                type="text"
+                placeholder="Enter Attribute"
+                className={cn(
+                  "px-2 py-1 ml-4 border rounded-sm focus:outline-none border-[#eee]",
+                  attributes[index].att === "Create new"
+                    ? "visible"
+                    : "invisible"
+                )}
+              />
             </div>
             <input
               type={
-                attributes[index].att == ("Color" || "color") ? "color" : "text"
+                attributes[index].att?.toLowerCase() == "color"
+                  ? "color"
+                  : "text"
               }
               className={cn(
                 "px-2 py-1 border rounded-sm focus:outline-none border-[#eee] max-lg:mb-2",
-                attributes[index].att == ("Color" || "color") && "h-[2.5rem]"
+                attributes[index].att?.toLowerCase() == "color" && "h-[2.5rem]"
               )}
               placeholder="Value"
               required={index === 1}

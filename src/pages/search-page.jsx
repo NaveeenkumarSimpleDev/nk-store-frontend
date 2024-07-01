@@ -1,5 +1,5 @@
 import { SearchIcon, X } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { searchProducts } from "../feautures/product/productAPI";
 import Button from "../components/ui/button";
@@ -9,10 +9,6 @@ const SearchPage = ({ setOpen }) => {
   const [results, setResults] = useState(null);
   const inputRef = useRef();
   let timeout;
-
-  useEffect(() => {
-    // inputRef.focus();
-  }, []);
 
   const onClose = () => setOpen(false);
 

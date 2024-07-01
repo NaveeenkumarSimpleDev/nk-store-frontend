@@ -22,6 +22,7 @@ import Input from "./input";
 import { useForm } from "react-hook-form";
 import VariationList from "./variation-list";
 import { fetchCartByUserId } from "../../feautures/cart/cartAPI";
+import Model from "../../components/model";
 
 const ProductForm = ({ product }) => {
   const dispatch = useDispatch();
@@ -295,7 +296,7 @@ const ProductForm = ({ product }) => {
             </Button>
           )}
           {variationOpen && (
-            <VariationModal>
+            <Model close={setVariationOpen} className="bg-white rounded-md">
               <VartationForm
                 setVariationOpen={setVariationOpen}
                 setVariations={setVariations}
@@ -303,7 +304,7 @@ const ProductForm = ({ product }) => {
                 variationAttributes={variationAttributes}
                 setVariationAttributes={setVariationAttributes}
               />
-            </VariationModal>
+            </Model>
           )}
 
           {error.variation && variations.length == 0 && (

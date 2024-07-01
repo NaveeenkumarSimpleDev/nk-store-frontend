@@ -48,7 +48,7 @@ export const loginUser = (loginData) => {
       const error = err.response?.data;
       if (error) {
         reject(error?.message);
-        toast.error(error?.message?.email || error?.message?.password);
+        // toast.error(error?.message?.email || error?.message?.password);
       } else {
         toast.error("somthing went wrong!");
       }

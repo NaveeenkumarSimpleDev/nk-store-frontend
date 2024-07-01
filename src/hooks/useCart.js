@@ -7,6 +7,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../feautures/auth/authSlice";
+import { useCallback } from "react";
 
 export const useCart = () => {
   const navigate = useNavigate();
@@ -37,9 +38,9 @@ export const useCart = () => {
     );
   };
 
-  const handleCartOpen = () => {
+  const handleCartOpen = useCallback(() => {
     dispatch(toggleCart());
-  };
+  }, []);
 
   return {
     addToCart: addToCartHandler,

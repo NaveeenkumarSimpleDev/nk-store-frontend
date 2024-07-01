@@ -60,11 +60,7 @@ const AddressCard = ({ address }) => {
         </div>
       </div>
       {open && (
-        <Model
-          className="z-[151] md:h-fit w-fit m-auto fixed max-md:h-full max-md:w-full overflow-auto flex md:items-center md:justify-center "
-          backType="function"
-          backButtonHref={setOpen}
-        >
+        <Model backType="function" backButtonHref={setOpen}>
           <AddressForm onClose={setOpen} address={address} type="edit" />
         </Model>
       )}

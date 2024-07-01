@@ -34,20 +34,28 @@ export const CATEGORIES = [
       "Shop for your everyday essentials and fresh produce with our wide selection of groceries, making your shopping experience convenient and hassle-free.",
   },
   {
-    title: "Home & Living",
-    href: "/categories/home & living",
+    title: "Furnitures",
+    href: "/categories/furnitures",
     image:
       "https://res.cloudinary.com/dzpspuks7/image/upload/v1707458359/kssitexfxupyddbv0tdu.jpg",
     description:
       "Transform your living space with our home and living essentials, including stylish furniture, decor, and organizational solutions for a comfortable home environment.",
   },
   {
-    title: "Books & Stationery",
+    title: "Stationeries",
     image:
       "https://res.cloudinary.com/dzpspuks7/image/upload/v1707458509/dreybywiu360r3gxvpl6.jpg",
-    href: "/categories/books & stationery",
+    href: "/categories/stationeries",
     description:
       "Immerse yourself in a world of knowledge and creativity with our extensive collection of books and quality stationery, catering to avid readers and creative minds.",
+  },
+  {
+    title: "Sports",
+    image:
+      "https://res.cloudinary.com/dzpspuks7/image/upload/v1718718325/hfdvtffofsbtknnadhpw.jpg",
+    href: "/categories/sports",
+    description:
+      "Gear up for your outdoor adventures with our range of sports equipment and outdoor gear, perfect for fitness enthusiasts and nature lovers.",
   },
 ];
 

@@ -27,7 +27,7 @@ const OrderDetails = () => {
   const totalPrice =
     Number(order.orderItem.quantity) * Number(order.orderItem.buyPrice);
   return (
-    <div className="grid md:grid-cols-2 border rounded-md overflow-hidden ">
+    <div className="grid md:grid-cols-2 mt-6 border rounded-md overflow-hidden ">
       <img
         src={order.orderItem.images[0]}
         className="object-cover object-center w-full border-r"
@@ -67,16 +67,13 @@ const OrderDetails = () => {
         </div>
 
         <div>
-          <h3 className="font-bold">Shipping Details</h3>
-          <p className="border px-2 mt-2 rounded-md">
-            {order.selectedAddress}\ 97/54 gowril sdm, adkmdfdfsdfns,
-            kasmkdkafndfa, askmdafdkmkfakdmmkfmdfk
-          </p>
-
           <div className="my-4 w-max">
             <h2 className="font-bold text-lg">Order Status</h2>
             <OrderStatus status={order.status} />
           </div>
+
+          <h3 className="font-bold">Shipping Address</h3>
+          <p className="border px-2 mt-2 rounded-md">{order.selectedAddress}</p>
         </div>
       </div>
     </div>

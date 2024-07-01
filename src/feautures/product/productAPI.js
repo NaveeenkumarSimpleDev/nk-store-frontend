@@ -1,14 +1,14 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { addToFavLocally, removeFavLocally } from "./productSlice";
-import { ITEMS_PER_PAGE } from "../../components/pagination";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
 let productFeching = false;
 
-export async function fetchProducts() {
+export async function fetchProducts(ITEMS_PER_PAGE) {
   const urlSearchParams = new URLSearchParams(window.location.search);
+  if (!ITEMS_PER_PAGE) return;
   urlSearchParams.set("limit", ITEMS_PER_PAGE);
   const page = urlSearchParams.get("page");
   if (!page) {
@@ -38,6 +38,32 @@ export async function fetchProducts() {
     }
   });
 }
+
+export const fetchAllProducts = () => {
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  urlSearchParams.set("fetchAll", true);
+
+  return new Promise(async (resolve) => {
+    try {
+      const url = baseUrl + "/products";
+      const response = await axios.get(url, {
+        params: urlSearchParams,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        if (response.data) {
+          resolve(response.data);
+        }
+      }
+    } catch (error) {
+      toast.error("Something wrong!");
+    } finally {
+      urlSearchParams.delete("fetchAll");
+    }
+  });
+};
 
 export async function fetchProductById(productId) {
   const url = baseUrl + "/products/" + productId;

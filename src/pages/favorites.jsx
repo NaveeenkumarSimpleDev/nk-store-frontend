@@ -1,39 +1,11 @@
 import React, { useEffect } from "react";
 import Heading from "../components/ui/heading";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchFavouritesAsync,
-  fetchProductsAsync,
-  selectAllProducts,
-  selectFavourites,
-} from "../feautures/product/productSlice";
 import ProductCard from "../components/ui/product-card";
-import { selectUser } from "../feautures/user/userSlice";
 import ProductLoading from "../components/product-loading";
+import { useFavourites } from "../hooks/useFavourites";
 
 const Favorites = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const products = useSelector(selectAllProducts);
-  const favourites = useSelector(selectFavourites);
-
-  useEffect(() => {
-    try {
-      dispatch(fetchProductsAsync());
-      dispatch(fetchFavouritesAsync(user?.id));
-    } catch (error) {
-      console.log("FAV", error);
-    }
-  }, []);
-
-  const favProducts = products?.map((p) => {
-    if (favourites?.includes(p.id)) {
-      return p;
-    }
-  });
-
-  const fav = favProducts?.filter((item) => item !== undefined);
-  console.log({ favProducts });
+  const { favProducts, loading } = useFavourites();
 
   return (
     <div className="mt-4 flex flex-col gap-6">
@@ -41,14 +13,13 @@ const Favorites = () => {
         title="Favourites"
         desc="Your personalized collection of favourite items."
       />
-      {!fav && <ProductLoading />}
-      {fav?.length > 0 ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-          {fav?.map((product) => (
+      {favProducts?.length > 0 ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {favProducts?.map((product) => (
             <ProductCard product={product} favourite={true} key={product?.id} />
           ))}
         </div>
-      ) : fav?.length === 0 ? (
+      ) : favProducts?.length === 0 && !loading ? (
         <p className="font-semibold text-lg text-gray-400">
           No Favourites found!
         </p>
@@ -59,4 +30,4 @@ const Favorites = () => {
   );
 };
 
-export default React.memo(Favorites);
+export default Favorites;

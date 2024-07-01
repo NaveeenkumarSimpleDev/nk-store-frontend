@@ -6,9 +6,9 @@ import Navbar from "./components/layout/nav-bar";
 const RootLayout = () => {
   return (
     <>
-      <div className=" min-w-[310px] max-w-[3840px] min-h-[100vh] mx-auto border-x">
+      <div className="relative min-w-[310px] max-w-[1920px] min-h-[100vh] mx-auto border-x">
         <Navbar />
-        <section className="lg:px-8 px-6 py-20">
+        <section className="lg:px-8 px-6 xl:pb-10">
           <Outlet />
         </section>
       </div>

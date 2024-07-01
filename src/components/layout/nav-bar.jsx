@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex-shrink-0 fixed z-[100] bg-white top-0 left-0 right-0 w-[100vw] h-16 2xl:h-20 border-b border-gray-200 shadow-sm lg:px-8 px-6 py-4 flex items-center gap-4 lg:gap-6 xl:gap-12">
+      <nav className="flex-shrink-0 sticky z-[100] bg-white top-0 left-0 right-0 w-full h-16 2xl:h-20 border-b border-gray-200 shadow-sm lg:px-8 px-6 py-4 flex items-center gap-4 lg:gap-6 xl:gap-12">
         {/* Logo for xl devices */}
         <div className=" hidden lg:block ">
           <Link to="/">
@@ -75,9 +75,7 @@ const Navbar = () => {
         <MobileMenu setOpen={setMobileMenuOpen} isOpen={mobileMenuOpen} />
       </div>
 
-      <div className="">
-        <Cart />
-      </div>
+      <Cart />
     </>
   );
 };

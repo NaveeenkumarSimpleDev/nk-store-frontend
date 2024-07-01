@@ -94,8 +94,8 @@ const CartItem = ({ item }) => {
               />
             </Link>
 
-            <div className="flex flex-col sm:-mt-1 overflow-hidden mr-2">
-              <span className=" md:w-[10rem] w-[6rem] lg:w-[15rem] text-xs font-bold truncate  sm:text-sm lg:text-lg sm:font-semibold">
+            <div className="flex flex-col  overflow-hidden w-full mr-2">
+              <span className="text-xs font-bold line-clamp-1 sm:text-sm lg:text-lg sm:font-semibold">
                 {item?.product?.title}
               </span>
               <span className="sm:text-base text-xs font-semibold">
