@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  addToFavourites,
   fetchBrands,
   fetchFavourites,
   fetchProductById,
   fetchProducts,
-  removeFavourites,
 } from "./productAPI";
 
 const initialState = {

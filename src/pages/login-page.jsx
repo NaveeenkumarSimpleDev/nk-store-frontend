@@ -53,12 +53,11 @@ const LoginPage = () => {
     <>
       <Model
         backButtonHref={from}
-        className="lg:w-[30rem] min-w-[15rem] animate-[animateToTop] transition duration-300"
+        className="max-md:min-w-[80vw] animate-[animateToTop] transition duration-300"
       >
         <div
         // className={`flex items-center justify-center mx-4  min-h-screen bg-gray-100  `}
         >
-          {/* <div className="w-full p-6 z-[151]   bg-white rounded-md shadow-md bg-gradient-to-b from-fuchsia-300 via-black/25 to-white"> */}
           <div className="w-full p-6 z-[151]   bg-white rounded-md shadow-md">
             <div className="flex flex-col items-center justify-center">
               <Heading title="Welcome back!" />

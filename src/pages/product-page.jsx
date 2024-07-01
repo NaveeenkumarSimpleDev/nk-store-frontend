@@ -85,10 +85,10 @@ const ProductPage = () => {
   }, [sortBy, page]);
 
   // handle sort
-  const handleSortChange = useCallback((value) => {
+  const handleSortChange = (value) => {
     if (page != 1) setPage(1);
     setSortBy(value);
-  }, []);
+  };
 
   // handlepage
   const handlePage = (p) => {
@@ -96,7 +96,6 @@ const ProductPage = () => {
     setPage(p);
   };
 
-  console.log({ products });
   let content;
 
   if (products && products?.length > 0) {
@@ -154,7 +153,12 @@ const ProductPage = () => {
       </div>
 
       <div>
-        <Filters isOpen={filter} setIsOpen={setFiler} />
+        <Filters
+          itemsPerPage={ITEMS_PER_PAGE}
+          isOpen={filter}
+          setIsOpen={setFiler}
+          fetchProducts={fetchProductsWithLoading}
+        />
       </div>
     </>
   );

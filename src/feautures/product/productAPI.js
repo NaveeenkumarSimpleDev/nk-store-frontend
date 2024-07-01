@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { addToFavLocally, removeFavLocally } from "./productSlice";
-
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
 let productFeching = false;
