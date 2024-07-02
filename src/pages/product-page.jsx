@@ -15,7 +15,7 @@ import {
 import SortSelectionButton from "../components/sortSelectionButton";
 import Pagination from "../components/pagination";
 import { LucideRotateCw } from "lucide-react";
-import useWindowWidth from "../hooks/useWindowWidth";
+import { useGetItemsPerPage } from "../hooks/useWindowWidth";
 
 const ProductPage = () => {
   const [page, setPage] = useState(1);
@@ -25,17 +25,7 @@ const ProductPage = () => {
   const [filter, setFiler] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  const windowWidth = useWindowWidth();
-
-  const [ITEMS_PER_PAGE, setItemsPerPage] = useState(() => {
-    return windowWidth < 1024
-      ? 10
-      : windowWidth > 1024 && windowWidth < 1280
-      ? 9
-      : windowWidth > 1280 && windowWidth < 1540
-      ? 8
-      : 10;
-  });
+  const { ITEMS_PER_PAGE } = useGetItemsPerPage();
 
   const fetchProducts = async () => {
     await dispatch(fetchProductsAsync(ITEMS_PER_PAGE));
@@ -52,18 +42,6 @@ const ProductPage = () => {
     await dispatch(fetchProductsAsync(ITEMS_PER_PAGE));
     setLoading(false);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setItemsPerPage(() => {});
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [windowWidth]);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);

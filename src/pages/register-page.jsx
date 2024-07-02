@@ -63,7 +63,7 @@ const RegisterPage = () => {
     <>
       <Model
         backButtonHref={from}
-        className="max-h-[95vh] max-md:min-w-[80vw] animate-[animateToTop] transition duration-300"
+        className="max-h-[95vh] md:w-[35rem]  animate-[animateToTop] transition duration-300"
       >
         <div
         //  className="flex items-center mx-4 justify-center min-h-screen max-h-screen"

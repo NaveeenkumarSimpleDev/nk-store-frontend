@@ -20,7 +20,12 @@ const Model = ({ className, children, backButtonHref }) => {
       {/* Modal content */}
       <div className="fixed top-[50%] left-[50%] z-[151] transform -translate-x-1/2 -translate-y-1/2 rounded-md">
         {/* Modal content with scrollable area */}
-        <div className={cn("max-h-[90vh]  overflow-y-auto", className)}>
+        <div
+          className={cn(
+            "max-h-[90vh] max-md:min-w-[80vw]  overflow-y-auto",
+            className
+          )}
+        >
           {children}
         </div>
       </div>

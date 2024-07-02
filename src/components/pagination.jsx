@@ -11,7 +11,7 @@ export default function Pagination({
   if (totalPages === 1) return;
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-      <div className="flex flex-1 justify-between sm:hidden">
+      <div className="flex flex-1 justify-between md:hidden">
         <div
           onClick={(e) => handlePage(page > 1 ? page - 1 : page)}
           className={cn(
@@ -32,7 +32,7 @@ export default function Pagination({
           Next
         </div>
       </div>
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <div className="hidden md:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
             Showing{" "}
@@ -61,18 +61,48 @@ export default function Pagination({
               <ChevronsLeftIcon className="h-5 w-5" aria-hidden="true" />
             </div>
 
-            {Array.from({ length: totalPages }).map((el, index) => (
-              <div
-                key={index}
-                onClick={(e) => handlePage(index + 1)}
-                aria-current="page"
-                className={`relative cursor-pointer z-10 inline-flex items-center ${
-                  index + 1 === page ? "bg-black text-white" : "text-gray-400"
-                } px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-              >
-                {index + 1}
-              </div>
-            ))}
+            {totalPages > 5
+              ? [page - 1, "", page, "", page + 1].map((el, index) => {
+                  if (el === "")
+                    return (
+                      <div className="flex items-center justify-center font-bold h-full w-full">
+                        <span
+                          className={`${index + 2 === page ? "mr-4" : "ml-4"}`}
+                        >
+                          ..
+                        </span>
+                      </div>
+                    );
+
+                  return (
+                    <div
+                      key={index}
+                      onClick={(e) => handlePage(index + 1)}
+                      aria-current="page"
+                      className={`relative cursor-pointer z-10 inline-flex items-center ${
+                        index + 1 === page
+                          ? "bg-black text-white"
+                          : "text-gray-400"
+                      } px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                    >
+                      {index + 1}
+                    </div>
+                  );
+                })
+              : Array.from({ length: totalPages }).map((el, index) => (
+                  <div
+                    key={index}
+                    onClick={(e) => handlePage(index + 1)}
+                    aria-current="page"
+                    className={`relative cursor-pointer z-10 inline-flex items-center ${
+                      index + 1 === page
+                        ? "bg-black text-white"
+                        : "text-gray-400"
+                    } px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                  >
+                    {index + 1}
+                  </div>
+                ))}
 
             <div
               onClick={(e) => handlePage(page < totalPages ? page + 1 : page)}

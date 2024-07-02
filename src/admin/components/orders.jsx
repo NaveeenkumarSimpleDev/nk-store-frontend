@@ -70,15 +70,15 @@ const Orders = () => {
 
   return (
     <div class="relative">
-      <div className="mb-4 flex items-center pr-3">
+      <div className="mb-4 xl:flex grid items-center justify-between w-full pr-3">
         <Heading
           title="Orders"
           desc="Manage and view orders placed by customers. Monitor order status, track deliveries, and process orders efficiently."
         />
-        <div className="flex gap-4 ml-auto transition delay-100 ease-in-out  items-center bg-white rounded-md xl:py-1.5 py-2 px-3 cursor-pointer border border-gray-100 shadow-sm relative">
+        <div className="flex gap-4 transition delay-100 ease-in-out  items-center bg-white rounded-md xl:py-1.5 py-2 px-3 cursor-pointer border border-gray-100 shadow-sm relative">
           <SearchIcon size={20} />
           <input
-            className=" placeholder:text-sm  hidden xl:block bg-transparent focus:outline-none text-gray-700 placeholder-gray-500 w-full"
+            className=" placeholder:text-sm  bg-transparent focus:outline-none text-gray-700 placeholder-gray-500 w-full"
             type="text"
             placeholder="Search order with id."
             onChange={(e) => handleSearch(e)}
@@ -87,7 +87,7 @@ const Orders = () => {
       </div>
       <section className="overflow-x-auto">
         <table class="w-full text-sm text-left  outline shadow-md outline-gray-500 rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs t ext-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead class="text-xs ext-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Order Id
@@ -132,7 +132,7 @@ const Orders = () => {
                   key={order.id}
                   class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="font-semibold">{order.id}</td>
+                  <td className="font-semibold pl-3">{order.id}</td>
                   <th
                     scope="row"
                     class="px-6 py-4 font-medium break-words  max-lg:max-w-sm max-w-lg overflow-hidden text-gray-900  dark:text-white"

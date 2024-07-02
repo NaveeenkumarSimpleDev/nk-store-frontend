@@ -53,7 +53,7 @@ const LoginPage = () => {
     <>
       <Model
         backButtonHref={from}
-        className="max-md:min-w-[80vw] animate-[animateToTop] transition duration-300"
+        className="md:w-[35rem]  animate-[animateToTop] transition duration-300"
       >
         <div
         // className={`flex items-center justify-center mx-4  min-h-screen bg-gray-100  `}

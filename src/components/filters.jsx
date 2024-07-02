@@ -5,11 +5,17 @@ import Button from "./ui/button";
 import { cn } from "../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { CATEGORIES } from "../config/index";
-import { selectBrands } from "../feautures/product/productSlice";
+import {
+  fetchProductsAsync,
+  selectBrands,
+} from "../feautures/product/productSlice";
+import { useGetItemsPerPage } from "../hooks/useWindowWidth";
 
-const Filters = ({ isOpen, setIsOpen, itemsPerPage, fetchProducts }) => {
+const Filters = ({ isOpen, setIsOpen, fetchProducts }) => {
   const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
+  const { ITEMS_PER_PAGE } = useGetItemsPerPage();
+
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [selectCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -67,7 +73,11 @@ const Filters = ({ isOpen, setIsOpen, itemsPerPage, fetchProducts }) => {
       setMounted(true);
     }
 
-    fetchProducts();
+    if (fetchProducts) {
+      fetchProducts();
+    } else {
+      dispatch(fetchProductsAsync(ITEMS_PER_PAGE));
+    }
   }, [priceRange, selectCategories, selectedBrands]);
 
   const clearFilters = useCallback(() => {
